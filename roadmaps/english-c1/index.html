@@ -103,31 +103,21 @@
     .button.primary { background: var(--primary-bg); color: var(--primary-ink); border-color: var(--primary-bg); }
     .button.danger { color: #be123c; }
     :root[data-theme="dark"] .button.danger { color: #fda4af; }
-    .theme-switch {
-      position: relative;
+    .theme-button {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
+      gap: 6px;
       min-height: 34px;
-      padding: 6px 36px 6px 10px;
       border: 1px solid var(--line);
-      border-radius: 999px;
-      background: var(--button-bg);
+      background: var(--paper);
+      border-radius: 6px;
+      padding: 7px 10px;
       color: var(--ink);
       font-size: 13px;
       cursor: pointer;
     }
-    .theme-switch:hover { border-color: var(--line-strong); }
-    .theme-knob {
-      position: absolute;
-      right: 7px;
-      width: 18px;
-      height: 18px;
-      border: 1px solid var(--line-strong);
-      border-radius: 50%;
-      background: var(--paper);
-    }
-    :root[data-theme="dark"] .theme-knob { background: #e5e7eb; }
+    .theme-button:hover { border-color: var(--line-strong); background: var(--button-bg); }
+    .theme-icon { width: 16px; text-align: center; }
     .chip { color: var(--muted); }
 
     .layout {
@@ -258,11 +248,41 @@
       font-size: 13px;
     }
 
+    .mobile-roadmap { display: none; }
+    .mobile-stage {
+      margin: 12px;
+      padding: 10px;
+      border: 2px solid #ca8a04;
+      border-radius: 4px;
+      background: var(--stage-bg);
+      color: var(--stage-ink);
+      font-weight: 700;
+    }
+    .mobile-stage small { display: block; margin-top: 3px; font-weight: 400; }
+    .mobile-node {
+      width: calc(100% - 24px);
+      margin: 8px 12px;
+      padding: 11px 12px;
+      border: 2px solid var(--line-strong);
+      border-radius: 4px;
+      background: var(--paper);
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+    }
+    .mobile-node.input { background: var(--blue); border-color: var(--blue-border); }
+    .mobile-node.output { background: var(--green); border-color: var(--green-border); }
+    .mobile-node.exam { background: var(--purple); border-color: var(--purple-border); }
+    .mobile-node.extra { background: var(--red); border-color: var(--red-border); }
+    .mobile-node.done { background: var(--done-bg); border-color: var(--done); }
+    .mobile-node.selected { outline: 3px solid var(--ink); }
+
     @media (max-width: 980px) {
       .layout { grid-template-columns: 1fr; width: min(100% - 16px, 1500px); }
       .side { position: static; order: -1; }
-      .scroller { height: 66vh; }
       .canvas-head { align-items: flex-start; flex-direction: column; }
+      .scroller { display: none; }
+      .mobile-roadmap { display: block; background: var(--canvas-bg); }
     }
     @media (max-width: 620px) {
       .topbar { align-items: flex-start; flex-direction: column; padding: 12px; }
@@ -270,14 +290,12 @@
       .title h1 { font-size: 17px; }
       .title span { font-size: 12px; }
       .actions { width: 100%; display: grid; grid-template-columns: 1fr 1fr; }
-      .actions .button, .actions .theme-switch { width: 100%; justify-content: center; min-height: 40px; }
+      .actions .button, .actions .theme-button { width: 100%; justify-content: center; min-height: 40px; }
       .actions .danger { grid-column: span 2; }
       .layout { width: 100%; margin: 0; gap: 0; }
       .canvas, .side { border-left: 0; border-right: 0; }
       .side-section { padding: 12px; }
       .legend { gap: 8px; }
-      .scroller { height: 58vh; }
-      .roadmap { min-width: 900px; }
       .note { width: min(100% - 20px, 1500px); }
     }
   </style>
@@ -290,7 +308,7 @@
     </div>
     <div class="actions">
       <a class="button" href="/roadmaps/">All roadmaps</a>
-      <button class="theme-switch" id="themeToggle" type="button" aria-label="Toggle dark mode" aria-pressed="false"><span class="theme-icon">☾</span><span class="theme-text">Dark</span><span class="theme-knob"></span></button>
+      <button class="theme-button" id="themeToggle" type="button" aria-label="Toggle dark mode" aria-pressed="false"><span class="theme-icon">☾</span><span class="theme-text">Theme</span></button>
       <button class="button" id="copySummary" type="button" title="Copy completed roadmap nodes as a Markdown checklist for Obsidian or Telegram">Copy progress</button>
       <button class="button danger" id="resetAll" type="button">Reset</button>
     </div>
@@ -311,6 +329,7 @@
           <div class="main-line"></div>
         </div>
       </div>
+      <div class="mobile-roadmap" id="mobileRoadmap" aria-label="Mobile roadmap list"></div>
     </section>
 
     <aside class="side">
@@ -414,6 +433,32 @@
         roadmap.appendChild(el);
       });
       renderProgress();
+      renderMobileMap();
+    }
+
+
+    function renderMobileMap() {
+      const mount = document.getElementById('mobileRoadmap');
+      if (!mount) return;
+      const done = load(stateKey);
+      mount.innerHTML = '';
+      nodes.forEach(n => {
+        const el = document.createElement('button');
+        el.type = 'button';
+        el.dataset.id = n.id;
+        if (n.type === 'stage') {
+          el.className = 'mobile-stage';
+          el.innerHTML = `${n.title}<small>${n.sub}</small>`;
+        } else {
+          el.className = `mobile-node ${n.group}`;
+          if (done[n.id]) el.classList.add('done');
+          if (selected === n.id) el.classList.add('selected');
+          el.innerHTML = `<span class="node-title">${n.title}</span><span class="node-meta">${n.meta}</span>`;
+          el.addEventListener('click', () => { selected = n.id; renderDetails(); renderMap(); });
+          el.addEventListener('dblclick', () => toggleNode(n.id));
+        }
+        mount.appendChild(el);
+      });
     }
 
     function toggleNode(id) {
@@ -479,7 +524,6 @@
         if (btn) {
           btn.setAttribute('aria-pressed', String(theme === 'dark'));
           btn.querySelector('.theme-icon').textContent = theme === 'dark' ? '☀' : '☾';
-          btn.querySelector('.theme-text').textContent = theme === 'dark' ? 'Light' : 'Dark';
         }
       };
       apply(localStorage.getItem(key) || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));

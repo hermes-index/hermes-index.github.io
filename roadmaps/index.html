@@ -58,31 +58,21 @@
       cursor: pointer;
     }
     .button:hover { border-color: var(--line-strong); background: var(--hover); }
-    .theme-switch {
-      position: relative;
+    .theme-button {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
+      gap: 6px;
       min-height: 34px;
-      padding: 6px 36px 6px 10px;
       border: 1px solid var(--line);
-      border-radius: 999px;
       background: var(--button-bg);
+      border-radius: 6px;
+      padding: 7px 10px;
       color: var(--ink);
       font-size: 13px;
       cursor: pointer;
     }
-    .theme-switch:hover { border-color: var(--line-strong); background: var(--hover); }
-    .theme-knob {
-      position: absolute;
-      right: 7px;
-      width: 18px;
-      height: 18px;
-      border: 1px solid var(--line-strong);
-      border-radius: 50%;
-      background: var(--paper);
-    }
-    :root[data-theme="dark"] .theme-knob { background: #e5e7eb; }
+    .theme-button:hover { border-color: var(--line-strong); background: var(--hover); }
+    .theme-icon { width: 16px; text-align: center; }
 
     main {
       width: min(980px, calc(100% - 28px));
@@ -171,7 +161,7 @@
     @media (max-width: 640px) {
       .topbar { align-items: flex-start; flex-direction: column; padding: 12px; }
       .actions { width: 100%; justify-content: space-between; }
-      .theme-switch { min-width: 112px; }
+      .theme-button { min-width: 112px; justify-content: center; }
       main { width: min(100% - 20px, 980px); margin: 20px auto; }
       .intro h2 { font-size: 24px; }
       .card { grid-template-columns: 1fr; padding: 14px; }
@@ -183,7 +173,7 @@
 <body>
   <header class="topbar">
     <h1>Roadmaps</h1>
-    <div class="actions"><button class="theme-switch" id="themeToggle" type="button" aria-label="Toggle dark mode" aria-pressed="false"><span class="theme-icon">☾</span><span class="theme-text">Dark</span><span class="theme-knob"></span></button><span>Private index</span></div>
+    <div class="actions"><button class="theme-button" id="themeToggle" type="button" aria-label="Toggle dark mode" aria-pressed="false"><span class="theme-icon">☾</span><span class="theme-text">Theme</span></button><span>Private index</span></div>
   </header>
 
   <main>
@@ -220,7 +210,6 @@
         if (btn) {
           btn.setAttribute('aria-pressed', String(theme === 'dark'));
           btn.querySelector('.theme-icon').textContent = theme === 'dark' ? '☀' : '☾';
-          btn.querySelector('.theme-text').textContent = theme === 'dark' ? 'Light' : 'Dark';
         }
       };
       apply(localStorage.getItem(key) || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
