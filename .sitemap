@@ -1,0 +1,4 @@
+This site intentionally publishes an empty sitemap and blocks compliant crawlers in robots.txt.
+
+Search indexing: noindex,nofollow meta tags are present on HTML pages.
+AI crawling/training: robots.txt includes common AI crawler user-agents, but this is advisory and cannot technically prevent non-compliant crawlers on GitHub Pages.
