@@ -30,6 +30,11 @@
       --grid: #eef2f7;
       --stage-bg: #fef9c3;
       --stage-ink: #713f12;
+      --node-meta: #334155;
+      --done-bg: #f0fdf4;
+      --bar-bg: #e5e7eb;
+      --primary-bg: #111827;
+      --primary-ink: #ffffff;
       font-family: Arial, Helvetica, sans-serif;
     }
 
@@ -54,6 +59,11 @@
       --grid: #1f2937;
       --stage-bg: #422006;
       --stage-ink: #fde68a;
+      --node-meta: #cbd5e1;
+      --done-bg: #052e16;
+      --bar-bg: #1f2937;
+      --primary-bg: #e5e7eb;
+      --primary-ink: #111827;
     }
 
     * { box-sizing: border-box; }
@@ -90,8 +100,34 @@
     }
     .button { cursor: pointer; }
     .button:hover { border-color: var(--line-strong); background: var(--button-bg); }
-    .button.primary { background: #111827; color: white; border-color: #111827; }
+    .button.primary { background: var(--primary-bg); color: var(--primary-ink); border-color: var(--primary-bg); }
     .button.danger { color: #be123c; }
+    :root[data-theme="dark"] .button.danger { color: #fda4af; }
+    .theme-switch {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 34px;
+      padding: 6px 36px 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--button-bg);
+      color: var(--ink);
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .theme-switch:hover { border-color: var(--line-strong); }
+    .theme-knob {
+      position: absolute;
+      right: 7px;
+      width: 18px;
+      height: 18px;
+      border: 1px solid var(--line-strong);
+      border-radius: 50%;
+      background: var(--paper);
+    }
+    :root[data-theme="dark"] .theme-knob { background: #e5e7eb; }
     .chip { color: var(--muted); }
 
     .layout {
@@ -178,19 +214,19 @@
       cursor: pointer;
       text-align: left;
     }
-    .node:hover { outline: 2px solid #cbd5e1; }
-    .node.selected { outline: 3px solid #111827; }
-    .node.done { border-color: var(--done); background: #f0fdf4; }
+    .node:hover { outline: 2px solid var(--line-strong); }
+    .node.selected { outline: 3px solid var(--ink); }
+    .node.done { border-color: var(--done); background: var(--done-bg); }
     .node.done .node-title::before { content: "✓ "; color: var(--done); }
 
     .node.input { background: var(--blue); border-color: var(--blue-border); }
     .node.output { background: var(--green); border-color: var(--green-border); }
     .node.exam { background: var(--purple); border-color: var(--purple-border); }
     .node.extra { background: var(--red); border-color: var(--red-border); }
-    .node.done.input, .node.done.output, .node.done.exam, .node.done.extra { background: #f0fdf4; border-color: var(--done); }
+    .node.done.input, .node.done.output, .node.done.exam, .node.done.extra { background: var(--done-bg); border-color: var(--done); }
 
     .node-title { display: block; font-weight: 700; font-size: 14px; line-height: 1.25; }
-    .node-meta { display: block; margin-top: 5px; color: #334155; font-size: 12px; line-height: 1.35; }
+    .node-meta { display: block; margin-top: 5px; color: var(--node-meta); font-size: 12px; line-height: 1.35; }
 
     .side {
       position: sticky;
@@ -206,7 +242,7 @@
 
     .progress-row { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
     .percent { font-size: 28px; font-weight: 700; }
-    .bar { height: 10px; background: #e5e7eb; border: 1px solid var(--line); margin-top: 10px; }
+    .bar { height: 10px; background: var(--bar-bg); border: 1px solid var(--line); margin-top: 10px; }
     .bar i { display: block; width: 0%; height: 100%; background: var(--done); }
 
     .detail-block { margin-top: 14px; }
@@ -223,14 +259,26 @@
     }
 
     @media (max-width: 980px) {
-      .layout { grid-template-columns: 1fr; }
-      .side { position: static; }
-      .scroller { height: 70vh; }
+      .layout { grid-template-columns: 1fr; width: min(100% - 16px, 1500px); }
+      .side { position: static; order: -1; }
+      .scroller { height: 66vh; }
+      .canvas-head { align-items: flex-start; flex-direction: column; }
     }
     @media (max-width: 620px) {
-      .topbar { align-items: flex-start; flex-direction: column; }
-      .actions { width: 100%; }
+      .topbar { align-items: flex-start; flex-direction: column; padding: 12px; }
+      .title { gap: 4px; }
+      .title h1 { font-size: 17px; }
+      .title span { font-size: 12px; }
+      .actions { width: 100%; display: grid; grid-template-columns: 1fr 1fr; }
+      .actions .button, .actions .theme-switch { width: 100%; justify-content: center; min-height: 40px; }
+      .actions .danger { grid-column: span 2; }
+      .layout { width: 100%; margin: 0; gap: 0; }
+      .canvas, .side { border-left: 0; border-right: 0; }
+      .side-section { padding: 12px; }
+      .legend { gap: 8px; }
+      .scroller { height: 58vh; }
       .roadmap { min-width: 900px; }
+      .note { width: min(100% - 20px, 1500px); }
     }
   </style>
 </head>
@@ -242,7 +290,7 @@
     </div>
     <div class="actions">
       <a class="button" href="/roadmaps/">All roadmaps</a>
-      <button class="button" id="themeToggle" type="button">Dark mode</button>
+      <button class="theme-switch" id="themeToggle" type="button" aria-label="Toggle dark mode" aria-pressed="false"><span class="theme-icon">☾</span><span class="theme-text">Dark</span><span class="theme-knob"></span></button>
       <button class="button" id="copySummary" type="button" title="Copy completed roadmap nodes as a Markdown checklist for Obsidian or Telegram">Copy progress</button>
       <button class="button danger" id="resetAll" type="button">Reset</button>
     </div>
@@ -428,7 +476,11 @@
       const btn = document.getElementById('themeToggle');
       const apply = theme => {
         root.dataset.theme = theme;
-        if (btn) btn.textContent = theme === 'dark' ? 'Light mode' : 'Dark mode';
+        if (btn) {
+          btn.setAttribute('aria-pressed', String(theme === 'dark'));
+          btn.querySelector('.theme-icon').textContent = theme === 'dark' ? '☀' : '☾';
+          btn.querySelector('.theme-text').textContent = theme === 'dark' ? 'Light' : 'Dark';
+        }
       };
       apply(localStorage.getItem(key) || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
       btn?.addEventListener('click', () => {
