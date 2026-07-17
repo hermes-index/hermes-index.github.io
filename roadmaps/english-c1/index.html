@@ -125,32 +125,88 @@
     .tab.active, .tab[aria-expanded="true"] { background: var(--yellow-soft); border-color: #ca8a04; color: var(--ink); font-weight: 750; }
     .tools-panel {
       display: none;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--surface-soft);
-      overflow: hidden;
+      margin-top: 2px;
     }
     .tools-panel.open { display: block; }
-    .tools-head {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 11px 12px;
-      border-bottom: 1px solid var(--line);
+    .tools-wrap {
+      display: grid;
+      grid-template-columns: minmax(260px, .92fr) minmax(280px, 1.08fr);
+      gap: 14px;
+      align-items: start;
+    }
+    .tools-note-card {
+      padding: 12px 14px;
+      border: 2px solid var(--ink);
+      border-radius: 7px;
       background: var(--surface);
     }
-    .tools-head strong { font-size: 14px; }
-    .tools-head span { color: var(--muted); font-size: 12px; }
-    .tools-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; }
-    .tool-group { padding: 12px; border-top: 1px solid transparent; }
-    .tool-group:nth-child(odd) { border-right: 1px solid var(--line); }
-    .tool-group:nth-child(n+3) { border-top-color: var(--line); }
-    .tool-group h3 { margin: 0 0 8px; font-size: 12px; letter-spacing: .045em; text-transform: uppercase; color: var(--ink); }
-    .tool-group ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 7px; }
-    .tool-group a { color: #067647; text-decoration: underline; text-underline-offset: 2px; font-size: 13px; font-weight: 650; }
-    .tool-group small { display: block; margin-top: 1px; color: var(--muted); font-size: 12px; line-height: 1.35; }
-    :root[data-theme="dark"] .tool-group a { color: #86efac; }
+    :root[data-theme="dark"] .tools-note-card { border-color: #e5e7eb; }
+    .note-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      padding: 6px 0;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 650;
+      line-height: 1.35;
+    }
+    .note-row + .note-row { border-top: 1px solid var(--line); }
+    .note-row small { display: block; color: var(--muted); font-size: 12px; font-weight: 450; }
+    .note-dot {
+      display: inline-grid;
+      place-items: center;
+      flex: 0 0 auto;
+      width: 18px;
+      height: 18px;
+      margin-top: 1px;
+      border-radius: 999px;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 900;
+    }
+    .note-dot.purple { background: #8b5cf6; }
+    .note-dot.green { background: #6a9f35; }
+    .note-dot.gray { background: #9ca3af; }
+    .note-dot.yellow { background: #d97706; }
+    .tools-cta {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 42px;
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 5px;
+      background: #222;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 750;
+      text-decoration: none;
+    }
+    .tools-cta:hover { background: #111; }
+    :root[data-theme="dark"] .tools-cta { background: #e5e7eb; color: #111827; }
+    .tools-link-card {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--surface);
+    }
+    .tools-link-card p { margin: 0 0 12px; color: var(--ink); font-size: 14px; font-weight: 650; line-height: 1.55; }
+    .tools-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .resource-pill {
+      display: block;
+      padding: 8px 9px;
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      background: var(--surface-soft);
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+    .resource-pill small { display: block; margin-top: 2px; color: var(--muted); font-size: 11px; font-weight: 450; }
+    .resource-pill:hover { border-color: var(--ink); }
 
     .layout {
       width: min(1320px, calc(100% - 20px));
@@ -231,10 +287,8 @@
       .eyebrow { font-size: 11px; margin-bottom: 8px; }
       .tabs { overflow: visible; flex-wrap: wrap; padding-bottom: 0; }
       .tab { white-space: nowrap; }
-      .tools-grid { grid-template-columns: 1fr; }
-      .tool-group:nth-child(odd) { border-right: 0; }
-      .tool-group:nth-child(n+2) { border-top: 1px solid var(--line); }
-      .tools-head { align-items: flex-start; flex-direction: column; gap: 2px; }
+      .tools-wrap { grid-template-columns: 1fr; }
+      .tools-links { grid-template-columns: 1fr; }
       .layout { width: 100%; margin: 0; gap: 0; }
       .board, .details { border-left: 0; border-right: 0; border-radius: 0; }
       .side-section { padding: 12px; }
@@ -269,43 +323,25 @@
     <div class="title-copy">
       <p>A practical six-month path from B1 to C1, focused on academic English, TOEFL-style output, and research communication.</p>
       <div class="tools-panel" id="toolsPanel" hidden>
-        <div class="tools-head">
-          <strong>Tools note</strong>
-          <span>Use these as support, not as the roadmap itself.</span>
-        </div>
-        <div class="tools-grid">
-          <section class="tool-group">
-            <h3>Core study</h3>
-            <ul>
-              <li><a href="https://apps.ankiweb.net/" target="_blank" rel="noopener noreferrer">Anki</a><small>spaced repetition for vocabulary and phrase cards</small></li>
-              <li><a href="https://www.oxfordlearnersdictionaries.com/wordlists/oxford3000-5000" target="_blank" rel="noopener noreferrer">Oxford 3000/5000</a><small>high-value vocabulary lists</small></li>
-              <li><a href="https://www.phrasebank.manchester.ac.uk/" target="_blank" rel="noopener noreferrer">Academic Phrasebank</a><small>academic writing patterns and sentence frames</small></li>
-            </ul>
-          </section>
-          <section class="tool-group">
-            <h3>Writing</h3>
-            <ul>
-              <li><a href="https://languagetool.org/" target="_blank" rel="noopener noreferrer">LanguageTool</a><small>grammar and style checks without changing your voice</small></li>
-              <li><a href="https://www.deepl.com/write" target="_blank" rel="noopener noreferrer">DeepL Write</a><small>rewrite suggestions for clarity</small></li>
-              <li><a href="https://owl.purdue.edu/" target="_blank" rel="noopener noreferrer">Purdue OWL</a><small>academic writing and citation guidance</small></li>
-            </ul>
-          </section>
-          <section class="tool-group">
-            <h3>Listening & speaking</h3>
-            <ul>
-              <li><a href="https://youglish.com/" target="_blank" rel="noopener noreferrer">YouGlish</a><small>real pronunciation examples in context</small></li>
-              <li><a href="https://www.bbc.co.uk/learningenglish" target="_blank" rel="noopener noreferrer">BBC Learning English</a><small>short listening lessons and explanations</small></li>
-              <li><a href="https://www.ted.com/talks" target="_blank" rel="noopener noreferrer">TED Talks</a><small>longer listening practice with transcripts</small></li>
-            </ul>
-          </section>
-          <section class="tool-group">
-            <h3>Exam & research</h3>
-            <ul>
-              <li><a href="https://toefltestready.ets.org/" target="_blank" rel="noopener noreferrer">TOEFL TestReady</a><small>official TOEFL-style practice</small></li>
-              <li><a href="https://www.toeflresources.com/" target="_blank" rel="noopener noreferrer">TOEFL Resources</a><small>speaking and writing templates/rubrics</small></li>
-              <li><a href="https://www.semanticscholar.org/" target="_blank" rel="noopener noreferrer">Semantic Scholar</a><small>paper discovery for academic reading</small></li>
-            </ul>
-          </section>
+        <div class="tools-wrap">
+          <div>
+            <div class="tools-note-card" aria-label="Roadmap tools note">
+              <div class="note-row"><span class="note-dot purple">✓</span><span>Primary workflow<small>Anki + Oxford 3000/5000 + Academic Phrasebank</small></span></div>
+              <div class="note-row"><span class="note-dot green">✓</span><span>Writing helpers<small>LanguageTool, DeepL Write, Purdue OWL</small></span></div>
+              <div class="note-row"><span class="note-dot gray">✓</span><span>Pronunciation and listening<small>YouGlish, BBC Learning English, TED Talks</small></span></div>
+              <div class="note-row"><span class="note-dot yellow">✓</span><span>Exam and research practice<small>TOEFL TestReady, TOEFL Resources, Semantic Scholar</small></span></div>
+            </div>
+            <a class="tools-cta" href="https://apps.ankiweb.net/" target="_blank" rel="noopener noreferrer">Start with Anki</a>
+          </div>
+          <div class="tools-link-card">
+            <p>Use these tools when a roadmap node asks for vocabulary, writing correction, speaking practice, TOEFL timing, or academic reading.</p>
+            <div class="tools-links">
+              <a class="resource-pill" href="https://www.phrasebank.manchester.ac.uk/" target="_blank" rel="noopener noreferrer">Academic Phrasebank<small>academic sentence patterns</small></a>
+              <a class="resource-pill" href="https://languagetool.org/" target="_blank" rel="noopener noreferrer">LanguageTool<small>grammar and style checks</small></a>
+              <a class="resource-pill" href="https://youglish.com/" target="_blank" rel="noopener noreferrer">YouGlish<small>pronunciation in context</small></a>
+              <a class="resource-pill" href="https://toefltestready.ets.org/" target="_blank" rel="noopener noreferrer">TOEFL TestReady<small>official exam practice</small></a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
