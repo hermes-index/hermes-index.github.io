@@ -3,32 +3,26 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Private roadmaps — a focused 6-month English roadmap from B1 to C1." />
-  <title>Roadmaps · English C1</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <meta name="description" content="Interactive roadmap.sh-style English C1 roadmap." />
+  <title>English C1 Roadmap</title>
   <style>
     :root {
-      color-scheme: dark;
-      --bg: #08090a;
-      --bg-2: #0b0c0f;
-      --panel: rgba(255,255,255,.025);
-      --panel-2: rgba(255,255,255,.045);
-      --panel-3: #111216;
-      --border: rgba(255,255,255,.08);
-      --border-soft: rgba(255,255,255,.05);
-      --text: #f7f8f8;
-      --muted: #8a8f98;
-      --soft: #d0d6e0;
-      --dim: #62666d;
-      --brand: #5e6ad2;
-      --brand-2: #7170ff;
-      --green: #10b981;
-      --yellow: #f6c177;
-      --red: #f87171;
-      --radius: 18px;
-      --shadow: 0 30px 100px rgba(0,0,0,.42);
+      --bg: #0b0f17;
+      --panel: #111827;
+      --panel-2: #0f172a;
+      --line: #334155;
+      --line-2: #475569;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --dim: #64748b;
+      --yellow: #facc15;
+      --green: #22c55e;
+      --blue: #38bdf8;
+      --purple: #a78bfa;
+      --red: #fb7185;
+      --orange: #fb923c;
+      --border: #263244;
+      --shadow: 0 20px 70px rgba(0,0,0,.35);
     }
 
     * { box-sizing: border-box; }
@@ -36,1092 +30,486 @@
     body {
       margin: 0;
       min-height: 100vh;
-      color: var(--text);
       background:
-        radial-gradient(900px 520px at 48% -160px, rgba(113,112,255,.28), transparent 60%),
-        radial-gradient(680px 420px at 92% 8%, rgba(94,106,210,.16), transparent 64%),
-        linear-gradient(180deg, var(--bg), var(--bg-2) 58%, #070708);
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      font-feature-settings: "cv01", "ss03";
-      letter-spacing: -.01em;
+        radial-gradient(circle at 50% -20%, rgba(56,189,248,.13), transparent 32rem),
+        linear-gradient(180deg, #0b0f17, #0a0d14 55%, #070a10);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
+    button, input { font: inherit; }
+    button { color: inherit; }
     a { color: inherit; text-decoration: none; }
-    code, .mono { font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
-
-    .shell {
-      width: min(1180px, calc(100% - 32px));
-      margin: 0 auto;
-      padding: 28px 0 72px;
-    }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
 
     .topbar {
       position: sticky;
-      top: 12px;
+      top: 0;
       z-index: 20;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      padding: 10px 12px;
-      margin-bottom: 56px;
-      border: 1px solid var(--border-soft);
-      border-radius: 999px;
-      background: rgba(8,9,10,.72);
-      backdrop-filter: blur(18px);
-      box-shadow: 0 1px 0 rgba(255,255,255,.03) inset;
+      padding: 14px 22px;
+      border-bottom: 1px solid rgba(148,163,184,.16);
+      background: rgba(11,15,23,.86);
+      backdrop-filter: blur(14px);
     }
 
     .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding-left: 4px;
-      color: var(--soft);
-      font-size: 14px;
-      font-weight: 510;
-    }
-
-    .mark {
-      width: 24px;
-      height: 24px;
-      display: grid;
-      place-items: center;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
-      box-shadow: 0 0 0 4px rgba(94,106,210,.08);
-    }
-
-    .mark::after {
-      content: "";
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--brand-2);
-      box-shadow: 0 0 22px var(--brand-2);
-    }
-
-    .nav {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
+      font-weight: 750;
+      letter-spacing: -.02em;
+    }
+
+    .logo {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(250,204,21,.36);
+      border-radius: 10px;
+      background: rgba(250,204,21,.12);
+      color: var(--yellow);
+      font-weight: 900;
+    }
+
+    .top-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .chip, .btn {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: rgba(15,23,42,.86);
       color: var(--muted);
+      padding: 9px 12px;
       font-size: 13px;
-      font-weight: 510;
+      font-weight: 650;
     }
-
-    .nav a {
-      padding: 8px 11px;
-      border-radius: 999px;
-    }
-
-    .nav a:hover, .nav a.active {
-      color: var(--text);
-      background: rgba(255,255,255,.05);
-    }
+    .btn { cursor: pointer; }
+    .btn:hover { border-color: var(--line-2); color: var(--text); }
+    .btn.primary { background: var(--yellow); color: #111827; border-color: var(--yellow); }
+    .btn.danger { color: #fecdd3; border-color: rgba(251,113,133,.35); }
 
     .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 350px;
-      gap: 22px;
-      align-items: stretch;
-      margin-bottom: 22px;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 44px 20px 24px;
+      text-align: center;
     }
 
-    .panel {
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      background: linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.022));
-      box-shadow: var(--shadow), 0 1px 0 rgba(255,255,255,.04) inset;
-      overflow: hidden;
+    .hero h1 {
+      margin: 0 auto 14px;
+      max-width: 880px;
+      font-size: clamp(36px, 7vw, 72px);
+      line-height: .95;
+      letter-spacing: -.055em;
     }
 
-    .hero-copy {
-      padding: 48px;
-      min-height: 510px;
+    .hero p {
+      max-width: 780px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .hero .meta {
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: relative;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 22px;
     }
 
-    .hero-copy::before {
+    .app {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 18px;
+      width: min(1500px, calc(100% - 28px));
+      margin: 0 auto 56px;
+      align-items: start;
+    }
+
+    .canvas-card, .side-card {
+      border: 1px solid rgba(148,163,184,.18);
+      border-radius: 18px;
+      background: rgba(15,23,42,.72);
+      box-shadow: var(--shadow);
+    }
+
+    .canvas-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px;
+      border-bottom: 1px solid rgba(148,163,184,.14);
+    }
+
+    .legend { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; color: var(--muted); font-size: 12px; }
+    .legend span { display: inline-flex; align-items: center; gap: 6px; }
+    .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--c); }
+
+    .zoom-wrap {
+      overflow: auto;
+      max-height: calc(100vh - 160px);
+      background:
+        linear-gradient(rgba(148,163,184,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148,163,184,.06) 1px, transparent 1px),
+        rgba(2,6,23,.36);
+      background-size: 32px 32px;
+      border-radius: 0 0 18px 18px;
+    }
+
+    .roadmap {
+      position: relative;
+      min-width: 980px;
+      height: 2140px;
+      padding: 34px 0 90px;
+    }
+
+    .track {
+      position: absolute;
+      left: 50%;
+      top: 54px;
+      width: 5px;
+      height: 1950px;
+      transform: translateX(-50%);
+      border-radius: 999px;
+      background: linear-gradient(180deg, var(--yellow), var(--blue), var(--green), var(--purple));
+      opacity: .8;
+      box-shadow: 0 0 20px rgba(250,204,21,.1);
+    }
+
+    .connector {
+      position: absolute;
+      height: 3px;
+      background: var(--line-2);
+      opacity: .75;
+      border-radius: 999px;
+      transform-origin: left center;
+    }
+
+    .connector::after {
       content: "";
       position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background:
-        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
-      background-size: 42px 42px;
-      mask-image: radial-gradient(circle at 50% 0%, black 0%, transparent 70%);
-    }
-
-    .hero-copy > * { position: relative; }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      width: fit-content;
-      gap: 8px;
-      padding: 7px 10px;
-      border: 1px solid var(--border-soft);
-      border-radius: 999px;
-      background: rgba(255,255,255,.025);
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 510;
-    }
-
-    .pulse {
-      width: 7px;
-      height: 7px;
+      right: -5px;
+      top: -4px;
+      width: 11px;
+      height: 11px;
       border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 18px rgba(16,185,129,.9);
+      background: var(--line-2);
     }
 
-    h1 {
-      max-width: 850px;
-      margin: 28px 0 18px;
-      font-size: clamp(48px, 7vw, 86px);
-      line-height: .94;
-      font-weight: 510;
-      letter-spacing: -1.6px;
-    }
-
-    .gradient {
-      background: linear-gradient(135deg, #fff 0%, #e4e8ff 42%, #8f96ff 72%, #73e1ff 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .lead {
-      max-width: 730px;
-      color: var(--muted);
-      font-size: 18px;
-      line-height: 1.65;
-      margin: 0;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 28px;
-    }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 40px;
-      padding: 0 14px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.025);
-      color: var(--soft);
-      font-size: 14px;
-      font-weight: 510;
-    }
-
-    .button.primary {
-      border-color: transparent;
-      background: var(--brand);
-      color: white;
-      box-shadow: 0 0 28px rgba(94,106,210,.28);
-    }
-
-    .hero-meta {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 36px;
-    }
-
-    .metric {
-      padding: 16px;
-      border: 1px solid var(--border-soft);
-      border-radius: 16px;
-      background: rgba(255,255,255,.025);
-    }
-
-    .metric strong {
-      display: block;
-      color: var(--text);
-      font-size: 24px;
-      font-weight: 510;
-      letter-spacing: -.6px;
-      margin-bottom: 4px;
-    }
-
-    .metric span { color: var(--muted); font-size: 13px; line-height: 1.45; }
-
-    .side {
-      padding: 22px;
-      background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.018));
-    }
-
-    .side h2, .section h2 {
-      margin: 0;
-      font-size: 30px;
-      line-height: 1.08;
-      font-weight: 510;
-      letter-spacing: -.8px;
-    }
-
-    .side p, .section > p {
-      color: var(--muted);
-      line-height: 1.65;
-      margin: 12px 0 0;
-    }
-
-    .score-card {
-      margin-top: 22px;
-      padding: 18px;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      background: rgba(0,0,0,.18);
-    }
-
-    .score-line {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      color: var(--soft);
-      font-size: 13px;
-      font-weight: 510;
-      margin-bottom: 10px;
-    }
-
-    .bar {
-      height: 9px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.065);
-      overflow: hidden;
-    }
-
-    .bar > i {
-      display: block;
-      width: 62%;
-      height: 100%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, var(--brand), var(--brand-2));
-      box-shadow: 0 0 20px rgba(113,112,255,.5);
-    }
-
-    .quick-list {
-      display: grid;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .quick-item {
-      display: grid;
-      grid-template-columns: 22px 1fr;
-      gap: 10px;
-      align-items: start;
-      padding: 12px;
-      border: 1px solid var(--border-soft);
-      border-radius: 14px;
-      background: rgba(255,255,255,.02);
-      color: var(--soft);
-      font-size: 14px;
-      line-height: 1.55;
-    }
-
-    .quick-item::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      margin-top: 7px;
-      border-radius: 50%;
-      background: var(--brand-2);
-      box-shadow: 0 0 14px rgba(113,112,255,.8);
-    }
-
-    .layout {
-      display: grid;
-      grid-template-columns: 260px minmax(0, 1fr);
-      gap: 22px;
-      align-items: start;
-    }
-
-    .toc {
-      position: sticky;
-      top: 98px;
-      padding: 18px;
-    }
-
-    .toc .label {
-      color: var(--dim);
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      margin-bottom: 12px;
-    }
-
-    .toc a {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 8px;
-      border-radius: 10px;
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 510;
-    }
-
-    .toc a:hover { color: var(--text); background: rgba(255,255,255,.035); }
-    .toc span { color: var(--dim); font-family: "JetBrains Mono", monospace; font-size: 11px; }
-
-    .content { display: grid; gap: 22px; }
-    .section { padding: 28px; }
-
-    .cards-3, .cards-2 {
-      display: grid;
-      gap: 14px;
-      margin-top: 18px;
-    }
-
-    .cards-3 { grid-template-columns: repeat(3, 1fr); }
-    .cards-2 { grid-template-columns: repeat(2, 1fr); }
-
-    .mini {
-      padding: 18px;
-      border: 1px solid var(--border-soft);
-      border-radius: 18px;
-      background: rgba(255,255,255,.022);
-    }
-
-    .mini .kicker {
-      color: var(--brand-2);
-      font-family: "JetBrains Mono", monospace;
-      font-size: 12px;
-      margin-bottom: 12px;
-    }
-
-    .mini h3, .month h3 {
-      margin: 0 0 8px;
-      color: var(--text);
-      font-size: 18px;
-      line-height: 1.25;
-      font-weight: 590;
-      letter-spacing: -.25px;
-    }
-
-    ul { margin: 12px 0 0; padding-left: 18px; }
-    li { color: var(--muted); line-height: 1.7; margin: 4px 0; }
-    li strong { color: var(--soft); font-weight: 510; }
-
-    .timeline {
-      position: relative;
-      display: grid;
-      gap: 14px;
-      margin-top: 22px;
-    }
-
-    .month {
-      display: grid;
-      grid-template-columns: 128px 1fr 190px;
-      gap: 18px;
-      padding: 18px;
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      background: rgba(255,255,255,.022);
-    }
-
-    .month-index {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      min-width: 0;
-    }
-
-    .month-index .num {
-      width: 42px;
-      height: 42px;
-      display: grid;
-      place-items: center;
-      border-radius: 13px;
-      background: rgba(94,106,210,.16);
-      color: #dfe2ff;
-      border: 1px solid rgba(113,112,255,.22);
-      font-family: "JetBrains Mono", monospace;
-      font-weight: 500;
-    }
-
-    .month-index strong { color: var(--text); font-weight: 590; }
-    .month-index span { color: var(--muted); font-size: 13px; line-height: 1.45; }
-
-    .deliverable {
-      padding: 14px;
-      border-radius: 16px;
-      border: 1px solid var(--border-soft);
-      background: rgba(0,0,0,.16);
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.55;
-    }
-
-    .deliverable b {
-      display: block;
-      color: var(--yellow);
-      font-weight: 510;
-      margin-bottom: 6px;
-    }
-
-    .week-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 8px;
-      margin-top: 18px;
-    }
-
-    .day {
-      min-height: 118px;
-      padding: 12px;
-      border: 1px solid var(--border-soft);
-      border-radius: 16px;
-      background: rgba(255,255,255,.02);
-    }
-
-    .day b {
-      color: var(--soft);
-      font-size: 13px;
-      font-weight: 590;
-    }
-
-    .day p {
-      margin: 8px 0 0;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.55;
-    }
-
-    .tracker {
-      display: grid;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .track-row {
-      display: grid;
-      grid-template-columns: 180px 1fr 72px;
-      gap: 14px;
-      align-items: center;
-      padding: 12px;
-      border: 1px solid var(--border-soft);
-      border-radius: 14px;
-      background: rgba(255,255,255,.018);
-    }
-
-    .track-row b { color: var(--soft); font-size: 14px; font-weight: 510; }
-    .track-row span { color: var(--muted); font-size: 13px; }
-    .mini-bar { height: 8px; border-radius: 99px; background: rgba(255,255,255,.06); overflow: hidden; }
-    .mini-bar i { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--brand), var(--green)); }
-    .percent { text-align: right; font-family: "JetBrains Mono", monospace; color: var(--dim) !important; }
-
-    .note {
-      margin-top: 18px;
-      padding: 16px 18px;
-      border: 1px solid rgba(246,193,119,.18);
-      border-left: 3px solid var(--yellow);
-      border-radius: 16px;
-      background: rgba(246,193,119,.07);
-      color: #f8ddb2;
-      line-height: 1.65;
-    }
-
-    footer {
-      margin-top: 34px;
-      color: var(--dim);
+    .stage {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 220px;
+      padding: 12px 14px;
+      border: 2px solid var(--yellow);
+      border-radius: 12px;
+      background: #111827;
       text-align: center;
-      font-size: 13px;
+      color: var(--yellow);
+      font-weight: 850;
+      letter-spacing: -.02em;
+      box-shadow: 0 0 0 6px rgba(250,204,21,.06);
     }
 
+    .stage small { display: block; margin-top: 3px; color: var(--muted); font-weight: 650; }
 
-    .today-panel {
-      display: grid;
-      grid-template-columns: minmax(0, 1.15fr) 330px;
-      gap: 22px;
-      margin: 22px 0;
-      scroll-margin-top: 110px;
-    }
-
-    .today-main, .today-side { padding: 26px; }
-
-    .today-head {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      align-items: flex-start;
-      margin-bottom: 18px;
-    }
-
-    .today-head h2 { margin: 0; font-size: 32px; line-height: 1.05; font-weight: 510; letter-spacing: -.8px; }
-    .today-head p { margin: 8px 0 0; color: var(--muted); line-height: 1.6; }
-
-    .date-chip {
-      white-space: nowrap;
-      padding: 8px 10px;
-      border: 1px solid var(--border-soft);
-      border-radius: 999px;
-      color: var(--muted);
-      background: rgba(255,255,255,.025);
-      font-family: "JetBrains Mono", monospace;
-      font-size: 12px;
-    }
-
-    .task-list { display: grid; gap: 10px; margin-top: 16px; }
-
-    .task {
-      display: grid;
-      grid-template-columns: 34px 1fr auto;
-      align-items: center;
-      gap: 12px;
-      width: 100%;
-      padding: 13px;
-      border: 1px solid var(--border-soft);
-      border-radius: 16px;
-      background: rgba(255,255,255,.02);
-      color: var(--soft);
-      text-align: left;
+    .node {
+      position: absolute;
+      width: 230px;
+      min-height: 72px;
+      padding: 12px 14px;
+      border: 2px solid var(--c);
+      border-radius: 12px;
+      background: #0f172a;
+      color: var(--text);
       cursor: pointer;
-      transition: border-color .18s ease, background .18s ease, transform .18s ease;
+      text-align: left;
+      box-shadow: 0 8px 26px rgba(0,0,0,.24);
+      transition: transform .16s ease, background .16s ease, box-shadow .16s ease, opacity .16s ease;
     }
 
-    .task:hover { border-color: rgba(113,112,255,.35); background: rgba(255,255,255,.035); transform: translateY(-1px); }
+    .node:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(0,0,0,.34); }
+    .node.selected { outline: 3px solid rgba(255,255,255,.12); }
+    .node.done { background: rgba(34,197,94,.12); border-color: var(--green); }
+    .node.done .node-title::before { content: "✓ "; color: var(--green); }
 
-    .box {
-      width: 28px;
-      height: 28px;
-      display: grid;
-      place-items: center;
-      border-radius: 10px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.15);
-      color: transparent;
-      font-weight: 800;
-    }
+    .node-title { display: block; font-size: 15px; font-weight: 800; line-height: 1.25; }
+    .node-meta { display: block; margin-top: 6px; color: var(--muted); font-size: 12px; line-height: 1.35; }
+    .node-tag { display: inline-flex; margin-top: 8px; padding: 3px 7px; border-radius: 999px; background: rgba(148,163,184,.12); color: var(--muted); font-size: 11px; font-weight: 750; }
 
-    .task.done .box {
-      color: white;
-      border-color: rgba(16,185,129,.35);
-      background: linear-gradient(135deg, var(--green), #27a644);
-      box-shadow: 0 0 24px rgba(16,185,129,.22);
-    }
+    .side-card { position: sticky; top: 82px; overflow: hidden; }
+    .progress-box { padding: 18px; border-bottom: 1px solid rgba(148,163,184,.14); }
+    .progress-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+    .progress-head h2 { margin: 0; font-size: 20px; letter-spacing: -.03em; }
+    .percent { color: var(--yellow); font-size: 28px; font-weight: 850; }
+    .bar { height: 12px; overflow: hidden; border-radius: 999px; background: rgba(148,163,184,.16); }
+    .bar i { display: block; height: 100%; width: 0%; border-radius: inherit; background: linear-gradient(90deg, var(--yellow), var(--green)); transition: width .2s ease; }
+    .micro { margin-top: 10px; color: var(--muted); font-size: 13px; line-height: 1.55; }
 
-    .task-title { display: block; color: var(--text); font-size: 15px; font-weight: 510; margin-bottom: 3px; }
-    .task-desc { display: block; color: var(--muted); font-size: 13px; line-height: 1.45; }
-    .task-time { color: var(--dim); font-family: "JetBrains Mono", monospace; font-size: 12px; }
-    .task.done .task-title { color: var(--green); text-decoration: line-through; text-decoration-thickness: 1px; text-decoration-color: rgba(16,185,129,.6); }
+    .details { padding: 18px; }
+    .details h3 { margin: 0 0 8px; font-size: 22px; letter-spacing: -.035em; }
+    .details p { margin: 0; color: var(--muted); line-height: 1.65; }
+    .details ul { margin: 14px 0 0; padding-left: 20px; color: var(--muted); line-height: 1.7; }
+    .details li { margin: 4px 0; }
 
-    .controls {
+    .detail-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+    .empty { color: var(--dim); }
+
+    .tasks-panel { padding: 18px; border-top: 1px solid rgba(148,163,184,.14); }
+    .tasks-panel h3 { margin: 0 0 12px; font-size: 16px; }
+    .daily-task {
       display: flex;
-      flex-wrap: wrap;
+      align-items: flex-start;
       gap: 10px;
-      margin-top: 18px;
-    }
-
-    .button.danger { color: #fecaca; border-color: rgba(248,113,113,.2); }
-
-    .ring-wrap {
-      display: grid;
-      place-items: center;
-      padding: 18px 0 8px;
-    }
-
-    .ring {
-      --pct: 0;
-      width: 178px;
-      height: 178px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at 50% 50%, #101116 0 58%, transparent 59%),
-        conic-gradient(var(--brand-2) calc(var(--pct) * 1%), rgba(255,255,255,.06) 0);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.06), 0 0 55px rgba(94,106,210,.14);
-    }
-
-    .ring-inner { text-align: center; }
-    .ring-inner strong { display: block; font-size: 40px; font-weight: 510; letter-spacing: -1px; }
-    .ring-inner span { color: var(--muted); font-size: 12px; font-family: "JetBrains Mono", monospace; }
-
-    .streak {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 7px;
-      margin-top: 18px;
-    }
-
-    .streak-day {
-      height: 34px;
-      display: grid;
-      place-items: center;
+      width: 100%;
+      padding: 10px;
+      border: 1px solid rgba(148,163,184,.14);
       border-radius: 10px;
-      border: 1px solid var(--border-soft);
-      color: var(--dim);
-      background: rgba(255,255,255,.018);
-      font-size: 11px;
-      font-family: "JetBrains Mono", monospace;
-    }
-
-    .streak-day.done { color: white; border-color: rgba(16,185,129,.22); background: rgba(16,185,129,.18); }
-    .streak-day.today { outline: 1px solid rgba(113,112,255,.45); color: var(--soft); }
-
-    .status-line {
-      margin-top: 16px;
-      padding: 12px;
-      border-radius: 14px;
-      border: 1px solid var(--border-soft);
-      background: rgba(255,255,255,.02);
+      background: rgba(2,6,23,.28);
       color: var(--muted);
-      font-size: 13px;
-      line-height: 1.55;
+      cursor: pointer;
+      text-align: left;
+      margin-bottom: 8px;
+    }
+    .daily-task.done { color: var(--text); border-color: rgba(34,197,94,.35); background: rgba(34,197,94,.08); }
+    .daily-task .box { flex: 0 0 18px; width:18px;height:18px;border:1px solid var(--line-2);border-radius:5px;display:grid;place-items:center;color:transparent;font-size:12px;margin-top:1px; }
+    .daily-task.done .box { color:white; background:var(--green); border-color:var(--green); }
+
+    @media (max-width: 1040px) {
+      .app { grid-template-columns: 1fr; }
+      .side-card { position: static; }
+      .zoom-wrap { max-height: 72vh; }
     }
 
-    @media (max-width: 980px) {
-      .hero, .layout, .today-panel { grid-template-columns: 1fr; }
-      .toc { position: static; }
-      .cards-3, .cards-2, .week-grid { grid-template-columns: 1fr; }
-      .month { grid-template-columns: 1fr; }
-      .track-row { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 640px) {
-      .shell { width: min(100% - 20px, 1180px); padding-top: 14px; }
-      .topbar { border-radius: 18px; align-items: flex-start; flex-direction: column; top: 8px; }
-      .nav { width: 100%; overflow: auto; padding-bottom: 2px; }
-      .hero-copy { padding: 28px; min-height: auto; }
-      h1 { font-size: 44px; letter-spacing: -1px; }
-      .lead { font-size: 16px; }
-      .hero-meta { grid-template-columns: 1fr; }
-      .section, .side { padding: 20px; }
+    @media (max-width: 620px) {
+      .topbar { align-items: flex-start; flex-direction: column; }
+      .hero { text-align: left; padding-top: 30px; }
+      .hero .meta { justify-content: flex-start; }
+      .roadmap { min-width: 860px; transform-origin: top left; }
     }
   </style>
 </head>
 <body>
-  <main class="shell">
-    <header class="topbar">
-      <a class="brand" href="/"><span class="mark"></span> Hermes Index</a>
-      <nav class="nav" aria-label="Roadmap sections">
-        <a class="active" href="#overview">Overview</a>
-        <a href="#today">Today</a>
-        <a href="#routine">Routine</a>
-        <a href="#timeline">Timeline</a>
-        <a href="#tracker">Tracker</a>
-      </nav>
-    </header>
+  <header class="topbar">
+    <a class="brand" href="/"><span class="logo">R</span><span>English C1 Roadmap</span></a>
+    <div class="top-actions">
+      <span class="chip mono" id="todayChip">today</span>
+      <button class="btn" id="copySummary" type="button">Copy summary</button>
+      <button class="btn danger" id="resetAll" type="button">Reset</button>
+    </div>
+  </header>
 
-    <section class="hero" id="overview">
-      <div class="panel hero-copy">
-        <div>
-          <div class="eyebrow"><span class="pulse"></span> Private roadmap · English C1 · 24 weeks</div>
-          <h1><span class="gradient">B1 to C1 English</span><br>without wasting motion.</h1>
-          <p class="lead">
-            A focused 6-month plan for moving from B1 toward C1-level academic and professional English.
-            The roadmap prioritizes output, feedback, TOEFL-style skills, and application-ready communication.
-          </p>
-          <div class="hero-actions">
-            <a class="button primary" href="#today">Start today</a>
-            <a class="button" href="#timeline">See 6-month plan</a>
-          </div>
+  <section class="hero">
+    <h1>Interactive English roadmap from B1 to C1</h1>
+    <p>Click nodes as you complete them. Yellow boxes are monthly stages; colored boxes are skills and deliverables. Progress is saved locally in your browser.</p>
+    <div class="meta">
+      <span class="chip">6 months</span>
+      <span class="chip">24 weeks</span>
+      <span class="chip">2–3h/day</span>
+      <span class="chip">TOEFL / academic English</span>
+    </div>
+  </section>
+
+  <main class="app">
+    <section class="canvas-card">
+      <div class="canvas-toolbar">
+        <div class="legend">
+          <span><i class="dot" style="--c:var(--yellow)"></i> Stage</span>
+          <span><i class="dot" style="--c:var(--blue)"></i> Input</span>
+          <span><i class="dot" style="--c:var(--green)"></i> Output</span>
+          <span><i class="dot" style="--c:var(--purple)"></i> Exam / Research</span>
         </div>
-        <div class="hero-meta">
-          <div class="metric"><strong>B1</strong><span>Current level: intermediate, needs academic control.</span></div>
-          <div class="metric"><strong>C1</strong><span>Target: confident research and university English.</span></div>
-          <div class="metric"><strong>2–3h</strong><span>Daily focused work for an ambitious 6-month jump.</span></div>
-        </div>
+        <button class="btn primary" id="markToday" type="button">Mark today minimum done</button>
       </div>
-
-      <aside class="panel side">
-        <h2>Success criteria</h2>
-        <p>By the end, English should support applying abroad, emailing professors, explaining research, and preparing seriously for TOEFL/IELTS.</p>
-        <div class="score-card">
-          <div class="score-line"><span>Roadmap intensity</span><span class="mono">high</span></div>
-          <div class="bar"><i></i></div>
+      <div class="zoom-wrap">
+        <div class="roadmap" id="roadmap">
+          <div class="track"></div>
+          <!-- stages, connectors, and nodes are rendered by JS -->
         </div>
-        <div class="quick-list">
-          <div class="quick-item">Read papers, CS blogs, and academic material without translating every sentence.</div>
-          <div class="quick-item">Write polished emails, SOP paragraphs, summaries, and TOEFL-style essays.</div>
-          <div class="quick-item">Speak for 5–10 minutes about CS, goals, and research with structure.</div>
-          <div class="quick-item">Use monthly mock tests and weekly artifacts to measure progress.</div>
-        </div>
-      </aside>
-    </section>
-
-
-    <section class="today-panel" id="today">
-      <div class="panel today-main">
-        <div class="today-head">
-          <div>
-            <h2>Today’s execution</h2>
-            <p>Click tasks as you finish them. Your progress is saved locally in this browser, so the roadmap becomes something you can actually start and use every day.</p>
-          </div>
-          <div class="date-chip" id="todayDate">today</div>
-        </div>
-
-        <div class="task-list" id="taskList" aria-label="Daily English roadmap tasks">
-          <button class="task" data-task="reading" type="button">
-            <span class="box">✓</span>
-            <span><span class="task-title">Reading input</span><span class="task-desc">Read one real text: article, CS blog, paper abstract, or TOEFL passage.</span></span>
-            <span class="task-time">30m</span>
-          </button>
-          <button class="task" data-task="listening" type="button">
-            <span class="box">✓</span>
-            <span><span class="task-title">Listening notes</span><span class="task-desc">Listen actively and write 3–5 bullet notes from a lecture, podcast, or TOEFL audio.</span></span>
-            <span class="task-time">30m</span>
-          </button>
-          <button class="task" data-task="writing" type="button">
-            <span class="box">✓</span>
-            <span><span class="task-title">Writing output</span><span class="task-desc">Write 150–300 words: summary, essay paragraph, professor email, or SOP draft.</span></span>
-            <span class="task-time">35m</span>
-          </button>
-          <button class="task" data-task="speaking" type="button">
-            <span class="box">✓</span>
-            <span><span class="task-title">Speaking recording</span><span class="task-desc">Record 5–10 minutes. Explain your day, a CS topic, or your research/application goal.</span></span>
-            <span class="task-time">15m</span>
-          </button>
-          <button class="task" data-task="vocab" type="button">
-            <span class="box">✓</span>
-            <span><span class="task-title">Vocabulary review</span><span class="task-desc">Review 20–40 cards and add only useful phrases from today’s input.</span></span>
-            <span class="task-time">20m</span>
-          </button>
-          <button class="task" data-task="correction" type="button">
-            <span class="box">✓</span>
-            <span><span class="task-title">Correction loop</span><span class="task-desc">Fix one recurring mistake from your own writing or speaking. Keep it small.</span></span>
-            <span class="task-time">10m</span>
-          </button>
-        </div>
-
-        <div class="controls">
-          <button class="button primary" id="completeAll" type="button">Mark today done</button>
-          <button class="button" id="copySummary" type="button">Copy summary</button>
-          <button class="button danger" id="resetToday" type="button">Reset today</button>
-        </div>
-      </div>
-
-      <aside class="panel today-side">
-        <h2>Daily score</h2>
-        <p>Minimum viable day: reading + listening + one output. Perfect day: all six.</p>
-        <div class="ring-wrap">
-          <div class="ring" id="progressRing"><div class="ring-inner"><strong id="progressNumber">0%</strong><span id="progressLabel">0 / 6 done</span></div></div>
-        </div>
-        <div class="streak" id="streakGrid" aria-label="Last seven days"></div>
-        <div class="status-line" id="statusLine">Start with one task. The page will save your clicks automatically.</div>
-      </aside>
-    </section>
-
-
-    <section class="layout">
-      <aside class="panel toc">
-        <div class="label">Contents</div>
-        <a href="#today">Today execution <span>00</span></a>
-        <a href="#routine">Weekly routine <span>01</span></a>
-        <a href="#timeline">6-month timeline <span>02</span></a>
-        <a href="#week">Example week <span>03</span></a>
-        <a href="#tracker">Progress tracker <span>04</span></a>
-        <a href="#rules">Rules <span>05</span></a>
-      </aside>
-
-      <div class="content">
-        <section class="panel section" id="routine">
-          <h2>Weekly routine</h2>
-          <p>A simple system: real input every day, forced output every day, feedback every week.</p>
-          <div class="cards-3">
-            <article class="mini">
-              <div class="kicker">60 min / day</div>
-              <h3>Input layer</h3>
-              <ul>
-                <li><strong>Reading:</strong> articles → academic texts → paper intros.</li>
-                <li><strong>Listening:</strong> lectures, podcasts, TOEFL lectures.</li>
-                <li>Keep a small list of useful phrases, not isolated words only.</li>
-              </ul>
-            </article>
-            <article class="mini">
-              <div class="kicker">45–60 min / day</div>
-              <h3>Output layer</h3>
-              <ul>
-                <li>Write 150–300 words or one timed TOEFL-style answer.</li>
-                <li>Record 5–10 minutes of speaking and review mistakes.</li>
-                <li>Re-use topics from CS, university, applications, and research.</li>
-              </ul>
-            </article>
-            <article class="mini">
-              <div class="kicker">30–45 min / day</div>
-              <h3>Correction layer</h3>
-              <ul>
-                <li>Anki/spaced repetition for high-value vocabulary.</li>
-                <li>Grammar fixes from your own writing and speaking errors.</li>
-                <li>Weekly mock or timed section from Month 4 onward.</li>
-              </ul>
-            </article>
-          </div>
-        </section>
-
-        <section class="panel section" id="timeline">
-          <h2>6-month timeline</h2>
-          <p>Each month has a single job. Do not optimize everything at once.</p>
-          <div class="timeline">
-            <article class="month">
-              <div class="month-index"><div class="num">01</div><strong>Foundation reset</strong><span>B1 → strong B1</span></div>
-              <div>
-                <h3>Make the habit automatic and remove basic friction</h3>
-                <ul>
-                  <li>Review high-impact grammar: tenses, articles, prepositions, relative clauses, conditionals.</li>
-                  <li>Build a 1,000-word active deck for academic/core vocabulary.</li>
-                  <li>Read 20 short articles and write 12 summaries of 120–180 words.</li>
-                  <li>Record 20 short speaking answers on everyday, university, and CS topics.</li>
-                </ul>
-              </div>
-              <div class="deliverable"><b>Deliverable</b>Diagnostic test + 12 summaries + 20 recordings + personal error list.</div>
-            </article>
-
-            <article class="month">
-              <div class="month-index"><div class="num">02</div><strong>Fluency building</strong><span>B1+ → B2</span></div>
-              <div>
-                <h3>Stop translating; start thinking in English</h3>
-                <ul>
-                  <li>Read longer texts about technology, AI, education, productivity, and research.</li>
-                  <li>Listen to 4–5 hours/week of clear English lectures or podcasts.</li>
-                  <li>Write 3 structured paragraphs/week: claim, evidence, conclusion.</li>
-                  <li>Do 3 speaking sessions/week: 2 minutes prepared + 2 minutes spontaneous.</li>
-                </ul>
-              </div>
-              <div class="deliverable"><b>Deliverable</b>8 paragraph essays + 12 speaking answers + 20h listening log.</div>
-            </article>
-
-            <article class="month">
-              <div class="month-index"><div class="num">03</div><strong>Academic transition</strong><span>B2</span></div>
-              <div>
-                <h3>Move into university, CS, and research English</h3>
-                <ul>
-                  <li>Read one CS/AI blog post or paper abstract every day.</li>
-                  <li>Summarize 2 research papers/week in simple, clear English.</li>
-                  <li>Write one 350–450 word essay/week and revise it once.</li>
-                  <li>Practice lecture note-taking: main idea, details, examples.</li>
-                </ul>
-              </div>
-              <div class="deliverable"><b>Deliverable</b>8 research summaries + 4 revised essays + 5-minute CS talk.</div>
-            </article>
-
-            <article class="month">
-              <div class="month-index"><div class="num">04</div><strong>Exam mode</strong><span>B2 → B2+</span></div>
-              <div>
-                <h3>Train TOEFL-style timing while keeping real fluency</h3>
-                <ul>
-                  <li>Weekly TOEFL-style reading set and listening set.</li>
-                  <li>Two timed speaking prompts/week with clear structure.</li>
-                  <li>Two writing tasks/week: one independent, one integrated.</li>
-                  <li>Use connectors naturally: however, therefore, whereas, in contrast.</li>
-                </ul>
-              </div>
-              <div class="deliverable"><b>Deliverable</b>TOEFL practice log + recurring mistake bank + mini mock.</div>
-            </article>
-
-            <article class="month">
-              <div class="month-index"><div class="num">05</div><strong>Speed & polish</strong><span>B2+ → C1-</span></div>
-              <div>
-                <h3>Improve precision, speed, and confidence</h3>
-                <ul>
-                  <li>Do one full timed section every week.</li>
-                  <li>Write application texts: CV bullets, professor email, SOP paragraphs.</li>
-                  <li>Give one 7–10 minute presentation/week about AI, IR, or your project.</li>
-                  <li>Extract academic phrases from at least 4 paper introductions.</li>
-                </ul>
-              </div>
-              <div class="deliverable"><b>Deliverable</b>Presentation recordings + polished email/SOP drafts + phrase bank.</div>
-            </article>
-
-            <article class="month">
-              <div class="month-index"><div class="num">06</div><strong>C1 readiness</strong><span>C1 target</span></div>
-              <div>
-                <h3>Convert training into test and application performance</h3>
-                <ul>
-                  <li>Take 2 full mock tests: start and end of the month.</li>
-                  <li>Finalize self-introduction, research summary, professor email, and SOP draft.</li>
-                  <li>Practice 45–60 second answers and 3–5 minute research explanations.</li>
-                  <li>Book TOEFL/IELTS when mock scores are stable enough.</li>
-                </ul>
-              </div>
-              <div class="deliverable"><b>Deliverable</b>2 mock tests + final application English pack + exam decision.</div>
-            </article>
-          </div>
-        </section>
-
-        <section class="panel section" id="week">
-          <h2>Example week</h2>
-          <p>A compact week template. Repeat it, then increase difficulty each month.</p>
-          <div class="week-grid">
-            <div class="day"><b>Mon</b><p>Reading + vocabulary + short speaking. English class day: review class notes.</p></div>
-            <div class="day"><b>Tue</b><p>Listening notes + 250-word writing. Correct grammar from your own text.</p></div>
-            <div class="day"><b>Wed</b><p>CS article/paper abstract + summary. Record a 3-minute explanation.</p></div>
-            <div class="day"><b>Thu</b><p>TOEFL-style prompt + English class. Save new mistakes to error bank.</p></div>
-            <div class="day"><b>Fri</b><p>Longer essay or integrated writing. Revise once after feedback.</p></div>
-            <div class="day"><b>Sat</b><p>Mock section or timed practice. Check speed, not just correctness.</p></div>
-            <div class="day"><b>Sun</b><p>Weekly review: update tracker, choose next week topics, clean vocabulary.</p></div>
-          </div>
-        </section>
-
-        <section class="panel section" id="tracker">
-          <h2>Progress tracker</h2>
-          <p>Use these signals to know if the roadmap is working.</p>
-          <div class="tracker">
-            <div class="track-row"><b>Reading</b><div class="mini-bar"><i style="width:82%"></i></div><span class="percent">paper-ready</span></div>
-            <div class="track-row"><b>Listening</b><div class="mini-bar"><i style="width:76%"></i></div><span class="percent">lectures</span></div>
-            <div class="track-row"><b>Writing</b><div class="mini-bar"><i style="width:88%"></i></div><span class="percent">SOP/email</span></div>
-            <div class="track-row"><b>Speaking</b><div class="mini-bar"><i style="width:70%"></i></div><span class="percent">research talk</span></div>
-          </div>
-          <p class="note">
-            C1 in 6 months from B1 is ambitious. It only works with consistent output and feedback.
-            If the workload drops below 2 focused hours/day, keep the same plan but stretch it to 9–12 months.
-          </p>
-        </section>
-
-        <section class="panel section" id="rules">
-          <h2>Rules</h2>
-          <div class="cards-2">
-            <article class="mini">
-              <div class="kicker">Non-negotiable</div>
-              <h3>Every day</h3>
-              <ul>
-                <li>Read something real.</li>
-                <li>Listen to something real.</li>
-                <li>Produce English: write or speak.</li>
-                <li>Review 20–40 useful cards.</li>
-              </ul>
-            </article>
-            <article class="mini">
-              <div class="kicker">Review loop</div>
-              <h3>Every week</h3>
-              <ul>
-                <li>One longer writing task.</li>
-                <li>One recorded speaking review.</li>
-                <li>One academic/CS topic summary.</li>
-                <li>One honest progress check.</li>
-              </ul>
-            </article>
-          </div>
-        </section>
       </div>
     </section>
 
-    <footer>Private roadmap · Hermes Index</footer>
+    <aside class="side-card">
+      <div class="progress-box">
+        <div class="progress-head"><h2>Progress</h2><span class="percent" id="percent">0%</span></div>
+        <div class="bar"><i id="bar"></i></div>
+        <div class="micro" id="progressText">0 nodes completed.</div>
+      </div>
+      <div class="details" id="details">
+        <h3>Select a node</h3>
+        <p class="empty">Click any roadmap node to see what to do, then mark it done when finished.</p>
+      </div>
+      <div class="tasks-panel">
+        <h3>Today’s minimum checklist</h3>
+        <button class="daily-task" data-daily="read" type="button"><span class="box">✓</span><span>Read one real text for 30 minutes</span></button>
+        <button class="daily-task" data-daily="listen" type="button"><span class="box">✓</span><span>Listen and write 3–5 bullet notes</span></button>
+        <button class="daily-task" data-daily="output" type="button"><span class="box">✓</span><span>Produce one output: writing or speaking</span></button>
+      </div>
+    </aside>
   </main>
 
   <script>
-    (() => {
-      const taskList = document.getElementById('taskList');
-      if (!taskList) return;
-      const tasks = [...taskList.querySelectorAll('.task')];
-      const todayKey = new Date().toISOString().slice(0, 10);
-      const storageKey = `roadmap:english-c1:${todayKey}`;
-      const historyKey = 'roadmap:english-c1:history';
-      const dateEl = document.getElementById('todayDate');
-      const ring = document.getElementById('progressRing');
-      const number = document.getElementById('progressNumber');
-      const label = document.getElementById('progressLabel');
-      const status = document.getElementById('statusLine');
-      const streak = document.getElementById('streakGrid');
-      const copy = document.getElementById('copySummary');
-      const reset = document.getElementById('resetToday');
-      const completeAll = document.getElementById('completeAll');
+    const nodes = [
+      {id:'m1', type:'stage', y:40, title:'Month 1', sub:'Foundation reset'},
+      {id:'grammar', x:120, y:135, c:'blue', title:'Core Grammar Reset', meta:'tenses, articles, prepositions, conditionals', desc:'Fix high-impact grammar that blocks clear writing and speaking.', tasks:['Create a personal grammar error list','Do short targeted drills','Rewrite 5 old sentences correctly']},
+      {id:'vocab1', x:630, y:135, c:'blue', title:'1000 Active Words', meta:'academic + everyday high-frequency words', desc:'Build an active vocabulary system. Add phrases you will actually use.', tasks:['Create Anki deck','Add 20–40 cards daily','Review every day']},
+      {id:'summaries1', x:375, y:240, c:'green', title:'12 Short Summaries', meta:'120–180 words each', desc:'Turn passive reading into active writing. Summarize short articles clearly.', tasks:['Read 20 short articles','Write 12 summaries','Correct repeated grammar mistakes']},
 
-      const taskNames = Object.fromEntries(tasks.map(t => [t.dataset.task, t.querySelector('.task-title').textContent.trim()]));
-      const load = () => JSON.parse(localStorage.getItem(storageKey) || '{}');
-      const save = (state) => localStorage.setItem(storageKey, JSON.stringify(state));
-      const loadHistory = () => JSON.parse(localStorage.getItem(historyKey) || '{}');
-      const saveHistory = (history) => localStorage.setItem(historyKey, JSON.stringify(history));
+      {id:'m2', type:'stage', y:390, title:'Month 2', sub:'B1+ to B2 fluency'},
+      {id:'reading2', x:120, y:485, c:'blue', title:'Longer Reading', meta:'tech, AI, education, research news', desc:'Increase reading stamina and reduce translation habit.', tasks:['Read 4 longer texts/week','Highlight useful phrases','Explain each article in 3 bullets']},
+      {id:'listening2', x:630, y:485, c:'blue', title:'Listening Stamina', meta:'4–5 hours/week', desc:'Train active listening with notes, not passive background audio.', tasks:['Listen to lectures/podcasts','Write main idea + examples','Replay hard sections']},
+      {id:'speaking2', x:375, y:590, c:'green', title:'Spontaneous Speaking', meta:'prepared + unprepared answers', desc:'Record yourself and make speech more automatic.', tasks:['3 recordings/week','2 minutes prepared','2 minutes spontaneous']},
 
-      function fmtDate(date) {
-        return date.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short' });
-      }
+      {id:'m3', type:'stage', y:740, title:'Month 3', sub:'Academic transition'},
+      {id:'paper', x:120, y:835, c:'purple', title:'Paper Abstracts', meta:'CS/AI/IR/NLP', desc:'Start reading academic material without panic.', tasks:['Read one abstract/day','Write simple summaries','Collect academic phrases']},
+      {id:'essay', x:630, y:835, c:'green', title:'Weekly Essay', meta:'350–450 words', desc:'Practice structured academic writing with revision.', tasks:['Write one essay/week','Revise after feedback','Track repeated mistakes']},
+      {id:'talk', x:375, y:940, c:'green', title:'5-minute CS Talk', meta:'explain a technical topic', desc:'Practice research and application speaking.', tasks:['Choose one CS topic','Make 5 bullets','Record and review']},
 
-      function updateHistory(doneCount) {
-        const history = loadHistory();
-        history[todayKey] = { done: doneCount, total: tasks.length, completed: doneCount === tasks.length };
-        saveHistory(history);
-      }
+      {id:'m4', type:'stage', y:1090, title:'Month 4', sub:'TOEFL / exam mode'},
+      {id:'toeflRead', x:120, y:1185, c:'purple', title:'Timed Reading + Listening', meta:'weekly TOEFL-style sets', desc:'Build exam timing and note-taking skill.', tasks:['One reading set/week','One listening set/week','Review wrong answers']},
+      {id:'toeflSpeak', x:630, y:1185, c:'purple', title:'Timed Speaking', meta:'structured short answers', desc:'Practice clear answers under time pressure.', tasks:['2 prompts/week','Use fixed structure','Reduce filler words']},
+      {id:'toeflWrite', x:375, y:1290, c:'purple', title:'Integrated Writing', meta:'independent + integrated tasks', desc:'Combine listening/reading notes into organized writing.', tasks:['2 writing tasks/week','Use connectors naturally','Keep mistake bank']},
 
-      function renderStreak() {
-        const history = loadHistory();
-        streak.innerHTML = '';
-        for (let i = 6; i >= 0; i--) {
-          const d = new Date();
-          d.setDate(d.getDate() - i);
-          const key = d.toISOString().slice(0, 10);
-          const el = document.createElement('div');
-          el.className = 'streak-day';
-          if (history[key]?.completed) el.classList.add('done');
-          if (key === todayKey) el.classList.add('today');
-          el.textContent = d.toLocaleDateString('en-US', { weekday: 'short' }).slice(0, 2);
-          el.title = `${key}: ${history[key]?.done || 0}/${history[key]?.total || tasks.length}`;
-          streak.appendChild(el);
+      {id:'m5', type:'stage', y:1440, title:'Month 5', sub:'Speed and polish'},
+      {id:'apps', x:120, y:1535, c:'green', title:'Application English', meta:'CV, emails, SOP paragraphs', desc:'Turn English practice into application assets.', tasks:['Draft professor email','Polish CV bullets','Write SOP paragraphs']},
+      {id:'research', x:630, y:1535, c:'purple', title:'Research Presentation', meta:'7–10 min weekly talks', desc:'Explain AI/IR/research topics with confidence.', tasks:['One presentation/week','Record it','Improve structure and pronunciation']},
+      {id:'phrases', x:375, y:1640, c:'blue', title:'Academic Phrase Bank', meta:'from paper introductions', desc:'Collect reusable academic language for writing and speaking.', tasks:['Read 4 paper intros','Extract useful phrases','Use them in essays']},
+
+      {id:'m6', type:'stage', y:1790, title:'Month 6', sub:'C1 readiness'},
+      {id:'mock', x:120, y:1885, c:'purple', title:'2 Full Mock Tests', meta:'start and end of month', desc:'Measure readiness and decide exam timing.', tasks:['Take full mock #1','Fix weak areas','Take full mock #2']},
+      {id:'pack', x:630, y:1885, c:'green', title:'Application Pack', meta:'self-intro, research summary, email, SOP', desc:'Prepare reusable English assets for applications and supervisor contact.', tasks:['Finalize self-introduction','Finalize research summary','Finalize professor email']},
+      {id:'book', x:375, y:1990, c:'yellow', title:'Book Exam', meta:'when mock scores stabilize', desc:'Choose TOEFL/IELTS date when your mock performance is consistent.', tasks:['Set target score','Choose exam date','Plan final 4-week prep']}
+    ];
+
+    const colors = {blue:'#38bdf8', green:'#22c55e', purple:'#a78bfa', yellow:'#facc15'};
+    const roadmap = document.getElementById('roadmap');
+    const stateKey = 'roadmapsh:english-c1:nodes';
+    const dailyKey = () => 'roadmapsh:english-c1:daily:' + new Date().toISOString().slice(0,10);
+    let selected = 'grammar';
+
+    function load(key, fallback={}) { try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); } catch { return fallback; } }
+    function save(key, value) { localStorage.setItem(key, JSON.stringify(value)); }
+
+    function nodeCenter(n) {
+      const w = n.type === 'stage' ? 220 : 230;
+      const h = n.type === 'stage' ? 58 : 78;
+      const x = n.type === 'stage' ? 490 - w/2 : n.x;
+      return {x: x + w/2, y: n.y + h/2};
+    }
+
+    function drawConnector(a, b) {
+      const A = nodeCenter(a), B = nodeCenter(b);
+      const dx = B.x - A.x, dy = B.y - A.y;
+      const len = Math.sqrt(dx*dx + dy*dy);
+      const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+      const el = document.createElement('div');
+      el.className = 'connector';
+      el.style.left = A.x + 'px';
+      el.style.top = A.y + 'px';
+      el.style.width = len + 'px';
+      el.style.transform = `rotate(${angle}deg)`;
+      roadmap.appendChild(el);
+    }
+
+    function renderMap() {
+      [...roadmap.querySelectorAll('.connector,.node,.stage')].forEach(e => e.remove());
+      const done = load(stateKey);
+      for (let i=0; i<nodes.length-1; i++) drawConnector(nodes[i], nodes[i+1]);
+      nodes.forEach(n => {
+        const el = document.createElement('button');
+        el.type = 'button';
+        el.dataset.id = n.id;
+        if (n.type === 'stage') {
+          el.className = 'stage';
+          el.style.top = n.y + 'px';
+          el.innerHTML = `${n.title}<small>${n.sub}</small>`;
+        } else {
+          el.className = 'node';
+          if (done[n.id]) el.classList.add('done');
+          if (selected === n.id) el.classList.add('selected');
+          el.style.left = n.x + 'px';
+          el.style.top = n.y + 'px';
+          el.style.setProperty('--c', colors[n.c]);
+          el.innerHTML = `<span class="node-title">${n.title}</span><span class="node-meta">${n.meta}</span><span class="node-tag">${n.c}</span>`;
+          el.addEventListener('click', () => { selected = n.id; renderDetails(); renderMap(); });
+          el.addEventListener('dblclick', () => toggleNode(n.id));
         }
-      }
-
-      function render() {
-        const state = load();
-        let doneCount = 0;
-        tasks.forEach(task => {
-          const done = Boolean(state[task.dataset.task]);
-          task.classList.toggle('done', done);
-          task.setAttribute('aria-pressed', String(done));
-          if (done) doneCount++;
-        });
-        const pct = Math.round((doneCount / tasks.length) * 100);
-        ring.style.setProperty('--pct', pct);
-        number.textContent = `${pct}%`;
-        label.textContent = `${doneCount} / ${tasks.length} done`;
-        status.textContent = doneCount === 0
-          ? 'Start with one task. The page will save your clicks automatically.'
-          : doneCount === tasks.length
-            ? 'Perfect day. All English roadmap tasks are done.'
-            : `${tasks.length - doneCount} task${tasks.length - doneCount === 1 ? '' : 's'} left for today.`;
-        updateHistory(doneCount);
-        renderStreak();
-      }
-
-      dateEl.textContent = fmtDate(new Date());
-      tasks.forEach(task => task.addEventListener('click', () => {
-        const state = load();
-        state[task.dataset.task] = !state[task.dataset.task];
-        save(state);
-        render();
-      }));
-
-      completeAll.addEventListener('click', () => {
-        const state = {};
-        tasks.forEach(task => state[task.dataset.task] = true);
-        save(state);
-        render();
+        roadmap.appendChild(el);
       });
+      renderProgress();
+    }
 
-      reset.addEventListener('click', () => {
-        localStorage.removeItem(storageKey);
-        render();
+    function toggleNode(id) {
+      const done = load(stateKey);
+      done[id] = !done[id];
+      save(stateKey, done);
+      renderMap();
+      renderDetails();
+    }
+
+    function renderProgress() {
+      const done = load(stateKey);
+      const real = nodes.filter(n => n.type !== 'stage');
+      const count = real.filter(n => done[n.id]).length;
+      const pct = Math.round(count / real.length * 100);
+      document.getElementById('percent').textContent = pct + '%';
+      document.getElementById('bar').style.width = pct + '%';
+      document.getElementById('progressText').textContent = `${count} of ${real.length} roadmap nodes completed.`;
+    }
+
+    function renderDetails() {
+      const n = nodes.find(x => x.id === selected && x.type !== 'stage') || nodes.find(x => x.id === 'grammar');
+      const done = load(stateKey);
+      const details = document.getElementById('details');
+      details.innerHTML = `<h3>${n.title}</h3><p>${n.desc}</p><ul>${n.tasks.map(t => `<li>${t}</li>`).join('')}</ul><div class="detail-actions"><button class="btn primary" id="toggleSelected" type="button">${done[n.id] ? 'Mark not done' : 'Mark done'}</button></div>`;
+      document.getElementById('toggleSelected').addEventListener('click', () => toggleNode(n.id));
+    }
+
+    function renderDaily() {
+      const daily = load(dailyKey());
+      document.querySelectorAll('.daily-task').forEach(btn => {
+        btn.classList.toggle('done', Boolean(daily[btn.dataset.daily]));
       });
+    }
 
-      copy.addEventListener('click', async () => {
-        const state = load();
-        const done = Object.keys(taskNames).filter(k => state[k]).map(k => `- [x] ${taskNames[k]}`);
-        const undone = Object.keys(taskNames).filter(k => !state[k]).map(k => `- [ ] ${taskNames[k]}`);
-        const text = [`English C1 roadmap — ${todayKey}`, '', ...done, ...undone].join('\n');
-        try {
-          await navigator.clipboard.writeText(text);
-          status.textContent = 'Summary copied. You can paste it into Obsidian or Telegram.';
-        } catch {
-          status.textContent = text;
-        }
-      });
+    document.querySelectorAll('.daily-task').forEach(btn => btn.addEventListener('click', () => {
+      const daily = load(dailyKey());
+      daily[btn.dataset.daily] = !daily[btn.dataset.daily];
+      save(dailyKey(), daily);
+      renderDaily();
+    }));
 
-      render();
-    })();
+    document.getElementById('markToday').addEventListener('click', () => {
+      save(dailyKey(), {read:true, listen:true, output:true});
+      renderDaily();
+    });
+
+    document.getElementById('resetAll').addEventListener('click', () => {
+      if (!confirm('Reset roadmap and today checklist?')) return;
+      localStorage.removeItem(stateKey);
+      localStorage.removeItem(dailyKey());
+      renderMap(); renderDetails(); renderDaily();
+    });
+
+    document.getElementById('copySummary').addEventListener('click', async () => {
+      const done = load(stateKey);
+      const daily = load(dailyKey());
+      const real = nodes.filter(n => n.type !== 'stage');
+      const completed = real.filter(n => done[n.id]).map(n => `- [x] ${n.title}`);
+      const today = ['read','listen','output'].map(k => `- [${daily[k] ? 'x' : ' '}] ${k}`);
+      const text = [`English C1 Roadmap`, `Progress: ${completed.length}/${real.length}`, '', 'Today:', ...today, '', 'Completed nodes:', ...completed].join('\n');
+      try { await navigator.clipboard.writeText(text); alert('Copied summary.'); } catch { console.log(text); }
+    });
+
+    document.getElementById('todayChip').textContent = new Date().toLocaleDateString('en-GB', {weekday:'short', day:'2-digit', month:'short'});
+    renderMap(); renderDetails(); renderDaily();
   </script>
 </body>
 </html>
