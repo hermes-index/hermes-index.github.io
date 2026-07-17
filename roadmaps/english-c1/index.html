@@ -7,12 +7,14 @@
   <title>English C1 Roadmap</title>
   <style>
     :root {
-      --bg: #f6f8fb;
+      --bg: #f3f4f6;
       --paper: #ffffff;
       --ink: #111827;
-      --muted: #667085;
-      --line: #d0d7de;
-      --line-strong: #9aa4b2;
+      --muted: #6b7280;
+      --line: #d1d5db;
+      --line-strong: #9ca3af;
+      --header: #111827;
+      --header-ink: #f9fafb;
       --yellow: #f4c430;
       --blue: #dbeafe;
       --green: #dcfce7;
@@ -39,12 +41,14 @@
     }
 
     :root[data-theme="dark"] {
-      --bg: #0f172a;
+      --bg: #0b0f17;
       --paper: #111827;
       --ink: #e5e7eb;
       --muted: #9ca3af;
       --line: #374151;
       --line-strong: #6b7280;
+      --header: #030712;
+      --header-ink: #f9fafb;
       --yellow: #eab308;
       --blue: #172554;
       --green: #052e16;
@@ -76,47 +80,62 @@
     .topbar {
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 20;
       display: flex;
       justify-content: space-between;
       gap: 12px;
       align-items: center;
-      padding: 10px 14px;
-      border-bottom: 1px solid var(--line);
-      background: var(--paper);
+      padding: 12px 18px;
+      border-bottom: 1px solid #1f2937;
+      background: var(--header);
+      color: var(--header-ink);
     }
 
-    .title { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-    .title h1 { margin: 0; font-size: 18px; line-height: 1.2; }
-    .title span { color: var(--muted); font-size: 13px; }
-
-    .actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-    .button, .chip {
-      border: 1px solid var(--line);
-      background: var(--paper);
-      border-radius: 6px;
-      padding: 7px 10px;
-      font-size: 13px;
-    }
-    .button { cursor: pointer; }
-    .button:hover { border-color: var(--line-strong); background: var(--button-bg); }
-    .button.primary { background: var(--primary-bg); color: var(--primary-ink); border-color: var(--primary-bg); }
-    .button.danger { color: #be123c; }
-    :root[data-theme="dark"] .button.danger { color: #fda4af; }
-    .theme-button {
+    .site-mark {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      min-height: 34px;
-      border: 1px solid var(--line);
-      background: var(--paper);
+      gap: 8px;
+      color: var(--header-ink);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .site-mark::before {
+      content: "";
+      width: 24px;
+      height: 24px;
+      display: inline-block;
+      border-radius: 6px;
+      background: var(--yellow);
+      border: 1px solid #ca8a04;
+    }
+
+    .page-title {
+      width: min(1180px, calc(100% - 28px));
+      margin: 32px auto 18px;
+      text-align: center;
+    }
+    .page-title h1 { margin: 0 0 8px; font-size: clamp(32px, 6vw, 52px); line-height: 1; letter-spacing: -0.05em; }
+    .page-title p { max-width: 720px; margin: 0 auto; color: var(--muted); line-height: 1.6; }
+    .tabs { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 18px; }
+    .tab { border-bottom: 2px solid transparent; color: var(--muted); padding: 8px 10px; font-size: 14px; }
+    .tab.active { color: var(--ink); border-bottom-color: var(--yellow); font-weight: 700; }
+
+    .actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .button, .chip, .theme-button {
+      border: 1px solid #374151;
+      background: #1f2937;
+      color: #f9fafb;
       border-radius: 6px;
       padding: 7px 10px;
-      color: var(--ink);
       font-size: 13px;
-      cursor: pointer;
+      line-height: 1;
+      min-height: 34px;
     }
-    .theme-button:hover { border-color: var(--line-strong); background: var(--button-bg); }
+    .button, .theme-button { cursor: pointer; }
+    .button:hover, .theme-button:hover { background: #374151; }
+    .button.primary { background: var(--yellow); color: #111827; border-color: #ca8a04; }
+    .button.danger { color: #fecdd3; }
+    .theme-button { display: inline-flex; align-items: center; gap: 6px; }
     .theme-icon { width: 16px; text-align: center; }
     .chip { color: var(--muted); }
 
@@ -124,23 +143,26 @@
       display: grid;
       grid-template-columns: minmax(0, 1fr) 340px;
       gap: 12px;
-      width: min(1500px, calc(100% - 20px));
-      margin: 12px auto;
+      width: min(1320px, calc(100% - 20px));
+      margin: 0 auto 42px;
       align-items: start;
     }
 
     .canvas, .side {
       border: 1px solid var(--line);
+      border-radius: 8px;
       background: var(--paper);
+      overflow: hidden;
     }
 
     .canvas-head {
       display: flex;
       justify-content: space-between;
       gap: 12px;
-      padding: 10px 12px;
+      padding: 12px 14px;
       border-bottom: 1px solid var(--line);
       align-items: center;
+      background: var(--paper);
     }
 
     .legend { display: flex; gap: 10px; flex-wrap: wrap; color: var(--muted); font-size: 12px; }
@@ -181,8 +203,8 @@
 
     .stage, .node {
       position: absolute;
-      border: 2px solid var(--line-strong);
-      border-radius: 4px;
+      border: 1px solid var(--line-strong);
+      border-radius: 5px;
       background: var(--paper);
       text-align: center;
     }
@@ -208,6 +230,7 @@
     .node.selected { outline: 3px solid var(--ink); }
     .node.done { border-color: var(--done); background: var(--done-bg); }
     .node.done .node-title::before { content: "✓ "; color: var(--done); }
+    :root[data-theme="dark"] .node.done .node-title::before { color: #86efac; }
 
     .node.input { background: var(--blue); border-color: var(--blue-border); }
     .node.output { background: var(--green); border-color: var(--green-border); }
@@ -252,7 +275,7 @@
     .mobile-stage {
       margin: 12px;
       padding: 10px;
-      border: 2px solid #ca8a04;
+      border: 1px solid #ca8a04;
       border-radius: 4px;
       background: var(--stage-bg);
       color: var(--stage-ink);
@@ -263,7 +286,7 @@
       width: calc(100% - 24px);
       margin: 8px 12px;
       padding: 11px 12px;
-      border: 2px solid var(--line-strong);
+      border: 1px solid var(--line-strong);
       border-radius: 4px;
       background: var(--paper);
       color: var(--ink);
@@ -285,15 +308,16 @@
       .mobile-roadmap { display: block; background: var(--canvas-bg); }
     }
     @media (max-width: 620px) {
-      .topbar { align-items: flex-start; flex-direction: column; padding: 12px; }
-      .title { gap: 4px; }
-      .title h1 { font-size: 17px; }
-      .title span { font-size: 12px; }
+      .topbar { align-items: stretch; flex-direction: column; padding: 12px; }
       .actions { width: 100%; display: grid; grid-template-columns: 1fr 1fr; }
       .actions .button, .actions .theme-button { width: 100%; justify-content: center; min-height: 40px; }
       .actions .danger { grid-column: span 2; }
+      .page-title { text-align: left; margin: 22px auto 14px; }
+      .page-title h1 { font-size: 34px; }
+      .tabs { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 2px; }
+      .tab { white-space: nowrap; }
       .layout { width: 100%; margin: 0; gap: 0; }
-      .canvas, .side { border-left: 0; border-right: 0; }
+      .canvas, .side { border-left: 0; border-right: 0; border-radius: 0; }
       .side-section { padding: 12px; }
       .legend { gap: 8px; }
       .note { width: min(100% - 20px, 1500px); }
@@ -302,17 +326,25 @@
 </head>
 <body>
   <header class="topbar">
-    <div class="title">
-      <h1>English C1 Roadmap</h1>
-      <span>B1 → C1 · 6 months · private interactive roadmap</span>
-    </div>
-    <div class="actions">
+    <a class="site-mark" href="/roadmaps/">roadmaps</a>
+    <nav class="actions" aria-label="Roadmap actions">
       <a class="button" href="/roadmaps/">All roadmaps</a>
       <button class="theme-button" id="themeToggle" type="button" aria-label="Toggle dark mode" aria-pressed="false"><span class="theme-icon">☾</span><span class="theme-text">Theme</span></button>
       <button class="button" id="copySummary" type="button" title="Copy completed roadmap nodes as a Markdown checklist for Obsidian or Telegram">Copy progress</button>
       <button class="button danger" id="resetAll" type="button">Reset</button>
-    </div>
+    </nav>
   </header>
+
+  <section class="page-title">
+    <h1>English C1 Roadmap</h1>
+    <p>Step by step path from B1 to C1 in 6 months. Click any topic to view details, resources, and expected output.</p>
+    <div class="tabs" aria-label="Roadmap metadata">
+      <span class="tab active">Roadmap</span>
+      <span class="tab">B1 → C1</span>
+      <span class="tab">6 months</span>
+      <span class="tab">TOEFL / Academic</span>
+    </div>
+  </section>
 
   <main class="layout">
     <section class="canvas" aria-label="Roadmap canvas">

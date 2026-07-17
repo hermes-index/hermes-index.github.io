@@ -7,12 +7,14 @@
   <title>Roadmaps</title>
   <style>
     :root {
-      --bg: #f6f8fb;
+      --bg: #f3f4f6;
       --paper: #ffffff;
       --ink: #111827;
-      --muted: #667085;
-      --line: #d0d7de;
-      --line-strong: #9aa4b2;
+      --muted: #6b7280;
+      --line: #d1d5db;
+      --line-strong: #9ca3af;
+      --header: #111827;
+      --header-ink: #f9fafb;
       --yellow: #f4c430;
       --green: #16a34a;
       --button-bg: #ffffff;
@@ -21,12 +23,14 @@
     }
 
     :root[data-theme="dark"] {
-      --bg: #0f172a;
+      --bg: #0b0f17;
       --paper: #111827;
       --ink: #e5e7eb;
       --muted: #9ca3af;
       --line: #374151;
       --line-strong: #6b7280;
+      --header: #030712;
+      --header-ink: #f9fafb;
       --button-bg: #1f2937;
       --hover: #182235;
     }
@@ -40,13 +44,14 @@
       justify-content: space-between;
       gap: 12px;
       align-items: center;
-      padding: 10px 14px;
-      border-bottom: 1px solid var(--line);
-      background: var(--paper);
+      padding: 12px 18px;
+      border-bottom: 1px solid #1f2937;
+      background: var(--header);
+      color: var(--header-ink);
     }
 
     .topbar h1 { margin: 0; font-size: 18px; }
-    .topbar span { color: var(--muted); font-size: 13px; }
+    .topbar span { color: #9ca3af; font-size: 13px; }
     .actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
     .button {
       border: 1px solid var(--line);
@@ -63,15 +68,15 @@
       align-items: center;
       gap: 6px;
       min-height: 34px;
-      border: 1px solid var(--line);
-      background: var(--button-bg);
+      border: 1px solid #374151;
+      background: #1f2937;
       border-radius: 6px;
       padding: 7px 10px;
-      color: var(--ink);
+      color: #f9fafb;
       font-size: 13px;
       cursor: pointer;
     }
-    .theme-button:hover { border-color: var(--line-strong); background: var(--hover); }
+    .theme-button:hover { background: #374151; }
     .theme-icon { width: 16px; text-align: center; }
 
     main {
@@ -106,7 +111,7 @@
       border: 1px solid var(--line);
       background: var(--paper);
       padding: 16px;
-      border-radius: 6px;
+      border-radius: 8px;
     }
 
     .card:hover {
@@ -172,7 +177,7 @@
 </head>
 <body>
   <header class="topbar">
-    <h1>Roadmaps</h1>
+    <h1>roadmaps</h1>
     <div class="actions"><button class="theme-button" id="themeToggle" type="button" aria-label="Toggle dark mode" aria-pressed="false"><span class="theme-icon">☾</span><span class="theme-text">Theme</span></button><span>Private index</span></div>
   </header>
 
