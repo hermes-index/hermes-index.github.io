@@ -543,8 +543,150 @@
       font-size: 13px;
     }
 
+
+    .today-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) 330px;
+      gap: 22px;
+      margin: 22px 0;
+      scroll-margin-top: 110px;
+    }
+
+    .today-main, .today-side { padding: 26px; }
+
+    .today-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+
+    .today-head h2 { margin: 0; font-size: 32px; line-height: 1.05; font-weight: 510; letter-spacing: -.8px; }
+    .today-head p { margin: 8px 0 0; color: var(--muted); line-height: 1.6; }
+
+    .date-chip {
+      white-space: nowrap;
+      padding: 8px 10px;
+      border: 1px solid var(--border-soft);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255,255,255,.025);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 12px;
+    }
+
+    .task-list { display: grid; gap: 10px; margin-top: 16px; }
+
+    .task {
+      display: grid;
+      grid-template-columns: 34px 1fr auto;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      padding: 13px;
+      border: 1px solid var(--border-soft);
+      border-radius: 16px;
+      background: rgba(255,255,255,.02);
+      color: var(--soft);
+      text-align: left;
+      cursor: pointer;
+      transition: border-color .18s ease, background .18s ease, transform .18s ease;
+    }
+
+    .task:hover { border-color: rgba(113,112,255,.35); background: rgba(255,255,255,.035); transform: translateY(-1px); }
+
+    .box {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.15);
+      color: transparent;
+      font-weight: 800;
+    }
+
+    .task.done .box {
+      color: white;
+      border-color: rgba(16,185,129,.35);
+      background: linear-gradient(135deg, var(--green), #27a644);
+      box-shadow: 0 0 24px rgba(16,185,129,.22);
+    }
+
+    .task-title { display: block; color: var(--text); font-size: 15px; font-weight: 510; margin-bottom: 3px; }
+    .task-desc { display: block; color: var(--muted); font-size: 13px; line-height: 1.45; }
+    .task-time { color: var(--dim); font-family: "JetBrains Mono", monospace; font-size: 12px; }
+    .task.done .task-title { color: var(--green); text-decoration: line-through; text-decoration-thickness: 1px; text-decoration-color: rgba(16,185,129,.6); }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .button.danger { color: #fecaca; border-color: rgba(248,113,113,.2); }
+
+    .ring-wrap {
+      display: grid;
+      place-items: center;
+      padding: 18px 0 8px;
+    }
+
+    .ring {
+      --pct: 0;
+      width: 178px;
+      height: 178px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 50% 50%, #101116 0 58%, transparent 59%),
+        conic-gradient(var(--brand-2) calc(var(--pct) * 1%), rgba(255,255,255,.06) 0);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.06), 0 0 55px rgba(94,106,210,.14);
+    }
+
+    .ring-inner { text-align: center; }
+    .ring-inner strong { display: block; font-size: 40px; font-weight: 510; letter-spacing: -1px; }
+    .ring-inner span { color: var(--muted); font-size: 12px; font-family: "JetBrains Mono", monospace; }
+
+    .streak {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 7px;
+      margin-top: 18px;
+    }
+
+    .streak-day {
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      border: 1px solid var(--border-soft);
+      color: var(--dim);
+      background: rgba(255,255,255,.018);
+      font-size: 11px;
+      font-family: "JetBrains Mono", monospace;
+    }
+
+    .streak-day.done { color: white; border-color: rgba(16,185,129,.22); background: rgba(16,185,129,.18); }
+    .streak-day.today { outline: 1px solid rgba(113,112,255,.45); color: var(--soft); }
+
+    .status-line {
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid var(--border-soft);
+      background: rgba(255,255,255,.02);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
     @media (max-width: 980px) {
-      .hero, .layout { grid-template-columns: 1fr; }
+      .hero, .layout, .today-panel { grid-template-columns: 1fr; }
       .toc { position: static; }
       .cards-3, .cards-2, .week-grid { grid-template-columns: 1fr; }
       .month { grid-template-columns: 1fr; }
@@ -569,6 +711,7 @@
       <a class="brand" href="/"><span class="mark"></span> Hermes Index</a>
       <nav class="nav" aria-label="Roadmap sections">
         <a class="active" href="#overview">Overview</a>
+        <a href="#today">Today</a>
         <a href="#routine">Routine</a>
         <a href="#timeline">Timeline</a>
         <a href="#tracker">Tracker</a>
@@ -585,8 +728,8 @@
             The roadmap prioritizes output, feedback, TOEFL-style skills, and application-ready communication.
           </p>
           <div class="hero-actions">
-            <a class="button primary" href="#timeline">Start with Month 1</a>
-            <a class="button" href="#routine">See weekly routine</a>
+            <a class="button primary" href="#today">Start today</a>
+            <a class="button" href="#timeline">See 6-month plan</a>
           </div>
         </div>
         <div class="hero-meta">
@@ -612,9 +755,73 @@
       </aside>
     </section>
 
+
+    <section class="today-panel" id="today">
+      <div class="panel today-main">
+        <div class="today-head">
+          <div>
+            <h2>Today’s execution</h2>
+            <p>Click tasks as you finish them. Your progress is saved locally in this browser, so the roadmap becomes something you can actually start and use every day.</p>
+          </div>
+          <div class="date-chip" id="todayDate">today</div>
+        </div>
+
+        <div class="task-list" id="taskList" aria-label="Daily English roadmap tasks">
+          <button class="task" data-task="reading" type="button">
+            <span class="box">✓</span>
+            <span><span class="task-title">Reading input</span><span class="task-desc">Read one real text: article, CS blog, paper abstract, or TOEFL passage.</span></span>
+            <span class="task-time">30m</span>
+          </button>
+          <button class="task" data-task="listening" type="button">
+            <span class="box">✓</span>
+            <span><span class="task-title">Listening notes</span><span class="task-desc">Listen actively and write 3–5 bullet notes from a lecture, podcast, or TOEFL audio.</span></span>
+            <span class="task-time">30m</span>
+          </button>
+          <button class="task" data-task="writing" type="button">
+            <span class="box">✓</span>
+            <span><span class="task-title">Writing output</span><span class="task-desc">Write 150–300 words: summary, essay paragraph, professor email, or SOP draft.</span></span>
+            <span class="task-time">35m</span>
+          </button>
+          <button class="task" data-task="speaking" type="button">
+            <span class="box">✓</span>
+            <span><span class="task-title">Speaking recording</span><span class="task-desc">Record 5–10 minutes. Explain your day, a CS topic, or your research/application goal.</span></span>
+            <span class="task-time">15m</span>
+          </button>
+          <button class="task" data-task="vocab" type="button">
+            <span class="box">✓</span>
+            <span><span class="task-title">Vocabulary review</span><span class="task-desc">Review 20–40 cards and add only useful phrases from today’s input.</span></span>
+            <span class="task-time">20m</span>
+          </button>
+          <button class="task" data-task="correction" type="button">
+            <span class="box">✓</span>
+            <span><span class="task-title">Correction loop</span><span class="task-desc">Fix one recurring mistake from your own writing or speaking. Keep it small.</span></span>
+            <span class="task-time">10m</span>
+          </button>
+        </div>
+
+        <div class="controls">
+          <button class="button primary" id="completeAll" type="button">Mark today done</button>
+          <button class="button" id="copySummary" type="button">Copy summary</button>
+          <button class="button danger" id="resetToday" type="button">Reset today</button>
+        </div>
+      </div>
+
+      <aside class="panel today-side">
+        <h2>Daily score</h2>
+        <p>Minimum viable day: reading + listening + one output. Perfect day: all six.</p>
+        <div class="ring-wrap">
+          <div class="ring" id="progressRing"><div class="ring-inner"><strong id="progressNumber">0%</strong><span id="progressLabel">0 / 6 done</span></div></div>
+        </div>
+        <div class="streak" id="streakGrid" aria-label="Last seven days"></div>
+        <div class="status-line" id="statusLine">Start with one task. The page will save your clicks automatically.</div>
+      </aside>
+    </section>
+
+
     <section class="layout">
       <aside class="panel toc">
         <div class="label">Contents</div>
+        <a href="#today">Today execution <span>00</span></a>
         <a href="#routine">Weekly routine <span>01</span></a>
         <a href="#timeline">6-month timeline <span>02</span></a>
         <a href="#week">Example week <span>03</span></a>
@@ -806,5 +1013,115 @@
 
     <footer>Private roadmap · Hermes Index</footer>
   </main>
+
+  <script>
+    (() => {
+      const taskList = document.getElementById('taskList');
+      if (!taskList) return;
+      const tasks = [...taskList.querySelectorAll('.task')];
+      const todayKey = new Date().toISOString().slice(0, 10);
+      const storageKey = `roadmap:english-c1:${todayKey}`;
+      const historyKey = 'roadmap:english-c1:history';
+      const dateEl = document.getElementById('todayDate');
+      const ring = document.getElementById('progressRing');
+      const number = document.getElementById('progressNumber');
+      const label = document.getElementById('progressLabel');
+      const status = document.getElementById('statusLine');
+      const streak = document.getElementById('streakGrid');
+      const copy = document.getElementById('copySummary');
+      const reset = document.getElementById('resetToday');
+      const completeAll = document.getElementById('completeAll');
+
+      const taskNames = Object.fromEntries(tasks.map(t => [t.dataset.task, t.querySelector('.task-title').textContent.trim()]));
+      const load = () => JSON.parse(localStorage.getItem(storageKey) || '{}');
+      const save = (state) => localStorage.setItem(storageKey, JSON.stringify(state));
+      const loadHistory = () => JSON.parse(localStorage.getItem(historyKey) || '{}');
+      const saveHistory = (history) => localStorage.setItem(historyKey, JSON.stringify(history));
+
+      function fmtDate(date) {
+        return date.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short' });
+      }
+
+      function updateHistory(doneCount) {
+        const history = loadHistory();
+        history[todayKey] = { done: doneCount, total: tasks.length, completed: doneCount === tasks.length };
+        saveHistory(history);
+      }
+
+      function renderStreak() {
+        const history = loadHistory();
+        streak.innerHTML = '';
+        for (let i = 6; i >= 0; i--) {
+          const d = new Date();
+          d.setDate(d.getDate() - i);
+          const key = d.toISOString().slice(0, 10);
+          const el = document.createElement('div');
+          el.className = 'streak-day';
+          if (history[key]?.completed) el.classList.add('done');
+          if (key === todayKey) el.classList.add('today');
+          el.textContent = d.toLocaleDateString('en-US', { weekday: 'short' }).slice(0, 2);
+          el.title = `${key}: ${history[key]?.done || 0}/${history[key]?.total || tasks.length}`;
+          streak.appendChild(el);
+        }
+      }
+
+      function render() {
+        const state = load();
+        let doneCount = 0;
+        tasks.forEach(task => {
+          const done = Boolean(state[task.dataset.task]);
+          task.classList.toggle('done', done);
+          task.setAttribute('aria-pressed', String(done));
+          if (done) doneCount++;
+        });
+        const pct = Math.round((doneCount / tasks.length) * 100);
+        ring.style.setProperty('--pct', pct);
+        number.textContent = `${pct}%`;
+        label.textContent = `${doneCount} / ${tasks.length} done`;
+        status.textContent = doneCount === 0
+          ? 'Start with one task. The page will save your clicks automatically.'
+          : doneCount === tasks.length
+            ? 'Perfect day. All English roadmap tasks are done.'
+            : `${tasks.length - doneCount} task${tasks.length - doneCount === 1 ? '' : 's'} left for today.`;
+        updateHistory(doneCount);
+        renderStreak();
+      }
+
+      dateEl.textContent = fmtDate(new Date());
+      tasks.forEach(task => task.addEventListener('click', () => {
+        const state = load();
+        state[task.dataset.task] = !state[task.dataset.task];
+        save(state);
+        render();
+      }));
+
+      completeAll.addEventListener('click', () => {
+        const state = {};
+        tasks.forEach(task => state[task.dataset.task] = true);
+        save(state);
+        render();
+      });
+
+      reset.addEventListener('click', () => {
+        localStorage.removeItem(storageKey);
+        render();
+      });
+
+      copy.addEventListener('click', async () => {
+        const state = load();
+        const done = Object.keys(taskNames).filter(k => state[k]).map(k => `- [x] ${taskNames[k]}`);
+        const undone = Object.keys(taskNames).filter(k => !state[k]).map(k => `- [ ] ${taskNames[k]}`);
+        const text = [`English C1 roadmap — ${todayKey}`, '', ...done, ...undone].join('\n');
+        try {
+          await navigator.clipboard.writeText(text);
+          status.textContent = 'Summary copied. You can paste it into Obsidian or Telegram.';
+        } catch {
+          status.textContent = text;
+        }
+      });
+
+      render();
+    })();
+  </script>
 </body>
 </html>
