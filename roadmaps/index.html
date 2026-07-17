@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Personal learning roadmaps — starting with a 6-month English roadmap from B1 to C1." />
+  <title>Roadmaps · Hermes Index</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #09090b;
+      --panel: rgba(255, 255, 255, 0.06);
+      --panel-2: rgba(255, 255, 255, 0.09);
+      --border: rgba(255, 255, 255, 0.12);
+      --text: #f4f4f5;
+      --muted: #a1a1aa;
+      --soft: #d4d4d8;
+      --accent: #8b5cf6;
+      --accent-2: #22d3ee;
+      --good: #34d399;
+      --warn: #fbbf24;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(139, 92, 246, 0.28), transparent 30%),
+        radial-gradient(circle at 90% 20%, rgba(34, 211, 238, 0.18), transparent 26%),
+        linear-gradient(180deg, #09090b 0%, #111114 100%);
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .wrap {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+      padding: 28px 20px 64px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 42px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-weight: 650;
+      letter-spacing: -0.02em;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 24px rgba(34, 211, 238, 0.65);
+    }
+
+    nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .pill, .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 0 13px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--panel);
+      color: var(--soft);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 22px;
+      align-items: stretch;
+      margin-bottom: 22px;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.075), rgba(255,255,255,0.035));
+      box-shadow: 0 24px 80px rgba(0,0,0,0.32);
+      backdrop-filter: blur(16px);
+    }
+
+    .hero-main { padding: 38px; }
+    .hero-side { padding: 28px; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-weight: 650;
+      font-size: 14px;
+    }
+
+    h1, h2, h3 { letter-spacing: -0.045em; }
+
+    h1 {
+      margin: 0 0 16px;
+      font-size: clamp(42px, 7vw, 78px);
+      line-height: 0.96;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: clamp(26px, 4vw, 42px);
+      line-height: 1.05;
+    }
+
+    h3 {
+      margin: 0 0 10px;
+      font-size: 21px;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.72;
+      font-size: 16px;
+    }
+
+    .gradient {
+      background: linear-gradient(135deg, #fff, #c4b5fd 45%, #67e8f9);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 26px;
+    }
+
+    .metric {
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+    }
+
+    .metric strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 22px;
+      letter-spacing: -0.04em;
+    }
+
+    .metric span { color: var(--muted); font-size: 13px; }
+
+    .side-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .check {
+      display: grid;
+      grid-template-columns: 26px 1fr;
+      gap: 10px;
+      align-items: start;
+      color: var(--soft);
+      line-height: 1.55;
+    }
+
+    .check::before {
+      content: "✓";
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(52, 211, 153, 0.14);
+      color: var(--good);
+      font-weight: 800;
+    }
+
+    .section { margin-top: 22px; padding: 28px; }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .mini {
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--panel);
+    }
+
+    .mini ul, .month ul, .routine ul {
+      margin: 12px 0 0;
+      padding-left: 20px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .month {
+      display: grid;
+      grid-template-columns: 130px 1fr;
+      gap: 16px;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: var(--panel);
+    }
+
+    .month-tag {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .month-tag strong { font-size: 18px; }
+    .month-tag span { color: var(--muted); font-size: 13px; }
+
+    .level {
+      display: inline-flex;
+      width: fit-content;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: rgba(139, 92, 246, 0.16);
+      color: #ddd6fe;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .routine {
+      padding: 20px;
+      border-radius: 22px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+    }
+
+    .routine .time {
+      color: var(--accent-2);
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .table {
+      overflow: auto;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      margin-top: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 720px;
+    }
+
+    th, td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th { color: var(--text); background: rgba(255,255,255,0.05); }
+    td { color: var(--muted); line-height: 1.6; }
+    tr:last-child td { border-bottom: 0; }
+
+    .note {
+      border-left: 3px solid var(--warn);
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: rgba(251, 191, 36, 0.08);
+      color: #fde68a;
+      line-height: 1.7;
+    }
+
+    footer {
+      margin-top: 26px;
+      color: #71717a;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    @media (max-width: 860px) {
+      .hero, .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .month { grid-template-columns: 1fr; }
+      .metrics { grid-template-columns: 1fr; }
+      header { align-items: flex-start; flex-direction: column; }
+      .hero-main, .hero-side, .section { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="/"><span class="dot"></span> Hermes Index</a>
+      <nav>
+        <a class="pill" href="/">Home</a>
+        <a class="pill" href="/roadmaps/">Roadmaps</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="card hero-main">
+        <div class="eyebrow"><span class="dot"></span> Roadmap 001 · English C1</div>
+        <h1><span class="gradient">B1 → C1 English</span><br />in 6 months</h1>
+        <p>
+          A practical roadmap to move from an intermediate B1 level toward C1-level academic and professional English,
+          with TOEFL-style skills, daily consistency, feedback loops, and measurable weekly outputs.
+        </p>
+        <div class="metrics">
+          <div class="metric"><strong>6 months</strong><span>24 focused weeks</span></div>
+          <div class="metric"><strong>2–3h/day</strong><span>minimum effective workload</span></div>
+          <div class="metric"><strong>C1 target</strong><span>academic + application-ready</span></div>
+        </div>
+      </div>
+
+      <aside class="card hero-side">
+        <h2>North star</h2>
+        <p>
+          By the end, you should be able to read papers, write clean academic emails/SOP drafts,
+          follow lectures, speak clearly about CS/research topics, and take TOEFL/IELTS preparation seriously.
+        </p>
+        <div class="side-list">
+          <div class="check">Start level: B1, roughly comfortable with everyday English but not yet academic fluency.</div>
+          <div class="check">Target: C1-like performance, especially for university applications and research communication.</div>
+          <div class="check">Method: input every day, active recall, speaking/writing feedback, and monthly mock tests.</div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="card section">
+      <h2>Weekly structure</h2>
+      <div class="grid-3">
+        <div class="routine">
+          <div class="time">Daily · 60 min</div>
+          <h3>Core input</h3>
+          <ul>
+            <li>30 min reading: graded articles → academic articles → papers.</li>
+            <li>30 min listening: podcasts, lectures, TOEFL lectures.</li>
+          </ul>
+        </div>
+        <div class="routine">
+          <div class="time">Daily · 45–60 min</div>
+          <h3>Active output</h3>
+          <ul>
+            <li>Write 150–300 words or one TOEFL-style answer.</li>
+            <li>Speak 5–10 minutes, record, then correct mistakes.</li>
+          </ul>
+        </div>
+        <div class="routine">
+          <div class="time">Daily · 30–45 min</div>
+          <h3>Language engine</h3>
+          <ul>
+            <li>Vocabulary with Anki/spaced repetition.</li>
+            <li>Grammar fixes from your own mistakes, not random exercises.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="card section">
+      <h2>6-month roadmap</h2>
+      <p>Each month has one main goal. Do not skip output: writing and speaking are what turn passive B1 knowledge into C1 control.</p>
+      <div class="timeline">
+        <article class="month">
+          <div class="month-tag"><strong>Month 1</strong><span class="level">B1 → strong B1</span><span>Foundation reset</span></div>
+          <div>
+            <h3>Stabilize grammar, pronunciation, and habit</h3>
+            <ul>
+              <li>Review high-impact grammar: tenses, articles, prepositions, relative clauses, conditionals.</li>
+              <li>Build a 1,000-word active academic/core vocabulary deck.</li>
+              <li>Read 20 short articles and write 12 summaries of 120–180 words.</li>
+              <li>Record 20 short speaking answers: self-introduction, university, CS, goals, daily topics.</li>
+              <li>End-of-month test: one complete reading/listening diagnostic + one writing sample.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="month">
+          <div class="month-tag"><strong>Month 2</strong><span class="level">B1+ → B2</span><span>Fluency building</span></div>
+          <div>
+            <h3>Move from translating to thinking in English</h3>
+            <ul>
+              <li>Read longer texts: technology, education, psychology, AI, research news.</li>
+              <li>Listen to 4–5 hours/week of clear English lectures or podcasts.</li>
+              <li>Write 3 paragraphs/week with a clear claim, evidence, and conclusion.</li>
+              <li>Do 3 speaking sessions/week: 2 minutes prepared + 2 minutes spontaneous.</li>
+              <li>Start TOEFL-style integrated tasks lightly: listen/read → summarize.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="month">
+          <div class="month-tag"><strong>Month 3</strong><span class="level">B2</span><span>Academic transition</span></div>
+          <div>
+            <h3>Shift toward university and research English</h3>
+            <ul>
+              <li>Read one CS/AI blog post or paper abstract every day.</li>
+              <li>Summarize 2 research papers/week in simple English.</li>
+              <li>Write one 350–450 word essay/week; revise it once after feedback.</li>
+              <li>Practice note-taking from lectures: main idea, details, examples.</li>
+              <li>End-of-month: mini mock test + 5-minute talk about a CS topic.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="month">
+          <div class="month-tag"><strong>Month 4</strong><span class="level">B2 → B2+</span><span>TOEFL/academic mode</span></div>
+          <div>
+            <h3>Train exam skills without losing real fluency</h3>
+            <ul>
+              <li>Weekly TOEFL-style reading set and listening set.</li>
+              <li>Two speaking prompts/week with timing; focus on structure and clarity.</li>
+              <li>Two writing tasks/week: one independent, one integrated.</li>
+              <li>Start using academic connectors naturally: however, therefore, whereas, in contrast.</li>
+              <li>Collect recurring mistakes into a personal correction list.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="month">
+          <div class="month-tag"><strong>Month 5</strong><span class="level">B2+ → C1-</span><span>Polish and speed</span></div>
+          <div>
+            <h3>Improve speed, precision, and confidence</h3>
+            <ul>
+              <li>Do one full timed section every week: reading, listening, speaking, or writing.</li>
+              <li>Write application-related texts: CV bullets, research email, SOP paragraphs.</li>
+              <li>Give one 7–10 minute presentation/week about AI, IR, or your research project.</li>
+              <li>Read at least 4 paper introductions and extract useful academic phrases.</li>
+              <li>Reduce filler words and Persian sentence patterns in speech.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="month">
+          <div class="month-tag"><strong>Month 6</strong><span class="level">C1 target</span><span>Mock + application readiness</span></div>
+          <div>
+            <h3>Convert training into test/application performance</h3>
+            <ul>
+              <li>Take 2 full mock tests, one at the start and one near the end of the month.</li>
+              <li>Finalize reusable academic assets: self-introduction, research summary, professor email, SOP draft.</li>
+              <li>Practice speaking under pressure: 45–60 sec answers and 3–5 min research explanations.</li>
+              <li>Write 4 polished essays or application texts and revise them deeply.</li>
+              <li>Decide final exam target and book TOEFL/IELTS when mock scores are stable.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="card section">
+      <h2>Monthly deliverables</h2>
+      <div class="table">
+        <table>
+          <thead>
+            <tr><th>Month</th><th>Output to save</th><th>Success metric</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>12 summaries, 20 speaking recordings, vocabulary deck</td><td>Fewer basic grammar mistakes; stable daily habit</td></tr>
+            <tr><td>2</td><td>8 paragraph essays, 12 speaking answers, 20h listening</td><td>Can explain familiar topics without long pauses</td></tr>
+            <tr><td>3</td><td>8 paper/blog summaries, 4 essays, mini mock</td><td>Comfortable with academic input and note-taking</td></tr>
+            <tr><td>4</td><td>TOEFL-style practice log, personal error list</td><td>Clear structure in timed speaking/writing</td></tr>
+            <tr><td>5</td><td>Research presentation recordings, SOP/email drafts</td><td>Better speed, precision, and academic vocabulary</td></tr>
+            <tr><td>6</td><td>2 full mocks, polished application English pack</td><td>Ready to choose exam date and target score</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card section">
+      <h2>Non-negotiable habits</h2>
+      <div class="grid-2">
+        <div class="mini">
+          <h3>Every day</h3>
+          <ul>
+            <li>Read something real.</li>
+            <li>Listen to something real.</li>
+            <li>Produce English: write or speak.</li>
+            <li>Review 20–40 vocabulary cards.</li>
+          </ul>
+        </div>
+        <div class="mini">
+          <h3>Every week</h3>
+          <ul>
+            <li>One longer writing task.</li>
+            <li>One recorded speaking review.</li>
+            <li>One academic/CS topic summary.</li>
+            <li>One honest progress check.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="note" style="margin-top:16px;">
+        C1 in 6 months from B1 is ambitious. It is realistic only with consistent output, feedback, and at least 2 hours of focused work most days.
+        If the workload drops, keep the same roadmap but extend it to 9–12 months.
+      </p>
+    </section>
+
+    <footer>Hermes Index · Roadmaps</footer>
+  </div>
+</body>
+</html>
