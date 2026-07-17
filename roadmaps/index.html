@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Interactive English C1 roadmap." />
-  <title>English C1 Roadmap</title>
+  <meta name="description" content="Private roadmap index." />
+  <title>Roadmaps</title>
   <style>
     :root {
       --bg: #f6f8fb;
@@ -14,30 +14,15 @@
       --line: #d0d7de;
       --line-strong: #9aa4b2;
       --yellow: #f4c430;
-      --blue: #dbeafe;
-      --green: #dcfce7;
-      --purple: #ede9fe;
-      --red: #ffe4e6;
-      --blue-border: #60a5fa;
-      --green-border: #22c55e;
-      --purple-border: #a78bfa;
-      --red-border: #fb7185;
-      --done: #16a34a;
-      --node-w: 230px;
-      --stage-w: 190px;
+      --green: #16a34a;
       font-family: Arial, Helvetica, sans-serif;
     }
 
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
     body { margin: 0; color: var(--ink); background: var(--bg); }
-    button, input { font: inherit; }
-    button { color: inherit; }
+    a { color: inherit; text-decoration: none; }
 
     .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 10;
       display: flex;
       justify-content: space-between;
       gap: 12px;
@@ -47,389 +32,129 @@
       background: var(--paper);
     }
 
-    .title { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-    .title h1 { margin: 0; font-size: 18px; line-height: 1.2; }
-    .title span { color: var(--muted); font-size: 13px; }
+    .topbar h1 { margin: 0; font-size: 18px; }
+    .topbar span { color: var(--muted); font-size: 13px; }
 
-    .actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-    .button, .chip {
-      border: 1px solid var(--line);
-      background: var(--paper);
-      border-radius: 6px;
-      padding: 7px 10px;
-      font-size: 13px;
+    main {
+      width: min(980px, calc(100% - 28px));
+      margin: 32px auto;
     }
-    .button { cursor: pointer; }
-    .button:hover { border-color: var(--line-strong); background: #f9fafb; }
-    .button.primary { background: #111827; color: white; border-color: #111827; }
-    .button.danger { color: #be123c; }
-    .chip { color: var(--muted); }
 
-    .layout {
+    .intro {
+      margin-bottom: 20px;
+    }
+    .intro h2 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      letter-spacing: -0.03em;
+    }
+    .intro p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .list {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 340px;
       gap: 12px;
-      width: min(1500px, calc(100% - 20px));
-      margin: 12px auto;
-      align-items: start;
     }
 
-    .canvas, .side {
+    .card {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
       border: 1px solid var(--line);
       background: var(--paper);
+      padding: 16px;
+      border-radius: 6px;
     }
 
-    .canvas-head {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 10px 12px;
-      border-bottom: 1px solid var(--line);
-      align-items: center;
-    }
-
-    .legend { display: flex; gap: 10px; flex-wrap: wrap; color: var(--muted); font-size: 12px; }
-    .legend span { display: inline-flex; gap: 5px; align-items: center; }
-    .swatch { width: 14px; height: 14px; border: 1px solid var(--line-strong); display: inline-block; }
-
-    .scroller {
-      overflow: auto;
-      height: calc(100vh - 116px);
+    .card:hover {
+      border-color: var(--line-strong);
       background: #fbfcfe;
     }
 
-    .roadmap {
-      position: relative;
-      min-width: 980px;
-      height: 2110px;
-      background-image:
-        linear-gradient(#eef2f7 1px, transparent 1px),
-        linear-gradient(90deg, #eef2f7 1px, transparent 1px);
-      background-size: 32px 32px;
+    .card h3 {
+      margin: 0 0 6px;
+      font-size: 18px;
     }
 
-    .main-line {
-      position: absolute;
-      left: 50%;
-      top: 44px;
-      width: 2px;
-      height: 1950px;
-      background: var(--line-strong);
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
     }
 
-    .connector {
-      position: absolute;
-      height: 2px;
-      background: var(--line-strong);
-      transform-origin: left center;
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
     }
 
-    .stage, .node {
-      position: absolute;
-      border: 2px solid var(--line-strong);
-      border-radius: 4px;
-      background: var(--paper);
-      text-align: center;
-    }
-
-    .stage {
-      width: var(--stage-w);
-      left: calc(50% - var(--stage-w) / 2);
-      padding: 10px;
-      border-color: #ca8a04;
-      background: #fef9c3;
-      font-weight: 700;
-    }
-    .stage small { display: block; margin-top: 3px; color: #713f12; font-weight: 400; }
-
-    .node {
-      width: var(--node-w);
-      min-height: 74px;
-      padding: 10px 12px;
-      cursor: pointer;
-      text-align: left;
-    }
-    .node:hover { outline: 2px solid #cbd5e1; }
-    .node.selected { outline: 3px solid #111827; }
-    .node.done { border-color: var(--done); background: #f0fdf4; }
-    .node.done .node-title::before { content: "✓ "; color: var(--done); }
-
-    .node.input { background: var(--blue); border-color: var(--blue-border); }
-    .node.output { background: var(--green); border-color: var(--green-border); }
-    .node.exam { background: var(--purple); border-color: var(--purple-border); }
-    .node.extra { background: var(--red); border-color: var(--red-border); }
-    .node.done.input, .node.done.output, .node.done.exam, .node.done.extra { background: #f0fdf4; border-color: var(--done); }
-
-    .node-title { display: block; font-weight: 700; font-size: 14px; line-height: 1.25; }
-    .node-meta { display: block; margin-top: 5px; color: #334155; font-size: 12px; line-height: 1.35; }
-
-    .side {
-      position: sticky;
-      top: 58px;
-    }
-    .side-section { padding: 14px; border-bottom: 1px solid var(--line); }
-    .side-section:last-child { border-bottom: 0; }
-    .side h2, .side h3 { margin: 0 0 8px; }
-    .side h2 { font-size: 18px; }
-    .side h3 { font-size: 16px; }
-    .side p, .side li { color: var(--muted); font-size: 14px; line-height: 1.55; }
-    .side ul { margin: 10px 0 0; padding-left: 20px; }
-
-    .progress-row { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
-    .percent { font-size: 28px; font-weight: 700; }
-    .bar { height: 10px; background: #e5e7eb; border: 1px solid var(--line); margin-top: 10px; }
-    .bar i { display: block; width: 0%; height: 100%; background: var(--done); }
-
-    .daily-task {
-      display: grid;
-      grid-template-columns: 20px 1fr;
-      gap: 8px;
-      width: 100%;
-      text-align: left;
+    .tag {
+      display: inline-flex;
       border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 3px 8px;
+      color: var(--muted);
+      font-size: 12px;
+      background: #f8fafc;
+    }
+
+    .arrow {
+      color: var(--muted);
+      font-size: 22px;
+    }
+
+    .empty {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border: 1px dashed var(--line-strong);
+      color: var(--muted);
       background: #fff;
-      padding: 9px;
-      border-radius: 4px;
-      margin: 7px 0;
-      cursor: pointer;
-      color: var(--muted);
-    }
-    .daily-task:hover { border-color: var(--line-strong); }
-    .daily-task .box { width: 18px; height: 18px; border: 1px solid var(--line-strong); display: grid; place-items: center; color: transparent; }
-    .daily-task.done { color: var(--ink); background: #f0fdf4; border-color: var(--done); }
-    .daily-task.done .box { background: var(--done); border-color: var(--done); color: white; }
-
-    .detail-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
-    .empty { color: var(--muted); }
-
-    .note {
-      margin: 12px auto;
-      width: min(1500px, calc(100% - 20px));
-      color: var(--muted);
-      font-size: 13px;
+      border-radius: 6px;
+      font-size: 14px;
     }
 
-    @media (max-width: 980px) {
-      .layout { grid-template-columns: 1fr; }
-      .side { position: static; }
-      .scroller { height: 70vh; }
-    }
-    @media (max-width: 620px) {
+    @media (max-width: 640px) {
       .topbar { align-items: flex-start; flex-direction: column; }
-      .actions { width: 100%; }
-      .roadmap { min-width: 900px; }
+      .card { grid-template-columns: 1fr; }
+      .arrow { display: none; }
     }
   </style>
 </head>
 <body>
   <header class="topbar">
-    <div class="title">
-      <h1>English C1 Roadmap</h1>
-      <span>B1 → C1 · 6 months · private interactive roadmap</span>
-    </div>
-    <div class="actions">
-      <span class="chip" id="todayChip">today</span>
-      <button class="button" id="copySummary" type="button">Copy summary</button>
-      <button class="button danger" id="resetAll" type="button">Reset</button>
-    </div>
+    <h1>Roadmaps</h1>
+    <span>Private index</span>
   </header>
 
-  <main class="layout">
-    <section class="canvas" aria-label="Roadmap canvas">
-      <div class="canvas-head">
-        <div class="legend">
-          <span><i class="swatch" style="background:#fef9c3;border-color:#ca8a04"></i>Stage</span>
-          <span><i class="swatch" style="background:var(--blue);border-color:var(--blue-border)"></i>Input</span>
-          <span><i class="swatch" style="background:var(--green);border-color:var(--green-border)"></i>Output</span>
-          <span><i class="swatch" style="background:var(--purple);border-color:var(--purple-border)"></i>Exam / research</span>
-        </div>
-        <button class="button primary" id="markToday" type="button">Mark today's minimum done</button>
-      </div>
-      <div class="scroller">
-        <div class="roadmap" id="roadmap">
-          <div class="main-line"></div>
-        </div>
-      </div>
+  <main>
+    <section class="intro">
+      <h2>Choose a roadmap</h2>
+      <p>This page is only an index. Click a roadmap to open its interactive board.</p>
     </section>
 
-    <aside class="side">
-      <section class="side-section">
-        <div class="progress-row"><h2>Progress</h2><span class="percent" id="percent">0%</span></div>
-        <div class="bar"><i id="bar"></i></div>
-        <p id="progressText">0 nodes completed.</p>
-      </section>
+    <section class="list" aria-label="Available roadmaps">
+      <a class="card" href="/roadmaps/english-c1/">
+        <div>
+          <h3>English C1 Roadmap</h3>
+          <p>B1 to C1 in 6 months. Interactive roadmap board with nodes, progress, and a daily minimum checklist.</p>
+          <div class="meta">
+            <span class="tag">English</span>
+            <span class="tag">B1 → C1</span>
+            <span class="tag">6 months</span>
+            <span class="tag">Interactive</span>
+          </div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+    </section>
 
-      <section class="side-section" id="details">
-        <h2>Select a node</h2>
-        <p class="empty">Click a roadmap box to see what to do. Double-click a box to toggle done.</p>
-      </section>
-
-      <section class="side-section">
-        <h3>Today minimum</h3>
-        <button class="daily-task" data-daily="read" type="button"><span class="box">✓</span><span>Read one real text for 30 minutes</span></button>
-        <button class="daily-task" data-daily="listen" type="button"><span class="box">✓</span><span>Listen and write 3–5 notes</span></button>
-        <button class="daily-task" data-daily="output" type="button"><span class="box">✓</span><span>Produce one output: writing or speaking</span></button>
-      </section>
-    </aside>
+    <div class="empty">More roadmaps can be added here later.</div>
   </main>
-
-  <p class="note">This page intentionally avoids marketing UI, glow, gradients, fake stats, and decorative cards. It is meant to work like a practical roadmap board.</p>
-
-  <script>
-    const nodes = [
-      {id:'m1', type:'stage', y:40, title:'Month 1', sub:'Foundation reset'},
-      {id:'grammar', x:110, y:128, group:'input', title:'Core grammar reset', meta:'tenses, articles, prepositions, conditionals', desc:'Fix the grammar mistakes that repeatedly damage clarity.', tasks:['Create a personal grammar error list','Do short targeted drills','Rewrite 5 old sentences correctly']},
-      {id:'vocab1', x:640, y:128, group:'input', title:'1000 active words', meta:'academic + everyday words', desc:'Build an active vocabulary system with useful phrases, not random isolated words.', tasks:['Create an Anki deck','Add 20–40 cards daily','Review every day']},
-      {id:'summaries1', x:375, y:240, group:'output', title:'12 short summaries', meta:'120–180 words each', desc:'Turn passive reading into active writing.', tasks:['Read 20 short articles','Write 12 summaries','Correct repeated grammar mistakes']},
-
-      {id:'m2', type:'stage', y:390, title:'Month 2', sub:'B1+ → B2 fluency'},
-      {id:'reading2', x:110, y:478, group:'input', title:'Longer reading', meta:'tech, AI, education, research news', desc:'Increase stamina and reduce translation habit.', tasks:['Read 4 longer texts/week','Highlight useful phrases','Explain each article in 3 bullets']},
-      {id:'listening2', x:640, y:478, group:'input', title:'Listening stamina', meta:'4–5 hours/week', desc:'Listen actively with notes, not as background noise.', tasks:['Listen to lectures/podcasts','Write main idea + examples','Replay hard sections']},
-      {id:'speaking2', x:375, y:590, group:'output', title:'Spontaneous speaking', meta:'prepared + unprepared answers', desc:'Make English speech more automatic.', tasks:['3 recordings/week','2 minutes prepared','2 minutes spontaneous']},
-
-      {id:'m3', type:'stage', y:740, title:'Month 3', sub:'Academic transition'},
-      {id:'paper', x:110, y:828, group:'exam', title:'Paper abstracts', meta:'CS / AI / IR / NLP', desc:'Start reading academic material without panic.', tasks:['Read one abstract/day','Write simple summaries','Collect academic phrases']},
-      {id:'essay', x:640, y:828, group:'output', title:'Weekly essay', meta:'350–450 words', desc:'Practice structured academic writing with revision.', tasks:['Write one essay/week','Revise after feedback','Track repeated mistakes']},
-      {id:'talk', x:375, y:940, group:'output', title:'5-minute CS talk', meta:'explain a technical topic', desc:'Practice research and application speaking.', tasks:['Choose one CS topic','Make 5 bullets','Record and review']},
-
-      {id:'m4', type:'stage', y:1090, title:'Month 4', sub:'TOEFL / exam mode'},
-      {id:'toeflRead', x:110, y:1178, group:'exam', title:'Timed reading + listening', meta:'weekly TOEFL-style sets', desc:'Build exam timing and note-taking skill.', tasks:['One reading set/week','One listening set/week','Review wrong answers']},
-      {id:'toeflSpeak', x:640, y:1178, group:'exam', title:'Timed speaking', meta:'structured short answers', desc:'Practice clear answers under time pressure.', tasks:['2 prompts/week','Use fixed structure','Reduce filler words']},
-      {id:'toeflWrite', x:375, y:1290, group:'exam', title:'Integrated writing', meta:'independent + integrated tasks', desc:'Combine listening and reading notes into organized writing.', tasks:['2 writing tasks/week','Use connectors naturally','Keep mistake bank']},
-
-      {id:'m5', type:'stage', y:1440, title:'Month 5', sub:'Speed and polish'},
-      {id:'apps', x:110, y:1528, group:'output', title:'Application English', meta:'CV, emails, SOP paragraphs', desc:'Turn practice into application assets.', tasks:['Draft professor email','Polish CV bullets','Write SOP paragraphs']},
-      {id:'research', x:640, y:1528, group:'exam', title:'Research presentation', meta:'7–10 min weekly talks', desc:'Explain AI/IR/research topics with confidence.', tasks:['One presentation/week','Record it','Improve structure and pronunciation']},
-      {id:'phrases', x:375, y:1640, group:'input', title:'Academic phrase bank', meta:'from paper introductions', desc:'Collect reusable academic language.', tasks:['Read 4 paper intros','Extract useful phrases','Use them in essays']},
-
-      {id:'m6', type:'stage', y:1790, title:'Month 6', sub:'C1 readiness'},
-      {id:'mock', x:110, y:1878, group:'exam', title:'2 full mock tests', meta:'start and end of month', desc:'Measure readiness and decide exam timing.', tasks:['Take full mock #1','Fix weak areas','Take full mock #2']},
-      {id:'pack', x:640, y:1878, group:'output', title:'Application pack', meta:'self-intro, research summary, email, SOP', desc:'Prepare reusable English assets for applications.', tasks:['Finalize self-introduction','Finalize research summary','Finalize professor email']},
-      {id:'book', x:375, y:1990, group:'extra', title:'Book exam', meta:'when mock scores stabilize', desc:'Choose TOEFL/IELTS date when performance is consistent.', tasks:['Set target score','Choose exam date','Plan final 4-week prep']}
-    ];
-
-    const roadmap = document.getElementById('roadmap');
-    const stateKey = 'english-c1-roadmap:nodes';
-    const dailyKey = () => 'english-c1-roadmap:daily:' + new Date().toISOString().slice(0,10);
-    let selected = 'grammar';
-
-    function load(key, fallback={}) { try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); } catch { return fallback; } }
-    function save(key, value) { localStorage.setItem(key, JSON.stringify(value)); }
-    function center(n) {
-      const w = n.type === 'stage' ? 190 : 230;
-      const h = n.type === 'stage' ? 58 : 78;
-      const x = n.type === 'stage' ? 490 - w / 2 : n.x;
-      return { x: x + w / 2, y: n.y + h / 2 };
-    }
-
-    function drawConnector(a, b) {
-      const A = center(a), B = center(b);
-      const dx = B.x - A.x, dy = B.y - A.y;
-      const len = Math.sqrt(dx * dx + dy * dy);
-      const angle = Math.atan2(dy, dx) * 180 / Math.PI;
-      const el = document.createElement('div');
-      el.className = 'connector';
-      el.style.left = A.x + 'px';
-      el.style.top = A.y + 'px';
-      el.style.width = len + 'px';
-      el.style.transform = `rotate(${angle}deg)`;
-      roadmap.appendChild(el);
-    }
-
-    function renderMap() {
-      [...roadmap.querySelectorAll('.connector,.node,.stage')].forEach(e => e.remove());
-      const done = load(stateKey);
-      for (let i = 0; i < nodes.length - 1; i++) drawConnector(nodes[i], nodes[i + 1]);
-      nodes.forEach(n => {
-        const el = document.createElement('button');
-        el.type = 'button';
-        el.dataset.id = n.id;
-        if (n.type === 'stage') {
-          el.className = 'stage';
-          el.style.top = n.y + 'px';
-          el.innerHTML = `${n.title}<small>${n.sub}</small>`;
-        } else {
-          el.className = `node ${n.group}`;
-          if (done[n.id]) el.classList.add('done');
-          if (selected === n.id) el.classList.add('selected');
-          el.style.left = n.x + 'px';
-          el.style.top = n.y + 'px';
-          el.innerHTML = `<span class="node-title">${n.title}</span><span class="node-meta">${n.meta}</span>`;
-          el.addEventListener('click', () => { selected = n.id; renderDetails(); renderMap(); });
-          el.addEventListener('dblclick', () => toggleNode(n.id));
-        }
-        roadmap.appendChild(el);
-      });
-      renderProgress();
-    }
-
-    function toggleNode(id) {
-      const done = load(stateKey);
-      done[id] = !done[id];
-      save(stateKey, done);
-      renderMap();
-      renderDetails();
-    }
-
-    function renderProgress() {
-      const done = load(stateKey);
-      const real = nodes.filter(n => n.type !== 'stage');
-      const count = real.filter(n => done[n.id]).length;
-      const pct = Math.round(count / real.length * 100);
-      document.getElementById('percent').textContent = pct + '%';
-      document.getElementById('bar').style.width = pct + '%';
-      document.getElementById('progressText').textContent = `${count} of ${real.length} roadmap nodes completed.`;
-    }
-
-    function renderDetails() {
-      const n = nodes.find(x => x.id === selected && x.type !== 'stage') || nodes.find(x => x.id === 'grammar');
-      const done = load(stateKey);
-      document.getElementById('details').innerHTML = `
-        <h2>${n.title}</h2>
-        <p>${n.desc}</p>
-        <ul>${n.tasks.map(t => `<li>${t}</li>`).join('')}</ul>
-        <div class="detail-actions">
-          <button class="button primary" id="toggleSelected" type="button">${done[n.id] ? 'Mark not done' : 'Mark done'}</button>
-        </div>`;
-      document.getElementById('toggleSelected').addEventListener('click', () => toggleNode(n.id));
-    }
-
-    function renderDaily() {
-      const daily = load(dailyKey());
-      document.querySelectorAll('.daily-task').forEach(btn => btn.classList.toggle('done', Boolean(daily[btn.dataset.daily])));
-    }
-
-    document.querySelectorAll('.daily-task').forEach(btn => btn.addEventListener('click', () => {
-      const daily = load(dailyKey());
-      daily[btn.dataset.daily] = !daily[btn.dataset.daily];
-      save(dailyKey(), daily);
-      renderDaily();
-    }));
-
-    document.getElementById('markToday').addEventListener('click', () => {
-      save(dailyKey(), { read: true, listen: true, output: true });
-      renderDaily();
-    });
-
-    document.getElementById('resetAll').addEventListener('click', () => {
-      if (!confirm('Reset roadmap and today checklist?')) return;
-      localStorage.removeItem(stateKey);
-      localStorage.removeItem(dailyKey());
-      renderMap(); renderDetails(); renderDaily();
-    });
-
-    document.getElementById('copySummary').addEventListener('click', async () => {
-      const done = load(stateKey);
-      const daily = load(dailyKey());
-      const real = nodes.filter(n => n.type !== 'stage');
-      const completed = real.filter(n => done[n.id]).map(n => `- [x] ${n.title}`);
-      const today = ['read', 'listen', 'output'].map(k => `- [${daily[k] ? 'x' : ' '}] ${k}`);
-      const text = [`English C1 Roadmap`, `Progress: ${completed.length}/${real.length}`, '', 'Today:', ...today, '', 'Completed nodes:', ...completed].join('\n');
-      try { await navigator.clipboard.writeText(text); alert('Copied summary.'); } catch { console.log(text); }
-    });
-
-    document.getElementById('todayChip').textContent = new Date().toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short' });
-    renderMap(); renderDetails(); renderDaily();
-  </script>
 </body>
 </html>
