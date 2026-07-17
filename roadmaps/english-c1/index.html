@@ -181,25 +181,6 @@
     .bar { height: 10px; background: #e5e7eb; border: 1px solid var(--line); margin-top: 10px; }
     .bar i { display: block; width: 0%; height: 100%; background: var(--done); }
 
-    .daily-task {
-      display: grid;
-      grid-template-columns: 20px 1fr;
-      gap: 8px;
-      width: 100%;
-      text-align: left;
-      border: 1px solid var(--line);
-      background: #fff;
-      padding: 9px;
-      border-radius: 4px;
-      margin: 7px 0;
-      cursor: pointer;
-      color: var(--muted);
-    }
-    .daily-task:hover { border-color: var(--line-strong); }
-    .daily-task .box { width: 18px; height: 18px; border: 1px solid var(--line-strong); display: grid; place-items: center; color: transparent; }
-    .daily-task.done { color: var(--ink); background: #f0fdf4; border-color: var(--done); }
-    .daily-task.done .box { background: var(--done); border-color: var(--done); color: white; }
-
     .detail-block { margin-top: 14px; }
     .detail-block h3 { margin: 0 0 6px; font-size: 14px; color: var(--ink); }
     .detail-block a { color: #0f766e; text-decoration: underline; text-underline-offset: 2px; }
@@ -233,7 +214,6 @@
     </div>
     <div class="actions">
       <a class="button" href="/roadmaps/">All roadmaps</a>
-      <span class="chip" id="todayChip">today</span>
       <button class="button" id="copySummary" type="button">Copy summary</button>
       <button class="button danger" id="resetAll" type="button">Reset</button>
     </div>
@@ -248,7 +228,6 @@
           <span><i class="swatch" style="background:var(--green);border-color:var(--green-border)"></i>Output</span>
           <span><i class="swatch" style="background:var(--purple);border-color:var(--purple-border)"></i>Exam / research</span>
         </div>
-        <button class="button primary" id="markToday" type="button">Mark today's minimum done</button>
       </div>
       <div class="scroller">
         <div class="roadmap" id="roadmap">
@@ -268,17 +247,10 @@
         <h2>Select a node</h2>
         <p class="empty">Click a roadmap box to see what to do. Double-click a box to toggle done.</p>
       </section>
-
-      <section class="side-section">
-        <h3>Today minimum</h3>
-        <button class="daily-task" data-daily="read" type="button"><span class="box">✓</span><span>Read one real text for 30 minutes</span></button>
-        <button class="daily-task" data-daily="listen" type="button"><span class="box">✓</span><span>Listen and write 3–5 notes</span></button>
-        <button class="daily-task" data-daily="output" type="button"><span class="box">✓</span><span>Produce one output: writing or speaking</span></button>
-      </section>
     </aside>
   </main>
 
-  <p class="note">This page intentionally avoids marketing UI, glow, gradients, fake stats, and decorative cards. It is meant to work like a practical roadmap board.</p>
+  <p class="note">This page is a roadmap reference board. Daily tracking is handled in Obsidian.</p>
 
   <script>
     const nodes = [
@@ -315,7 +287,6 @@
 
     const roadmap = document.getElementById('roadmap');
     const stateKey = 'english-c1-roadmap:nodes';
-    const dailyKey = () => 'english-c1-roadmap:daily:' + new Date().toISOString().slice(0,10);
     let selected = 'grammar';
 
     function load(key, fallback={}) { try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); } catch { return fallback; } }
@@ -405,42 +376,21 @@
       document.getElementById('toggleSelected').addEventListener('click', () => toggleNode(n.id));
     }
 
-    function renderDaily() {
-      const daily = load(dailyKey());
-      document.querySelectorAll('.daily-task').forEach(btn => btn.classList.toggle('done', Boolean(daily[btn.dataset.daily])));
-    }
-
-    document.querySelectorAll('.daily-task').forEach(btn => btn.addEventListener('click', () => {
-      const daily = load(dailyKey());
-      daily[btn.dataset.daily] = !daily[btn.dataset.daily];
-      save(dailyKey(), daily);
-      renderDaily();
-    }));
-
-    document.getElementById('markToday').addEventListener('click', () => {
-      save(dailyKey(), { read: true, listen: true, output: true });
-      renderDaily();
-    });
-
     document.getElementById('resetAll').addEventListener('click', () => {
-      if (!confirm('Reset roadmap and today checklist?')) return;
+      if (!confirm('Reset roadmap progress?')) return;
       localStorage.removeItem(stateKey);
-      localStorage.removeItem(dailyKey());
-      renderMap(); renderDetails(); renderDaily();
+      renderMap(); renderDetails();
     });
 
     document.getElementById('copySummary').addEventListener('click', async () => {
       const done = load(stateKey);
-      const daily = load(dailyKey());
       const real = nodes.filter(n => n.type !== 'stage');
       const completed = real.filter(n => done[n.id]).map(n => `- [x] ${n.title}`);
-      const today = ['read', 'listen', 'output'].map(k => `- [${daily[k] ? 'x' : ' '}] ${k}`);
-      const text = [`English C1 Roadmap`, `Progress: ${completed.length}/${real.length}`, '', 'Today:', ...today, '', 'Completed nodes:', ...completed].join('\n');
+      const text = [`English C1 Roadmap`, `Progress: ${completed.length}/${real.length}`, '', 'Completed nodes:', ...completed].join('\n');
       try { await navigator.clipboard.writeText(text); alert('Copied summary.'); } catch { console.log(text); }
     });
 
-    document.getElementById('todayChip').textContent = new Date().toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short' });
-    renderMap(); renderDetails(); renderDaily();
+    renderMap(); renderDetails();
   </script>
 </body>
 </html>
