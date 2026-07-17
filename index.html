@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Hermes Index — a minimal index page hosted on GitHub Pages." />
+  <title>Hermes Index</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #09090b;
+      --panel: rgba(255, 255, 255, 0.06);
+      --panel-border: rgba(255, 255, 255, 0.12);
+      --text: #f4f4f5;
+      --muted: #a1a1aa;
+      --accent: #8b5cf6;
+      --accent-2: #22d3ee;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 32px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 20% 15%, rgba(139, 92, 246, 0.32), transparent 30%),
+        radial-gradient(circle at 80% 80%, rgba(34, 211, 238, 0.22), transparent 28%),
+        var(--bg);
+    }
+
+    main {
+      width: min(760px, 100%);
+      padding: 42px;
+      border: 1px solid var(--panel-border);
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+      box-shadow: 0 24px 90px rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(20px);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 1px solid var(--panel-border);
+      border-radius: 999px;
+      color: var(--muted);
+      background: var(--panel);
+      font-size: 14px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 18px rgba(34, 211, 238, 0.8);
+    }
+
+    h1 {
+      margin: 26px 0 14px;
+      font-size: clamp(44px, 8vw, 84px);
+      line-height: 0.95;
+      letter-spacing: -0.07em;
+    }
+
+    .gradient {
+      background: linear-gradient(135deg, #fff, #c4b5fd 42%, #67e8f9);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    p {
+      margin: 0;
+      max-width: 58ch;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 16px;
+      border-radius: 14px;
+      border: 1px solid var(--panel-border);
+      background: var(--panel);
+      color: var(--text);
+      font-weight: 650;
+    }
+
+    .button.primary {
+      border: 0;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #07070a;
+    }
+
+    footer {
+      margin-top: 34px;
+      color: #71717a;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="badge"><span class="dot"></span> GitHub Pages is live</div>
+    <h1><span class="gradient">Hermes Index</span></h1>
+    <p>
+      A minimal landing page for <strong>hermes-index.github.io</strong>.
+      This site is deployed from the <code>hermes-index/hermes-index.github.io</code> repository.
+    </p>
+    <div class="actions">
+      <a class="button primary" href="https://github.com/hermes-index/hermes-index.github.io">View repository</a>
+      <a class="button" href="https://hermes-index.github.io">Refresh site</a>
+    </div>
+    <footer>Ready for indexing projects, notes, links, and experiments.</footer>
+  </main>
+</body>
+</html>
