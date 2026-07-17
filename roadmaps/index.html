@@ -3,535 +3,808 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Personal learning roadmaps — starting with a 6-month English roadmap from B1 to C1." />
-  <title>Roadmaps · Hermes Index</title>
+  <meta name="description" content="Private roadmaps — a focused 6-month English roadmap from B1 to C1." />
+  <title>Roadmaps · English C1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       color-scheme: dark;
-      --bg: #09090b;
-      --panel: rgba(255, 255, 255, 0.06);
-      --panel-2: rgba(255, 255, 255, 0.09);
-      --border: rgba(255, 255, 255, 0.12);
-      --text: #f4f4f5;
-      --muted: #a1a1aa;
-      --soft: #d4d4d8;
-      --accent: #8b5cf6;
-      --accent-2: #22d3ee;
-      --good: #34d399;
-      --warn: #fbbf24;
+      --bg: #08090a;
+      --bg-2: #0b0c0f;
+      --panel: rgba(255,255,255,.025);
+      --panel-2: rgba(255,255,255,.045);
+      --panel-3: #111216;
+      --border: rgba(255,255,255,.08);
+      --border-soft: rgba(255,255,255,.05);
+      --text: #f7f8f8;
+      --muted: #8a8f98;
+      --soft: #d0d6e0;
+      --dim: #62666d;
+      --brand: #5e6ad2;
+      --brand-2: #7170ff;
+      --green: #10b981;
+      --yellow: #f6c177;
+      --red: #f87171;
+      --radius: 18px;
+      --shadow: 0 30px 100px rgba(0,0,0,.42);
     }
 
     * { box-sizing: border-box; }
-
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at 10% 10%, rgba(139, 92, 246, 0.28), transparent 30%),
-        radial-gradient(circle at 90% 20%, rgba(34, 211, 238, 0.18), transparent 26%),
-        linear-gradient(180deg, #09090b 0%, #111114 100%);
+        radial-gradient(900px 520px at 48% -160px, rgba(113,112,255,.28), transparent 60%),
+        radial-gradient(680px 420px at 92% 8%, rgba(94,106,210,.16), transparent 64%),
+        linear-gradient(180deg, var(--bg), var(--bg-2) 58%, #070708);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      font-feature-settings: "cv01", "ss03";
+      letter-spacing: -.01em;
     }
 
     a { color: inherit; text-decoration: none; }
+    code, .mono { font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
 
-    .wrap {
-      width: min(1120px, 100%);
+    .shell {
+      width: min(1180px, calc(100% - 32px));
       margin: 0 auto;
-      padding: 28px 20px 64px;
+      padding: 28px 0 72px;
     }
 
-    header {
+    .topbar {
+      position: sticky;
+      top: 12px;
+      z-index: 20;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      margin-bottom: 42px;
+      padding: 10px 12px;
+      margin-bottom: 56px;
+      border: 1px solid var(--border-soft);
+      border-radius: 999px;
+      background: rgba(8,9,10,.72);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 1px 0 rgba(255,255,255,.03) inset;
     }
 
     .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--muted);
-      font-weight: 650;
-      letter-spacing: -0.02em;
-    }
-
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      box-shadow: 0 0 24px rgba(34, 211, 238, 0.65);
-    }
-
-    nav {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .pill, .button {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      min-height: 38px;
-      padding: 0 13px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      background: var(--panel);
+      gap: 10px;
+      padding-left: 4px;
       color: var(--soft);
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 510;
+    }
+
+    .mark {
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+      box-shadow: 0 0 0 4px rgba(94,106,210,.08);
+    }
+
+    .mark::after {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--brand-2);
+      box-shadow: 0 0 22px var(--brand-2);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 510;
+    }
+
+    .nav a {
+      padding: 8px 11px;
+      border-radius: 999px;
+    }
+
+    .nav a:hover, .nav a.active {
+      color: var(--text);
+      background: rgba(255,255,255,.05);
     }
 
     .hero {
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
+      grid-template-columns: minmax(0, 1fr) 350px;
       gap: 22px;
       align-items: stretch;
       margin-bottom: 22px;
     }
 
-    .card {
+    .panel {
       border: 1px solid var(--border);
       border-radius: 28px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.075), rgba(255,255,255,0.035));
-      box-shadow: 0 24px 80px rgba(0,0,0,0.32);
-      backdrop-filter: blur(16px);
+      background: linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.022));
+      box-shadow: var(--shadow), 0 1px 0 rgba(255,255,255,.04) inset;
+      overflow: hidden;
     }
 
-    .hero-main { padding: 38px; }
-    .hero-side { padding: 28px; }
+    .hero-copy {
+      padding: 48px;
+      min-height: 510px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .hero-copy::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: radial-gradient(circle at 50% 0%, black 0%, transparent 70%);
+    }
+
+    .hero-copy > * { position: relative; }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
+      width: fit-content;
       gap: 8px;
-      margin-bottom: 18px;
+      padding: 7px 10px;
+      border: 1px solid var(--border-soft);
+      border-radius: 999px;
+      background: rgba(255,255,255,.025);
       color: var(--muted);
-      font-weight: 650;
-      font-size: 14px;
+      font-size: 12px;
+      font-weight: 510;
     }
 
-    h1, h2, h3 { letter-spacing: -0.045em; }
+    .pulse {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 18px rgba(16,185,129,.9);
+    }
 
     h1 {
-      margin: 0 0 16px;
-      font-size: clamp(42px, 7vw, 78px);
-      line-height: 0.96;
-    }
-
-    h2 {
-      margin: 0 0 14px;
-      font-size: clamp(26px, 4vw, 42px);
-      line-height: 1.05;
-    }
-
-    h3 {
-      margin: 0 0 10px;
-      font-size: 21px;
-    }
-
-    p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.72;
-      font-size: 16px;
+      max-width: 850px;
+      margin: 28px 0 18px;
+      font-size: clamp(48px, 7vw, 86px);
+      line-height: .94;
+      font-weight: 510;
+      letter-spacing: -1.6px;
     }
 
     .gradient {
-      background: linear-gradient(135deg, #fff, #c4b5fd 45%, #67e8f9);
+      background: linear-gradient(135deg, #fff 0%, #e4e8ff 42%, #8f96ff 72%, #73e1ff 100%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
     }
 
-    .metrics {
+    .lead {
+      max-width: 730px;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 0 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.025);
+      color: var(--soft);
+      font-size: 14px;
+      font-weight: 510;
+    }
+
+    .button.primary {
+      border-color: transparent;
+      background: var(--brand);
+      color: white;
+      box-shadow: 0 0 28px rgba(94,106,210,.28);
+    }
+
+    .hero-meta {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
-      margin-top: 26px;
+      margin-top: 36px;
     }
 
     .metric {
       padding: 16px;
-      border-radius: 18px;
-      border: 1px solid var(--border);
-      background: var(--panel);
+      border: 1px solid var(--border-soft);
+      border-radius: 16px;
+      background: rgba(255,255,255,.025);
     }
 
     .metric strong {
       display: block;
-      margin-bottom: 5px;
-      font-size: 22px;
-      letter-spacing: -0.04em;
+      color: var(--text);
+      font-size: 24px;
+      font-weight: 510;
+      letter-spacing: -.6px;
+      margin-bottom: 4px;
     }
 
-    .metric span { color: var(--muted); font-size: 13px; }
+    .metric span { color: var(--muted); font-size: 13px; line-height: 1.45; }
 
-    .side-list {
-      display: grid;
-      gap: 12px;
-      margin-top: 18px;
+    .side {
+      padding: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.018));
     }
 
-    .check {
-      display: grid;
-      grid-template-columns: 26px 1fr;
-      gap: 10px;
-      align-items: start;
-      color: var(--soft);
-      line-height: 1.55;
+    .side h2, .section h2 {
+      margin: 0;
+      font-size: 30px;
+      line-height: 1.08;
+      font-weight: 510;
+      letter-spacing: -.8px;
     }
 
-    .check::before {
-      content: "✓";
-      width: 24px;
-      height: 24px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      background: rgba(52, 211, 153, 0.14);
-      color: var(--good);
-      font-weight: 800;
+    .side p, .section > p {
+      color: var(--muted);
+      line-height: 1.65;
+      margin: 12px 0 0;
     }
 
-    .section { margin-top: 22px; padding: 28px; }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-    }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-
-    .mini {
+    .score-card {
+      margin-top: 22px;
       padding: 18px;
       border: 1px solid var(--border);
       border-radius: 20px;
-      background: var(--panel);
+      background: rgba(0,0,0,.18);
     }
 
-    .mini ul, .month ul, .routine ul {
-      margin: 12px 0 0;
-      padding-left: 20px;
+    .score-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--soft);
+      font-size: 13px;
+      font-weight: 510;
+      margin-bottom: 10px;
+    }
+
+    .bar {
+      height: 9px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.065);
+      overflow: hidden;
+    }
+
+    .bar > i {
+      display: block;
+      width: 62%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--brand), var(--brand-2));
+      box-shadow: 0 0 20px rgba(113,112,255,.5);
+    }
+
+    .quick-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .quick-item {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 12px;
+      border: 1px solid var(--border-soft);
+      border-radius: 14px;
+      background: rgba(255,255,255,.02);
+      color: var(--soft);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .quick-item::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      margin-top: 7px;
+      border-radius: 50%;
+      background: var(--brand-2);
+      box-shadow: 0 0 14px rgba(113,112,255,.8);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .toc {
+      position: sticky;
+      top: 98px;
+      padding: 18px;
+    }
+
+    .toc .label {
+      color: var(--dim);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 12px;
+    }
+
+    .toc a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 8px;
+      border-radius: 10px;
       color: var(--muted);
-      line-height: 1.75;
+      font-size: 13px;
+      font-weight: 510;
     }
 
-    .timeline {
+    .toc a:hover { color: var(--text); background: rgba(255,255,255,.035); }
+    .toc span { color: var(--dim); font-family: "JetBrains Mono", monospace; font-size: 11px; }
+
+    .content { display: grid; gap: 22px; }
+    .section { padding: 28px; }
+
+    .cards-3, .cards-2 {
       display: grid;
       gap: 14px;
-      margin-top: 16px;
+      margin-top: 18px;
+    }
+
+    .cards-3 { grid-template-columns: repeat(3, 1fr); }
+    .cards-2 { grid-template-columns: repeat(2, 1fr); }
+
+    .mini {
+      padding: 18px;
+      border: 1px solid var(--border-soft);
+      border-radius: 18px;
+      background: rgba(255,255,255,.022);
+    }
+
+    .mini .kicker {
+      color: var(--brand-2);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .mini h3, .month h3 {
+      margin: 0 0 8px;
+      color: var(--text);
+      font-size: 18px;
+      line-height: 1.25;
+      font-weight: 590;
+      letter-spacing: -.25px;
+    }
+
+    ul { margin: 12px 0 0; padding-left: 18px; }
+    li { color: var(--muted); line-height: 1.7; margin: 4px 0; }
+    li strong { color: var(--soft); font-weight: 510; }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      gap: 14px;
+      margin-top: 22px;
     }
 
     .month {
       display: grid;
-      grid-template-columns: 130px 1fr;
-      gap: 16px;
+      grid-template-columns: 128px 1fr 190px;
+      gap: 18px;
       padding: 18px;
       border: 1px solid var(--border);
       border-radius: 22px;
-      background: var(--panel);
+      background: rgba(255,255,255,.022);
     }
 
-    .month-tag {
+    .month-index {
       display: flex;
       flex-direction: column;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .month-index .num {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      background: rgba(94,106,210,.16);
+      color: #dfe2ff;
+      border: 1px solid rgba(113,112,255,.22);
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+    }
+
+    .month-index strong { color: var(--text); font-weight: 590; }
+    .month-index span { color: var(--muted); font-size: 13px; line-height: 1.45; }
+
+    .deliverable {
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid var(--border-soft);
+      background: rgba(0,0,0,.16);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .deliverable b {
+      display: block;
+      color: var(--yellow);
+      font-weight: 510;
+      margin-bottom: 6px;
+    }
+
+    .week-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
       gap: 8px;
+      margin-top: 18px;
     }
 
-    .month-tag strong { font-size: 18px; }
-    .month-tag span { color: var(--muted); font-size: 13px; }
+    .day {
+      min-height: 118px;
+      padding: 12px;
+      border: 1px solid var(--border-soft);
+      border-radius: 16px;
+      background: rgba(255,255,255,.02);
+    }
 
-    .level {
-      display: inline-flex;
-      width: fit-content;
-      padding: 5px 9px;
-      border-radius: 999px;
-      background: rgba(139, 92, 246, 0.16);
-      color: #ddd6fe;
+    .day b {
+      color: var(--soft);
+      font-size: 13px;
+      font-weight: 590;
+    }
+
+    .day p {
+      margin: 8px 0 0;
+      color: var(--muted);
       font-size: 12px;
-      font-weight: 800;
+      line-height: 1.55;
     }
 
-    .routine {
-      padding: 20px;
-      border-radius: 22px;
-      border: 1px solid var(--border);
-      background: var(--panel);
+    .tracker {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
     }
 
-    .routine .time {
-      color: var(--accent-2);
-      font-weight: 800;
-      margin-bottom: 8px;
+    .track-row {
+      display: grid;
+      grid-template-columns: 180px 1fr 72px;
+      gap: 14px;
+      align-items: center;
+      padding: 12px;
+      border: 1px solid var(--border-soft);
+      border-radius: 14px;
+      background: rgba(255,255,255,.018);
     }
 
-    .table {
-      overflow: auto;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      margin-top: 16px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 720px;
-    }
-
-    th, td {
-      padding: 14px 16px;
-      border-bottom: 1px solid var(--border);
-      vertical-align: top;
-      text-align: left;
-    }
-
-    th { color: var(--text); background: rgba(255,255,255,0.05); }
-    td { color: var(--muted); line-height: 1.6; }
-    tr:last-child td { border-bottom: 0; }
+    .track-row b { color: var(--soft); font-size: 14px; font-weight: 510; }
+    .track-row span { color: var(--muted); font-size: 13px; }
+    .mini-bar { height: 8px; border-radius: 99px; background: rgba(255,255,255,.06); overflow: hidden; }
+    .mini-bar i { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--brand), var(--green)); }
+    .percent { text-align: right; font-family: "JetBrains Mono", monospace; color: var(--dim) !important; }
 
     .note {
-      border-left: 3px solid var(--warn);
-      padding: 14px 16px;
-      border-radius: 14px;
-      background: rgba(251, 191, 36, 0.08);
-      color: #fde68a;
-      line-height: 1.7;
+      margin-top: 18px;
+      padding: 16px 18px;
+      border: 1px solid rgba(246,193,119,.18);
+      border-left: 3px solid var(--yellow);
+      border-radius: 16px;
+      background: rgba(246,193,119,.07);
+      color: #f8ddb2;
+      line-height: 1.65;
     }
 
     footer {
-      margin-top: 26px;
-      color: #71717a;
-      font-size: 13px;
+      margin-top: 34px;
+      color: var(--dim);
       text-align: center;
+      font-size: 13px;
     }
 
-    @media (max-width: 860px) {
-      .hero, .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    @media (max-width: 980px) {
+      .hero, .layout { grid-template-columns: 1fr; }
+      .toc { position: static; }
+      .cards-3, .cards-2, .week-grid { grid-template-columns: 1fr; }
       .month { grid-template-columns: 1fr; }
-      .metrics { grid-template-columns: 1fr; }
-      header { align-items: flex-start; flex-direction: column; }
-      .hero-main, .hero-side, .section { padding: 24px; }
+      .track-row { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .shell { width: min(100% - 20px, 1180px); padding-top: 14px; }
+      .topbar { border-radius: 18px; align-items: flex-start; flex-direction: column; top: 8px; }
+      .nav { width: 100%; overflow: auto; padding-bottom: 2px; }
+      .hero-copy { padding: 28px; min-height: auto; }
+      h1 { font-size: 44px; letter-spacing: -1px; }
+      .lead { font-size: 16px; }
+      .hero-meta { grid-template-columns: 1fr; }
+      .section, .side { padding: 20px; }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <a class="brand" href="/"><span class="dot"></span> Hermes Index</a>
-      <nav>
-        <a class="pill" href="/">Home</a>
-        <a class="pill" href="/roadmaps/">Roadmaps</a>
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="/"><span class="mark"></span> Hermes Index</a>
+      <nav class="nav" aria-label="Roadmap sections">
+        <a class="active" href="#overview">Overview</a>
+        <a href="#routine">Routine</a>
+        <a href="#timeline">Timeline</a>
+        <a href="#tracker">Tracker</a>
       </nav>
     </header>
 
-    <section class="hero">
-      <div class="card hero-main">
-        <div class="eyebrow"><span class="dot"></span> Roadmap 001 · English C1</div>
-        <h1><span class="gradient">B1 → C1 English</span><br />in 6 months</h1>
-        <p>
-          A practical roadmap to move from an intermediate B1 level toward C1-level academic and professional English,
-          with TOEFL-style skills, daily consistency, feedback loops, and measurable weekly outputs.
-        </p>
-        <div class="metrics">
-          <div class="metric"><strong>6 months</strong><span>24 focused weeks</span></div>
-          <div class="metric"><strong>2–3h/day</strong><span>minimum effective workload</span></div>
-          <div class="metric"><strong>C1 target</strong><span>academic + application-ready</span></div>
+    <section class="hero" id="overview">
+      <div class="panel hero-copy">
+        <div>
+          <div class="eyebrow"><span class="pulse"></span> Private roadmap · English C1 · 24 weeks</div>
+          <h1><span class="gradient">B1 to C1 English</span><br>without wasting motion.</h1>
+          <p class="lead">
+            A focused 6-month plan for moving from B1 toward C1-level academic and professional English.
+            The roadmap prioritizes output, feedback, TOEFL-style skills, and application-ready communication.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#timeline">Start with Month 1</a>
+            <a class="button" href="#routine">See weekly routine</a>
+          </div>
+        </div>
+        <div class="hero-meta">
+          <div class="metric"><strong>B1</strong><span>Current level: intermediate, needs academic control.</span></div>
+          <div class="metric"><strong>C1</strong><span>Target: confident research and university English.</span></div>
+          <div class="metric"><strong>2–3h</strong><span>Daily focused work for an ambitious 6-month jump.</span></div>
         </div>
       </div>
 
-      <aside class="card hero-side">
-        <h2>North star</h2>
-        <p>
-          By the end, you should be able to read papers, write clean academic emails/SOP drafts,
-          follow lectures, speak clearly about CS/research topics, and take TOEFL/IELTS preparation seriously.
-        </p>
-        <div class="side-list">
-          <div class="check">Start level: B1, roughly comfortable with everyday English but not yet academic fluency.</div>
-          <div class="check">Target: C1-like performance, especially for university applications and research communication.</div>
-          <div class="check">Method: input every day, active recall, speaking/writing feedback, and monthly mock tests.</div>
+      <aside class="panel side">
+        <h2>Success criteria</h2>
+        <p>By the end, English should support applying abroad, emailing professors, explaining research, and preparing seriously for TOEFL/IELTS.</p>
+        <div class="score-card">
+          <div class="score-line"><span>Roadmap intensity</span><span class="mono">high</span></div>
+          <div class="bar"><i></i></div>
+        </div>
+        <div class="quick-list">
+          <div class="quick-item">Read papers, CS blogs, and academic material without translating every sentence.</div>
+          <div class="quick-item">Write polished emails, SOP paragraphs, summaries, and TOEFL-style essays.</div>
+          <div class="quick-item">Speak for 5–10 minutes about CS, goals, and research with structure.</div>
+          <div class="quick-item">Use monthly mock tests and weekly artifacts to measure progress.</div>
         </div>
       </aside>
     </section>
 
-    <section class="card section">
-      <h2>Weekly structure</h2>
-      <div class="grid-3">
-        <div class="routine">
-          <div class="time">Daily · 60 min</div>
-          <h3>Core input</h3>
-          <ul>
-            <li>30 min reading: graded articles → academic articles → papers.</li>
-            <li>30 min listening: podcasts, lectures, TOEFL lectures.</li>
-          </ul>
-        </div>
-        <div class="routine">
-          <div class="time">Daily · 45–60 min</div>
-          <h3>Active output</h3>
-          <ul>
-            <li>Write 150–300 words or one TOEFL-style answer.</li>
-            <li>Speak 5–10 minutes, record, then correct mistakes.</li>
-          </ul>
-        </div>
-        <div class="routine">
-          <div class="time">Daily · 30–45 min</div>
-          <h3>Language engine</h3>
-          <ul>
-            <li>Vocabulary with Anki/spaced repetition.</li>
-            <li>Grammar fixes from your own mistakes, not random exercises.</li>
-          </ul>
-        </div>
+    <section class="layout">
+      <aside class="panel toc">
+        <div class="label">Contents</div>
+        <a href="#routine">Weekly routine <span>01</span></a>
+        <a href="#timeline">6-month timeline <span>02</span></a>
+        <a href="#week">Example week <span>03</span></a>
+        <a href="#tracker">Progress tracker <span>04</span></a>
+        <a href="#rules">Rules <span>05</span></a>
+      </aside>
+
+      <div class="content">
+        <section class="panel section" id="routine">
+          <h2>Weekly routine</h2>
+          <p>A simple system: real input every day, forced output every day, feedback every week.</p>
+          <div class="cards-3">
+            <article class="mini">
+              <div class="kicker">60 min / day</div>
+              <h3>Input layer</h3>
+              <ul>
+                <li><strong>Reading:</strong> articles → academic texts → paper intros.</li>
+                <li><strong>Listening:</strong> lectures, podcasts, TOEFL lectures.</li>
+                <li>Keep a small list of useful phrases, not isolated words only.</li>
+              </ul>
+            </article>
+            <article class="mini">
+              <div class="kicker">45–60 min / day</div>
+              <h3>Output layer</h3>
+              <ul>
+                <li>Write 150–300 words or one timed TOEFL-style answer.</li>
+                <li>Record 5–10 minutes of speaking and review mistakes.</li>
+                <li>Re-use topics from CS, university, applications, and research.</li>
+              </ul>
+            </article>
+            <article class="mini">
+              <div class="kicker">30–45 min / day</div>
+              <h3>Correction layer</h3>
+              <ul>
+                <li>Anki/spaced repetition for high-value vocabulary.</li>
+                <li>Grammar fixes from your own writing and speaking errors.</li>
+                <li>Weekly mock or timed section from Month 4 onward.</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel section" id="timeline">
+          <h2>6-month timeline</h2>
+          <p>Each month has a single job. Do not optimize everything at once.</p>
+          <div class="timeline">
+            <article class="month">
+              <div class="month-index"><div class="num">01</div><strong>Foundation reset</strong><span>B1 → strong B1</span></div>
+              <div>
+                <h3>Make the habit automatic and remove basic friction</h3>
+                <ul>
+                  <li>Review high-impact grammar: tenses, articles, prepositions, relative clauses, conditionals.</li>
+                  <li>Build a 1,000-word active deck for academic/core vocabulary.</li>
+                  <li>Read 20 short articles and write 12 summaries of 120–180 words.</li>
+                  <li>Record 20 short speaking answers on everyday, university, and CS topics.</li>
+                </ul>
+              </div>
+              <div class="deliverable"><b>Deliverable</b>Diagnostic test + 12 summaries + 20 recordings + personal error list.</div>
+            </article>
+
+            <article class="month">
+              <div class="month-index"><div class="num">02</div><strong>Fluency building</strong><span>B1+ → B2</span></div>
+              <div>
+                <h3>Stop translating; start thinking in English</h3>
+                <ul>
+                  <li>Read longer texts about technology, AI, education, productivity, and research.</li>
+                  <li>Listen to 4–5 hours/week of clear English lectures or podcasts.</li>
+                  <li>Write 3 structured paragraphs/week: claim, evidence, conclusion.</li>
+                  <li>Do 3 speaking sessions/week: 2 minutes prepared + 2 minutes spontaneous.</li>
+                </ul>
+              </div>
+              <div class="deliverable"><b>Deliverable</b>8 paragraph essays + 12 speaking answers + 20h listening log.</div>
+            </article>
+
+            <article class="month">
+              <div class="month-index"><div class="num">03</div><strong>Academic transition</strong><span>B2</span></div>
+              <div>
+                <h3>Move into university, CS, and research English</h3>
+                <ul>
+                  <li>Read one CS/AI blog post or paper abstract every day.</li>
+                  <li>Summarize 2 research papers/week in simple, clear English.</li>
+                  <li>Write one 350–450 word essay/week and revise it once.</li>
+                  <li>Practice lecture note-taking: main idea, details, examples.</li>
+                </ul>
+              </div>
+              <div class="deliverable"><b>Deliverable</b>8 research summaries + 4 revised essays + 5-minute CS talk.</div>
+            </article>
+
+            <article class="month">
+              <div class="month-index"><div class="num">04</div><strong>Exam mode</strong><span>B2 → B2+</span></div>
+              <div>
+                <h3>Train TOEFL-style timing while keeping real fluency</h3>
+                <ul>
+                  <li>Weekly TOEFL-style reading set and listening set.</li>
+                  <li>Two timed speaking prompts/week with clear structure.</li>
+                  <li>Two writing tasks/week: one independent, one integrated.</li>
+                  <li>Use connectors naturally: however, therefore, whereas, in contrast.</li>
+                </ul>
+              </div>
+              <div class="deliverable"><b>Deliverable</b>TOEFL practice log + recurring mistake bank + mini mock.</div>
+            </article>
+
+            <article class="month">
+              <div class="month-index"><div class="num">05</div><strong>Speed & polish</strong><span>B2+ → C1-</span></div>
+              <div>
+                <h3>Improve precision, speed, and confidence</h3>
+                <ul>
+                  <li>Do one full timed section every week.</li>
+                  <li>Write application texts: CV bullets, professor email, SOP paragraphs.</li>
+                  <li>Give one 7–10 minute presentation/week about AI, IR, or your project.</li>
+                  <li>Extract academic phrases from at least 4 paper introductions.</li>
+                </ul>
+              </div>
+              <div class="deliverable"><b>Deliverable</b>Presentation recordings + polished email/SOP drafts + phrase bank.</div>
+            </article>
+
+            <article class="month">
+              <div class="month-index"><div class="num">06</div><strong>C1 readiness</strong><span>C1 target</span></div>
+              <div>
+                <h3>Convert training into test and application performance</h3>
+                <ul>
+                  <li>Take 2 full mock tests: start and end of the month.</li>
+                  <li>Finalize self-introduction, research summary, professor email, and SOP draft.</li>
+                  <li>Practice 45–60 second answers and 3–5 minute research explanations.</li>
+                  <li>Book TOEFL/IELTS when mock scores are stable enough.</li>
+                </ul>
+              </div>
+              <div class="deliverable"><b>Deliverable</b>2 mock tests + final application English pack + exam decision.</div>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel section" id="week">
+          <h2>Example week</h2>
+          <p>A compact week template. Repeat it, then increase difficulty each month.</p>
+          <div class="week-grid">
+            <div class="day"><b>Mon</b><p>Reading + vocabulary + short speaking. English class day: review class notes.</p></div>
+            <div class="day"><b>Tue</b><p>Listening notes + 250-word writing. Correct grammar from your own text.</p></div>
+            <div class="day"><b>Wed</b><p>CS article/paper abstract + summary. Record a 3-minute explanation.</p></div>
+            <div class="day"><b>Thu</b><p>TOEFL-style prompt + English class. Save new mistakes to error bank.</p></div>
+            <div class="day"><b>Fri</b><p>Longer essay or integrated writing. Revise once after feedback.</p></div>
+            <div class="day"><b>Sat</b><p>Mock section or timed practice. Check speed, not just correctness.</p></div>
+            <div class="day"><b>Sun</b><p>Weekly review: update tracker, choose next week topics, clean vocabulary.</p></div>
+          </div>
+        </section>
+
+        <section class="panel section" id="tracker">
+          <h2>Progress tracker</h2>
+          <p>Use these signals to know if the roadmap is working.</p>
+          <div class="tracker">
+            <div class="track-row"><b>Reading</b><div class="mini-bar"><i style="width:82%"></i></div><span class="percent">paper-ready</span></div>
+            <div class="track-row"><b>Listening</b><div class="mini-bar"><i style="width:76%"></i></div><span class="percent">lectures</span></div>
+            <div class="track-row"><b>Writing</b><div class="mini-bar"><i style="width:88%"></i></div><span class="percent">SOP/email</span></div>
+            <div class="track-row"><b>Speaking</b><div class="mini-bar"><i style="width:70%"></i></div><span class="percent">research talk</span></div>
+          </div>
+          <p class="note">
+            C1 in 6 months from B1 is ambitious. It only works with consistent output and feedback.
+            If the workload drops below 2 focused hours/day, keep the same plan but stretch it to 9–12 months.
+          </p>
+        </section>
+
+        <section class="panel section" id="rules">
+          <h2>Rules</h2>
+          <div class="cards-2">
+            <article class="mini">
+              <div class="kicker">Non-negotiable</div>
+              <h3>Every day</h3>
+              <ul>
+                <li>Read something real.</li>
+                <li>Listen to something real.</li>
+                <li>Produce English: write or speak.</li>
+                <li>Review 20–40 useful cards.</li>
+              </ul>
+            </article>
+            <article class="mini">
+              <div class="kicker">Review loop</div>
+              <h3>Every week</h3>
+              <ul>
+                <li>One longer writing task.</li>
+                <li>One recorded speaking review.</li>
+                <li>One academic/CS topic summary.</li>
+                <li>One honest progress check.</li>
+              </ul>
+            </article>
+          </div>
+        </section>
       </div>
     </section>
 
-    <section class="card section">
-      <h2>6-month roadmap</h2>
-      <p>Each month has one main goal. Do not skip output: writing and speaking are what turn passive B1 knowledge into C1 control.</p>
-      <div class="timeline">
-        <article class="month">
-          <div class="month-tag"><strong>Month 1</strong><span class="level">B1 → strong B1</span><span>Foundation reset</span></div>
-          <div>
-            <h3>Stabilize grammar, pronunciation, and habit</h3>
-            <ul>
-              <li>Review high-impact grammar: tenses, articles, prepositions, relative clauses, conditionals.</li>
-              <li>Build a 1,000-word active academic/core vocabulary deck.</li>
-              <li>Read 20 short articles and write 12 summaries of 120–180 words.</li>
-              <li>Record 20 short speaking answers: self-introduction, university, CS, goals, daily topics.</li>
-              <li>End-of-month test: one complete reading/listening diagnostic + one writing sample.</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="month">
-          <div class="month-tag"><strong>Month 2</strong><span class="level">B1+ → B2</span><span>Fluency building</span></div>
-          <div>
-            <h3>Move from translating to thinking in English</h3>
-            <ul>
-              <li>Read longer texts: technology, education, psychology, AI, research news.</li>
-              <li>Listen to 4–5 hours/week of clear English lectures or podcasts.</li>
-              <li>Write 3 paragraphs/week with a clear claim, evidence, and conclusion.</li>
-              <li>Do 3 speaking sessions/week: 2 minutes prepared + 2 minutes spontaneous.</li>
-              <li>Start TOEFL-style integrated tasks lightly: listen/read → summarize.</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="month">
-          <div class="month-tag"><strong>Month 3</strong><span class="level">B2</span><span>Academic transition</span></div>
-          <div>
-            <h3>Shift toward university and research English</h3>
-            <ul>
-              <li>Read one CS/AI blog post or paper abstract every day.</li>
-              <li>Summarize 2 research papers/week in simple English.</li>
-              <li>Write one 350–450 word essay/week; revise it once after feedback.</li>
-              <li>Practice note-taking from lectures: main idea, details, examples.</li>
-              <li>End-of-month: mini mock test + 5-minute talk about a CS topic.</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="month">
-          <div class="month-tag"><strong>Month 4</strong><span class="level">B2 → B2+</span><span>TOEFL/academic mode</span></div>
-          <div>
-            <h3>Train exam skills without losing real fluency</h3>
-            <ul>
-              <li>Weekly TOEFL-style reading set and listening set.</li>
-              <li>Two speaking prompts/week with timing; focus on structure and clarity.</li>
-              <li>Two writing tasks/week: one independent, one integrated.</li>
-              <li>Start using academic connectors naturally: however, therefore, whereas, in contrast.</li>
-              <li>Collect recurring mistakes into a personal correction list.</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="month">
-          <div class="month-tag"><strong>Month 5</strong><span class="level">B2+ → C1-</span><span>Polish and speed</span></div>
-          <div>
-            <h3>Improve speed, precision, and confidence</h3>
-            <ul>
-              <li>Do one full timed section every week: reading, listening, speaking, or writing.</li>
-              <li>Write application-related texts: CV bullets, research email, SOP paragraphs.</li>
-              <li>Give one 7–10 minute presentation/week about AI, IR, or your research project.</li>
-              <li>Read at least 4 paper introductions and extract useful academic phrases.</li>
-              <li>Reduce filler words and Persian sentence patterns in speech.</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="month">
-          <div class="month-tag"><strong>Month 6</strong><span class="level">C1 target</span><span>Mock + application readiness</span></div>
-          <div>
-            <h3>Convert training into test/application performance</h3>
-            <ul>
-              <li>Take 2 full mock tests, one at the start and one near the end of the month.</li>
-              <li>Finalize reusable academic assets: self-introduction, research summary, professor email, SOP draft.</li>
-              <li>Practice speaking under pressure: 45–60 sec answers and 3–5 min research explanations.</li>
-              <li>Write 4 polished essays or application texts and revise them deeply.</li>
-              <li>Decide final exam target and book TOEFL/IELTS when mock scores are stable.</li>
-            </ul>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="card section">
-      <h2>Monthly deliverables</h2>
-      <div class="table">
-        <table>
-          <thead>
-            <tr><th>Month</th><th>Output to save</th><th>Success metric</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>1</td><td>12 summaries, 20 speaking recordings, vocabulary deck</td><td>Fewer basic grammar mistakes; stable daily habit</td></tr>
-            <tr><td>2</td><td>8 paragraph essays, 12 speaking answers, 20h listening</td><td>Can explain familiar topics without long pauses</td></tr>
-            <tr><td>3</td><td>8 paper/blog summaries, 4 essays, mini mock</td><td>Comfortable with academic input and note-taking</td></tr>
-            <tr><td>4</td><td>TOEFL-style practice log, personal error list</td><td>Clear structure in timed speaking/writing</td></tr>
-            <tr><td>5</td><td>Research presentation recordings, SOP/email drafts</td><td>Better speed, precision, and academic vocabulary</td></tr>
-            <tr><td>6</td><td>2 full mocks, polished application English pack</td><td>Ready to choose exam date and target score</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <section class="card section">
-      <h2>Non-negotiable habits</h2>
-      <div class="grid-2">
-        <div class="mini">
-          <h3>Every day</h3>
-          <ul>
-            <li>Read something real.</li>
-            <li>Listen to something real.</li>
-            <li>Produce English: write or speak.</li>
-            <li>Review 20–40 vocabulary cards.</li>
-          </ul>
-        </div>
-        <div class="mini">
-          <h3>Every week</h3>
-          <ul>
-            <li>One longer writing task.</li>
-            <li>One recorded speaking review.</li>
-            <li>One academic/CS topic summary.</li>
-            <li>One honest progress check.</li>
-          </ul>
-        </div>
-      </div>
-      <p class="note" style="margin-top:16px;">
-        C1 in 6 months from B1 is ambitious. It is realistic only with consistent output, feedback, and at least 2 hours of focused work most days.
-        If the workload drops, keep the same roadmap but extend it to 9–12 months.
-      </p>
-    </section>
-
-    <footer>Hermes Index · Roadmaps</footer>
-  </div>
+    <footer>Private roadmap · Hermes Index</footer>
+  </main>
 </body>
 </html>
