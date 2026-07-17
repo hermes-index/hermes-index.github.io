@@ -25,7 +25,35 @@
       --done: #16a34a;
       --node-w: 230px;
       --stage-w: 190px;
+      --button-bg: #ffffff;
+      --canvas-bg: #fbfcfe;
+      --grid: #eef2f7;
+      --stage-bg: #fef9c3;
+      --stage-ink: #713f12;
       font-family: Arial, Helvetica, sans-serif;
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #0f172a;
+      --paper: #111827;
+      --ink: #e5e7eb;
+      --muted: #9ca3af;
+      --line: #374151;
+      --line-strong: #6b7280;
+      --yellow: #eab308;
+      --blue: #172554;
+      --green: #052e16;
+      --purple: #2e1065;
+      --red: #4c0519;
+      --blue-border: #3b82f6;
+      --green-border: #22c55e;
+      --purple-border: #8b5cf6;
+      --red-border: #fb7185;
+      --button-bg: #1f2937;
+      --canvas-bg: #0b1220;
+      --grid: #1f2937;
+      --stage-bg: #422006;
+      --stage-ink: #fde68a;
     }
 
     * { box-sizing: border-box; }
@@ -61,7 +89,7 @@
       font-size: 13px;
     }
     .button { cursor: pointer; }
-    .button:hover { border-color: var(--line-strong); background: #f9fafb; }
+    .button:hover { border-color: var(--line-strong); background: var(--button-bg); }
     .button.primary { background: #111827; color: white; border-color: #111827; }
     .button.danger { color: #be123c; }
     .chip { color: var(--muted); }
@@ -96,7 +124,7 @@
     .scroller {
       overflow: auto;
       height: calc(100vh - 116px);
-      background: #fbfcfe;
+      background: var(--canvas-bg);
     }
 
     .roadmap {
@@ -104,8 +132,8 @@
       min-width: 980px;
       height: 2110px;
       background-image:
-        linear-gradient(#eef2f7 1px, transparent 1px),
-        linear-gradient(90deg, #eef2f7 1px, transparent 1px);
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
       background-size: 32px 32px;
     }
 
@@ -138,10 +166,10 @@
       left: calc(50% - var(--stage-w) / 2);
       padding: 10px;
       border-color: #ca8a04;
-      background: #fef9c3;
+      background: var(--stage-bg);
       font-weight: 700;
     }
-    .stage small { display: block; margin-top: 3px; color: #713f12; font-weight: 400; }
+    .stage small { display: block; margin-top: 3px; color: var(--stage-ink); font-weight: 400; }
 
     .node {
       width: var(--node-w);
@@ -214,7 +242,8 @@
     </div>
     <div class="actions">
       <a class="button" href="/roadmaps/">All roadmaps</a>
-      <button class="button" id="copySummary" type="button">Copy summary</button>
+      <button class="button" id="themeToggle" type="button">Dark mode</button>
+      <button class="button" id="copySummary" type="button" title="Copy completed roadmap nodes as a Markdown checklist for Obsidian or Telegram">Copy progress</button>
       <button class="button danger" id="resetAll" type="button">Reset</button>
     </div>
   </header>
@@ -255,9 +284,9 @@
   <script>
     const nodes = [
       {id:'m1', type:'stage', y:40, title:'Month 1', sub:'Foundation reset'},
-      {id:'grammar', x:110, y:128, group:'input', title:'Core grammar reset', meta:'tenses, articles, prepositions, conditionals', desc:'Fix the grammar mistakes that repeatedly damage clarity. Focus only on mistakes that appear in your own writing or speaking.', learn:['Verb tense consistency','Articles: a/an/the/zero article','Prepositions in academic phrases','Relative clauses and conditionals'], tasks:['Create a personal grammar error list','Do short targeted drills','Rewrite 5 old sentences correctly'], output:'A one-page personal grammar checklist with 10 recurring mistakes and corrected examples.', resources:[['British Council Grammar','https://learnenglish.britishcouncil.org/grammar'],['Perfect English Grammar','https://www.perfect-english-grammar.com/'],['Cambridge Dictionary Grammar','https://dictionary.cambridge.org/grammar/british-grammar/']]},
-      {id:'vocab1', x:640, y:128, group:'input', title:'1000 active words', meta:'academic + everyday words', desc:'Build an active vocabulary system with useful phrases, not random isolated words. Every card should help you write or speak.', learn:['Academic verbs and collocations','Common CS/research phrases','Spaced repetition workflow','Example sentences instead of translations only'], tasks:['Create an Anki deck','Add 20–40 cards daily','Review every day'], output:'An Anki deck with phrase-based cards and at least 300 mature cards by the end of Month 1.', resources:[['Anki Manual','https://docs.ankiweb.net/'],['Oxford 3000 and 5000','https://www.oxfordlearnersdictionaries.com/wordlists/oxford3000-5000'],['Academic Phrasebank','https://www.phrasebank.manchester.ac.uk/']]},
-      {id:'summaries1', x:375, y:240, group:'output', title:'12 short summaries', meta:'120–180 words each', desc:'Turn passive reading into active writing. You are training compression: main idea, evidence, and conclusion.', learn:['Finding the main claim','Removing unnecessary details','Paraphrasing without copying','Writing concise conclusions'], tasks:['Read 20 short articles','Write 12 summaries','Correct repeated grammar mistakes'], output:'12 saved summaries, each revised once.', resources:[['News in Levels','https://www.newsinlevels.com/'],['BBC Learning English','https://www.bbc.co.uk/learningenglish'],['Purdue OWL Paraphrasing','https://owl.purdue.edu/owl/research_and_citation/using_research/paraphrase_exercises/index.html']]},
+      {id:'grammar', x:110, y:128, group:'input', title:'Core grammar reset', meta:'tenses, articles, prepositions, conditionals', desc:'Fix the grammar mistakes that repeatedly damage clarity. Focus only on mistakes that appear in your own writing or speaking.', learn:['Verb tense consistency','Articles: a/an/the/zero article','Prepositions in academic phrases','Relative clauses and conditionals'], tasks:['Create a personal grammar error list','Do short targeted drills','Rewrite 5 old sentences correctly'], output:'A one-page personal grammar checklist with 10 recurring mistakes and corrected examples.', resources:[['British Council Grammar','https://learnenglish.britishcouncil.org/grammar'],['Perfect English Grammar','https://www.perfect-english-grammar.com/'],['Cambridge Dictionary Grammar','https://dictionary.cambridge.org/grammar/british-grammar/'],['Book: English Grammar in Use','https://www.cambridge.org/grammarandbeyond/grammar-in-use'],['Book: Advanced Grammar in Use','https://www.cambridge.org/grammarandbeyond/grammar-in-use']]},
+      {id:'vocab1', x:640, y:128, group:'input', title:'1000 active words', meta:'academic + everyday words', desc:'Build an active vocabulary system with useful phrases, not random isolated words. Every card should help you write or speak.', learn:['Academic verbs and collocations','Common CS/research phrases','Spaced repetition workflow','Example sentences instead of translations only'], tasks:['Create an Anki deck','Add 20–40 cards daily','Review every day'], output:'An Anki deck with phrase-based cards and at least 300 mature cards by the end of Month 1.', resources:[['Anki Manual','https://docs.ankiweb.net/'],['Oxford 3000 and 5000','https://www.oxfordlearnersdictionaries.com/wordlists/oxford3000-5000'],['Academic Phrasebank','https://www.phrasebank.manchester.ac.uk/'],['Book: English Vocabulary in Use Upper-intermediate','https://www.cambridge.org/elt/catalogue/subject/project/item404794/English-Vocabulary-in-Use-Upper-intermediate-4th-Edition/'],['Book: English Vocabulary in Use Advanced','https://www.cambridge.org/elt/catalogue/subject/project/item404795/English-Vocabulary-in-Use-Advanced-3rd-Edition/']]},
+      {id:'summaries1', x:375, y:240, group:'output', title:'12 short summaries', meta:'120–180 words each', desc:'Turn passive reading into active writing. You are training compression: main idea, evidence, and conclusion.', learn:['Finding the main claim','Removing unnecessary details','Paraphrasing without copying','Writing concise conclusions'], tasks:['Read 20 short articles','Write 12 summaries','Correct repeated grammar mistakes'], output:'12 saved summaries, each revised once.', resources:[['News in Levels','https://www.newsinlevels.com/'],['BBC Learning English','https://www.bbc.co.uk/learningenglish'],['Purdue OWL Paraphrasing','https://owl.purdue.edu/owl/research_and_citation/using_research/paraphrase_exercises/index.html'],['Book: They Say / I Say','https://wwnorton.com/books/9780393538700']]},
 
       {id:'m2', type:'stage', y:390, title:'Month 2', sub:'B1+ → B2 fluency'},
       {id:'reading2', x:110, y:478, group:'input', title:'Longer reading', meta:'tech, AI, education, research news', desc:'Increase stamina and reduce translation habit. Read for structure first, vocabulary second.', learn:['Skimming for structure','Scanning for details','Guessing meaning from context','Extracting reusable phrases'], tasks:['Read 4 longer texts/week','Highlight useful phrases','Explain each article in 3 bullets'], output:'A weekly reading log with 4 article summaries and 20 useful phrases.', resources:[['MIT Technology Review','https://www.technologyreview.com/'],['The Conversation: Technology','https://theconversation.com/global/technology'],['Google AI Blog','https://blog.google/technology/ai/']]},
@@ -266,13 +295,13 @@
 
       {id:'m3', type:'stage', y:740, title:'Month 3', sub:'Academic transition'},
       {id:'paper', x:110, y:828, group:'exam', title:'Paper abstracts', meta:'CS / AI / IR / NLP', desc:'Start reading academic material without panic. Focus on abstract, introduction, task, method, result.', learn:['Abstract structure','Research problem vs method','Dataset/result language','Unknown-word tolerance'], tasks:['Read one abstract/day','Write simple summaries','Collect academic phrases'], output:'20 paper abstract summaries in plain English.', resources:[['arXiv CS.CL','https://arxiv.org/list/cs.CL/recent'],['Papers with Code','https://paperswithcode.com/'],['Semantic Scholar','https://www.semanticscholar.org/']]},
-      {id:'essay', x:640, y:828, group:'output', title:'Weekly essay', meta:'350–450 words', desc:'Practice structured academic writing with revision. One clean revised essay is worth more than three drafts.', learn:['Thesis statement','Paragraph structure','Evidence and examples','Revision workflow'], tasks:['Write one essay/week','Revise after feedback','Track repeated mistakes'], output:'4 revised essays with before/after versions.', resources:[['Purdue OWL Essay Writing','https://owl.purdue.edu/owl/general_writing/academic_writing/essay_writing/index.html'],['Academic Phrasebank','https://www.phrasebank.manchester.ac.uk/'],['Grammarly Blog: Essays','https://www.grammarly.com/blog/category/essay-writing/']]},
+      {id:'essay', x:640, y:828, group:'output', title:'Weekly essay', meta:'350–450 words', desc:'Practice structured academic writing with revision. One clean revised essay is worth more than three drafts.', learn:['Thesis statement','Paragraph structure','Evidence and examples','Revision workflow'], tasks:['Write one essay/week','Revise after feedback','Track repeated mistakes'], output:'4 revised essays with before/after versions.', resources:[['Purdue OWL Essay Writing','https://owl.purdue.edu/owl/general_writing/academic_writing/essay_writing/index.html'],['Academic Phrasebank','https://www.phrasebank.manchester.ac.uk/'],['Grammarly Blog: Essays','https://www.grammarly.com/blog/category/essay-writing/'],['Book: Academic Writing for Graduate Students','https://press.umich.edu/Books/A/Academic-Writing-for-Graduate-Students-3rd-Edition'],['Book: The Elements of Style','https://www.gutenberg.org/ebooks/37134']]},
       {id:'talk', x:375, y:940, group:'output', title:'5-minute CS talk', meta:'explain a technical topic', desc:'Practice research and application speaking. Explain technical ideas simply and in order.', learn:['Opening context','Definition-first explanation','Example-driven explanation','Ending with takeaway'], tasks:['Choose one CS topic','Make 5 bullets','Record and review'], output:'A 5-minute recorded talk about one CS/AI topic.', resources:[['3Blue1Brown','https://www.youtube.com/@3blue1brown'],['Computerphile','https://www.youtube.com/@Computerphile'],['Google Developers YouTube','https://www.youtube.com/@GoogleDevelopers']]},
 
       {id:'m4', type:'stage', y:1090, title:'Month 4', sub:'TOEFL / exam mode'},
       {id:'toeflRead', x:110, y:1178, group:'exam', title:'Timed reading + listening', meta:'weekly TOEFL-style sets', desc:'Build exam timing and note-taking skill. Treat wrong answers as diagnostic data.', learn:['Question types','Time management','Lecture note symbols','Distractor patterns'], tasks:['One reading set/week','One listening set/week','Review wrong answers'], output:'A TOEFL practice log with scores, timing, and repeated error types.', resources:[['ETS TOEFL Practice','https://www.ets.org/toefl/test-takers/ibt/prepare.html'],['TOEFL iBT TestReady','https://toefltestready.ets.org/'],['Magoosh TOEFL Blog','https://magoosh.com/toefl/']]},
-      {id:'toeflSpeak', x:640, y:1178, group:'exam', title:'Timed speaking', meta:'structured short answers', desc:'Practice clear answers under time pressure. Structure beats fancy vocabulary.', learn:['45–60 second answer structure','Integrated speaking notes','Transition phrases','Self-scoring with rubric'], tasks:['2 prompts/week','Use fixed structure','Reduce filler words'], output:'8 timed speaking recordings scored with a simple rubric.', resources:[['ETS Speaking Rubrics PDF','https://www.ets.org/pdfs/toefl/toefl-ibt-speaking-rubrics.pdf'],['TOEFL Resources Speaking','https://www.toeflresources.com/speaking-section/'],['TST Prep TOEFL Speaking','https://www.youtube.com/@TSTPrep']]},
-      {id:'toeflWrite', x:375, y:1290, group:'exam', title:'Integrated writing', meta:'independent + integrated tasks', desc:'Combine listening and reading notes into organized writing. Accuracy and structure matter more than style.', learn:['Integrated response template','Contrast language','Independent essay structure','Proofreading under time'], tasks:['2 writing tasks/week','Use connectors naturally','Keep mistake bank'], output:'8 timed writing tasks, at least 4 revised.', resources:[['ETS Writing Rubrics PDF','https://www.ets.org/pdfs/toefl/toefl-ibt-writing-rubrics.pdf'],['TOEFL Resources Writing','https://www.toeflresources.com/writing-section/'],['Purdue OWL Transitions','https://owl.purdue.edu/owl/general_writing/mechanics/transitions_and_transitional_devices/index.html']]},
+      {id:'toeflSpeak', x:640, y:1178, group:'exam', title:'Timed speaking', meta:'structured short answers', desc:'Practice clear answers under time pressure. Structure beats fancy vocabulary.', learn:['45–60 second answer structure','Integrated speaking notes','Transition phrases','Self-scoring with rubric'], tasks:['2 prompts/week','Use fixed structure','Reduce filler words'], output:'8 timed speaking recordings scored with a simple rubric.', resources:[['ETS Speaking Rubrics PDF','https://www.ets.org/pdfs/toefl/toefl-ibt-speaking-rubrics.pdf'],['TOEFL Resources Speaking','https://www.toeflresources.com/speaking-section/'],['TST Prep TOEFL Speaking','https://www.youtube.com/@TSTPrep'],['Book: The Official Guide to the TOEFL iBT Test','https://www.ets.org/toefl/test-takers/ibt/prepare/books.html']]},
+      {id:'toeflWrite', x:375, y:1290, group:'exam', title:'Integrated writing', meta:'independent + integrated tasks', desc:'Combine listening and reading notes into organized writing. Accuracy and structure matter more than style.', learn:['Integrated response template','Contrast language','Independent essay structure','Proofreading under time'], tasks:['2 writing tasks/week','Use connectors naturally','Keep mistake bank'], output:'8 timed writing tasks, at least 4 revised.', resources:[['ETS Writing Rubrics PDF','https://www.ets.org/pdfs/toefl/toefl-ibt-writing-rubrics.pdf'],['TOEFL Resources Writing','https://www.toeflresources.com/writing-section/'],['Purdue OWL Transitions','https://owl.purdue.edu/owl/general_writing/mechanics/transitions_and_transitional_devices/index.html'],['Book: Official TOEFL iBT Tests','https://www.ets.org/toefl/test-takers/ibt/prepare/books.html']]},
 
       {id:'m5', type:'stage', y:1440, title:'Month 5', sub:'Speed and polish'},
       {id:'apps', x:110, y:1528, group:'output', title:'Application English', meta:'CV, emails, SOP paragraphs', desc:'Turn practice into application assets for professors and graduate admissions.', learn:['Academic email tone','CV action bullets','SOP paragraph structure','Concise self-introduction'], tasks:['Draft professor email','Polish CV bullets','Write SOP paragraphs'], output:'One professor email, one self-introduction, and two SOP paragraphs.', resources:[['MIT Communication Lab: CVs','https://mitcommlab.mit.edu/broad/commkit/curriculum-vitae/'],['MIT Communication Lab: Statements','https://mitcommlab.mit.edu/broad/commkit/graduate-school-personal-statement/'],['UC Berkeley Career Center CVs','https://career.berkeley.edu/create-a-resume-or-cover-letter/curriculum-vitae/']]},
@@ -280,7 +309,7 @@
       {id:'phrases', x:375, y:1640, group:'input', title:'Academic phrase bank', meta:'from paper introductions', desc:'Collect reusable academic language from real papers and use it in your writing.', learn:['Problem framing phrases','Contribution phrases','Limitation phrases','Comparison phrases'], tasks:['Read 4 paper intros','Extract useful phrases','Use them in essays'], output:'A phrase bank with at least 80 reusable academic phrases.', resources:[['Academic Phrasebank','https://www.phrasebank.manchester.ac.uk/'],['ACL Anthology','https://aclanthology.org/'],['arXiv CS.IR','https://arxiv.org/list/cs.IR/recent']]},
 
       {id:'m6', type:'stage', y:1790, title:'Month 6', sub:'C1 readiness'},
-      {id:'mock', x:110, y:1878, group:'exam', title:'2 full mock tests', meta:'start and end of month', desc:'Measure readiness and decide exam timing. Use mocks to choose final weak areas.', learn:['Full-test stamina','Score analysis','Final weak-area prioritization','Exam-day timing'], tasks:['Take full mock #1','Fix weak areas','Take full mock #2'], output:'Two full mock reports with scores, weak areas, and next actions.', resources:[['ETS TOEFL Practice','https://www.ets.org/toefl/test-takers/ibt/prepare.html'],['TOEFL TestReady','https://toefltestready.ets.org/'],['IELTS Practice Tests','https://ielts.org/take-a-test/preparation-resources']]},
+      {id:'mock', x:110, y:1878, group:'exam', title:'2 full mock tests', meta:'start and end of month', desc:'Measure readiness and decide exam timing. Use mocks to choose final weak areas.', learn:['Full-test stamina','Score analysis','Final weak-area prioritization','Exam-day timing'], tasks:['Take full mock #1','Fix weak areas','Take full mock #2'], output:'Two full mock reports with scores, weak areas, and next actions.', resources:[['ETS TOEFL Practice','https://www.ets.org/toefl/test-takers/ibt/prepare.html'],['TOEFL TestReady','https://toefltestready.ets.org/'],['IELTS Practice Tests','https://ielts.org/take-a-test/preparation-resources'],['Book: The Official Guide to the TOEFL iBT Test','https://www.ets.org/toefl/test-takers/ibt/prepare/books.html'],['Book: Official TOEFL iBT Tests','https://www.ets.org/toefl/test-takers/ibt/prepare/books.html']]},
       {id:'pack', x:640, y:1878, group:'output', title:'Application pack', meta:'self-intro, research summary, email, SOP', desc:'Prepare reusable English assets for applications, interviews, and supervisor contact.', learn:['Research self-introduction','Concise project summary','Email clarity','SOP coherence'], tasks:['Finalize self-introduction','Finalize research summary','Finalize professor email'], output:'A polished English application pack ready for review.', resources:[['MIT Communication Lab','https://mitcommlab.mit.edu/'],['GradCafe Statement Guide','https://forum.thegradcafe.com/'],['Purdue OWL Graduate Writing','https://owl.purdue.edu/owl/graduate_writing/index.html']]},
       {id:'book', x:375, y:1990, group:'extra', title:'Book exam', meta:'when mock scores stabilize', desc:'Choose TOEFL/IELTS date when performance is consistent, not when motivation is temporarily high.', learn:['Target score setting','Final 4-week plan','Exam logistics','Stress management'], tasks:['Set target score','Choose exam date','Plan final 4-week prep'], output:'Exam date booked and final 4-week prep plan written.', resources:[['TOEFL Registration','https://www.ets.org/toefl/test-takers/ibt/register.html'],['IELTS Booking','https://ielts.org/take-a-test/book-a-test'],['ETS TOEFL Test Day','https://www.ets.org/toefl/test-takers/ibt/test-day.html']]}
     ];
@@ -391,6 +420,23 @@
     });
 
     renderMap(); renderDetails();
+  </script>
+  <script>
+    (() => {
+      const key = 'roadmaps-theme';
+      const root = document.documentElement;
+      const btn = document.getElementById('themeToggle');
+      const apply = theme => {
+        root.dataset.theme = theme;
+        if (btn) btn.textContent = theme === 'dark' ? 'Light mode' : 'Dark mode';
+      };
+      apply(localStorage.getItem(key) || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+      btn?.addEventListener('click', () => {
+        const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+        localStorage.setItem(key, next);
+        apply(next);
+      });
+    })();
   </script>
 </body>
 </html>

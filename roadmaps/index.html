@@ -15,7 +15,20 @@
       --line-strong: #9aa4b2;
       --yellow: #f4c430;
       --green: #16a34a;
+      --button-bg: #ffffff;
+      --hover: #fbfcfe;
       font-family: Arial, Helvetica, sans-serif;
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #0f172a;
+      --paper: #111827;
+      --ink: #e5e7eb;
+      --muted: #9ca3af;
+      --line: #374151;
+      --line-strong: #6b7280;
+      --button-bg: #1f2937;
+      --hover: #182235;
     }
 
     * { box-sizing: border-box; }
@@ -34,6 +47,17 @@
 
     .topbar h1 { margin: 0; font-size: 18px; }
     .topbar span { color: var(--muted); font-size: 13px; }
+    .actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .button {
+      border: 1px solid var(--line);
+      background: var(--button-bg);
+      border-radius: 6px;
+      padding: 7px 10px;
+      font-size: 13px;
+      color: var(--ink);
+      cursor: pointer;
+    }
+    .button:hover { border-color: var(--line-strong); background: var(--hover); }
 
     main {
       width: min(980px, calc(100% - 28px));
@@ -72,7 +96,7 @@
 
     .card:hover {
       border-color: var(--line-strong);
-      background: #fbfcfe;
+      background: var(--hover);
     }
 
     .card h3 {
@@ -101,7 +125,7 @@
       padding: 3px 8px;
       color: var(--muted);
       font-size: 12px;
-      background: #f8fafc;
+      background: var(--button-bg);
     }
 
     .arrow {
@@ -114,7 +138,7 @@
       padding: 14px 16px;
       border: 1px dashed var(--line-strong);
       color: var(--muted);
-      background: #fff;
+      background: var(--paper);
       border-radius: 6px;
       font-size: 14px;
     }
@@ -129,7 +153,7 @@
 <body>
   <header class="topbar">
     <h1>Roadmaps</h1>
-    <span>Private index</span>
+    <div class="actions"><button class="button" id="themeToggle" type="button">Dark mode</button><span>Private index</span></div>
   </header>
 
   <main>
@@ -142,7 +166,7 @@
       <a class="card" href="/roadmaps/english-c1/">
         <div>
           <h3>English C1 Roadmap</h3>
-          <p>B1 to C1 in 6 months. Interactive roadmap board with nodes, progress, and a daily minimum checklist.</p>
+          <p>B1 to C1 in 6 months. Interactive roadmap board with nodes, progress, explanations, outputs, and resources.</p>
           <div class="meta">
             <span class="tag">English</span>
             <span class="tag">B1 → C1</span>
@@ -156,5 +180,22 @@
 
     <div class="empty">More roadmaps can be added here later.</div>
   </main>
+  <script>
+    (() => {
+      const key = 'roadmaps-theme';
+      const root = document.documentElement;
+      const btn = document.getElementById('themeToggle');
+      const apply = theme => {
+        root.dataset.theme = theme;
+        if (btn) btn.textContent = theme === 'dark' ? 'Light mode' : 'Dark mode';
+      };
+      apply(localStorage.getItem(key) || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+      btn?.addEventListener('click', () => {
+        const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+        localStorage.setItem(key, next);
+        apply(next);
+      });
+    })();
+  </script>
 </body>
 </html>
