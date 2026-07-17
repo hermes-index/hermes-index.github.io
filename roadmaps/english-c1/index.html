@@ -7,131 +7,154 @@
   <title>English C1 Roadmap</title>
   <style>
     :root {
-      --bg: #f8fafc;
+      --bg: #f6f7f9;
       --surface: #ffffff;
+      --surface-soft: #f8fafc;
       --ink: #111827;
-      --muted: #6b7280;
-      --line: #d1d5db;
-      --line-dark: #9ca3af;
+      --muted: #667085;
+      --line: #d0d5dd;
+      --line-strong: #98a2b3;
       --header: #111827;
       --header-ink: #f9fafb;
       --yellow: #facc15;
-      --yellow-soft: #fef9c3;
-      --blue: #dbeafe;
-      --green: #dcfce7;
-      --purple: #ede9fe;
-      --pink: #ffe4e6;
-      --done: #16a34a;
-      --node-meta: #374151;
-      --canvas: #ffffff;
-      --grid: #eef2f7;
-      font-family: Arial, Helvetica, sans-serif;
+      --yellow-soft: #fef3c7;
+      --green: #16a34a;
+      --green-soft: #ecfdf3;
+      --red: #be123c;
+      --canvas: #fcfcfd;
+      --grid: #edf1f5;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
     :root[data-theme="dark"] {
       --bg: #0b0f17;
       --surface: #111827;
+      --surface-soft: #0f172a;
       --ink: #e5e7eb;
       --muted: #9ca3af;
-      --line: #374151;
-      --line-dark: #6b7280;
+      --line: #344054;
+      --line-strong: #667085;
       --header: #030712;
       --header-ink: #f9fafb;
       --yellow: #eab308;
-      --yellow-soft: #422006;
-      --blue: #172554;
-      --green: #052e16;
-      --purple: #2e1065;
-      --pink: #4c0519;
-      --node-meta: #cbd5e1;
-      --canvas: #0b1220;
-      --grid: #1f2937;
+      --yellow-soft: #3f2e05;
+      --green: #22c55e;
+      --green-soft: #052e16;
+      --red: #fb7185;
+      --canvas: #0f172a;
+      --grid: #1d2939;
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { margin: 0; color: var(--ink); background: var(--bg); }
+    body { margin: 0; background: var(--bg); color: var(--ink); }
     a { color: inherit; text-decoration: none; }
     button { font: inherit; color: inherit; }
 
     .topbar {
-      position: sticky; top: 0; z-index: 20;
-      display: flex; justify-content: space-between; align-items: center; gap: 16px;
-      padding: 12px 18px; background: var(--header); color: var(--header-ink);
-      border-bottom: 1px solid #1f2937;
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 56px;
+      padding: 10px 18px;
+      background: var(--header);
+      color: var(--header-ink);
+      border-bottom: 1px solid rgba(255,255,255,.08);
     }
-    .brand { display: inline-flex; align-items: center; gap: 9px; font-weight: 700; }
-    .brand-mark { width: 26px; height: 26px; border-radius: 6px; background: var(--yellow); border: 1px solid #ca8a04; }
-    .top-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -.01em; }
+    .brand-mark { width: 24px; height: 24px; border-radius: 6px; background: var(--yellow); border: 1px solid #ca8a04; }
+    .top-actions { display: flex; align-items: center; gap: 8px; }
     .btn {
-      border: 1px solid #374151; background: #1f2937; color: #f9fafb;
-      border-radius: 6px; padding: 7px 10px; min-height: 34px;
-      font-size: 13px; cursor: pointer; line-height: 1;
+      min-height: 34px;
+      padding: 7px 10px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 6px;
+      background: rgba(255,255,255,.05);
+      color: #f9fafb;
+      font-size: 13px;
+      line-height: 1;
+      cursor: pointer;
     }
-    .btn:hover { background: #374151; }
-    .btn.yellow { background: var(--yellow); color: #111827; border-color: #ca8a04; }
+    .btn:hover { background: rgba(255,255,255,.09); }
+    .btn.yellow { background: var(--yellow); border-color: #ca8a04; color: #111827; }
     .btn.danger { color: #fecdd3; }
 
-    .title { max-width: 1040px; margin: 34px auto 16px; padding: 0 16px; text-align: center; }
-    .title h1 { margin: 0 0 10px; font-size: clamp(32px, 6vw, 54px); line-height: 1; letter-spacing: -0.055em; }
-    .title p { margin: 0 auto; max-width: 720px; color: var(--muted); line-height: 1.6; }
-    .tabs { display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; margin-top: 18px; }
-    .tab { padding: 8px 10px; border-bottom: 2px solid transparent; color: var(--muted); font-size: 14px; }
-    .tab.active { color: var(--ink); border-bottom-color: var(--yellow); font-weight: 700; }
+    .title {
+      width: min(1120px, calc(100% - 28px));
+      margin: 28px auto 14px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 20px;
+    }
+    .title h1 { margin: 0 0 8px; font-size: clamp(32px, 4.8vw, 48px); line-height: 1.02; letter-spacing: -.045em; }
+    .title p { margin: 0; max-width: 720px; color: var(--muted); line-height: 1.55; }
+    .tabs { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; justify-content: flex-end; }
+    .tab { display: inline-flex; align-items: center; min-height: 30px; padding: 6px 9px; border: 1px solid transparent; color: var(--muted); font-size: 13px; border-radius: 6px; }
+    .tab.active { background: var(--surface); border-color: var(--line); color: var(--ink); font-weight: 650; }
 
-    .layout { width: min(1320px, calc(100% - 20px)); margin: 0 auto 42px; display: grid; grid-template-columns: minmax(0, 1fr) 350px; gap: 12px; align-items: start; }
-    .board, .details { border: 1px solid var(--line); border-radius: 8px; background: var(--surface); overflow: hidden; }
-    .board-head { display: flex; justify-content: space-between; gap: 12px; align-items: center; padding: 12px 14px; border-bottom: 1px solid var(--line); }
-    .legend { display: flex; gap: 10px; flex-wrap: wrap; color: var(--muted); font-size: 12px; }
+    .layout {
+      width: min(1320px, calc(100% - 20px));
+      margin: 0 auto 42px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 12px;
+      align-items: start;
+    }
+    .board, .details { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+    .board-head { display: flex; justify-content: space-between; gap: 12px; align-items: center; padding: 10px 12px; border-bottom: 1px solid var(--line); background: var(--surface); }
+    .legend { display: flex; gap: 8px; flex-wrap: wrap; color: var(--muted); font-size: 12px; }
     .legend span { display: inline-flex; align-items: center; gap: 5px; }
-    .swatch { width: 13px; height: 13px; border: 1px solid var(--line-dark); }
+    .swatch { width: 12px; height: 12px; border: 1px solid var(--line-strong); background: var(--surface); }
 
-    .canvas-wrap { height: calc(100vh - 128px); overflow: auto; background: var(--canvas); }
+    .canvas-wrap { height: calc(100vh - 124px); overflow: auto; background: var(--canvas); }
     .roadmap { position: relative; min-width: 980px; height: 2110px; background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 32px 32px; }
-    .main-line { position: absolute; left: 50%; top: 44px; width: 2px; height: 1950px; background: var(--line-dark); }
-    .connector { position: absolute; height: 2px; background: var(--line-dark); transform-origin: left center; }
+    .main-line { position: absolute; left: 50%; top: 44px; width: 2px; height: 1950px; background: var(--line-strong); }
+    .connector { position: absolute; height: 2px; background: var(--line-strong); transform-origin: left center; }
 
-    .stage, .node { position: absolute; border-radius: 5px; border: 1px solid var(--line-dark); background: var(--surface); }
-    .stage { left: calc(50% - 95px); width: 190px; padding: 10px; text-align: center; border-color: #ca8a04; background: var(--yellow-soft); font-weight: 700; }
-    .stage small { display: block; margin-top: 3px; color: var(--muted); font-weight: 400; }
-    .node { width: 230px; min-height: 74px; padding: 10px 12px; text-align: left; cursor: pointer; }
-    .node:hover { outline: 2px solid var(--line-dark); }
-    .node.selected { outline: 3px solid var(--ink); }
-    .node.input { background: var(--blue); border-color: #60a5fa; }
-    .node.output { background: var(--green); border-color: #22c55e; }
-    .node.exam { background: var(--purple); border-color: #a78bfa; }
-    .node.extra { background: var(--pink); border-color: #fb7185; }
-    .node.done { border-color: var(--done); background: var(--green); }
-    .node.done .node-title::before { content: "✓ "; color: var(--done); }
+    .stage, .node { position: absolute; border-radius: 6px; border: 1px solid var(--line-strong); background: var(--surface); }
+    .stage { left: calc(50% - 90px); width: 180px; padding: 9px 10px; text-align: center; border-color: #ca8a04; background: var(--yellow-soft); font-weight: 700; }
+    .stage small { display: block; margin-top: 3px; color: var(--muted); font-weight: 450; }
+    .node { width: 230px; min-height: 74px; padding: 11px 12px 10px; text-align: left; cursor: pointer; box-shadow: 0 1px 0 rgba(16,24,40,.03); }
+    .node:hover { border-color: var(--ink); }
+    .node.selected { outline: 3px solid #111827; outline-offset: 0; }
+    :root[data-theme="dark"] .node.selected { outline-color: #e5e7eb; }
+    .node.done { background: var(--green-soft); border-color: var(--green); }
+    .node.done .node-title::before { content: "✓ "; color: var(--green); }
     .node-title { display: block; font-size: 14px; font-weight: 700; line-height: 1.25; }
-    .node-meta { display: block; margin-top: 5px; color: var(--node-meta); font-size: 12px; line-height: 1.35; }
+    .node-meta { display: block; margin-top: 5px; color: var(--muted); font-size: 12px; line-height: 1.35; }
+    .node-kind { display: inline-flex; margin-bottom: 7px; padding: 2px 5px; border: 1px solid var(--line); border-radius: 4px; color: var(--muted); background: var(--surface-soft); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
 
-    .mobile-roadmap { display: none; background: var(--canvas); }
-    .mobile-stage { margin: 12px; padding: 10px; border: 1px solid #ca8a04; border-radius: 5px; background: var(--yellow-soft); font-weight: 700; }
-    .mobile-stage small { display: block; margin-top: 3px; color: var(--muted); font-weight: 400; }
-    .mobile-node { width: calc(100% - 24px); margin: 8px 12px; padding: 11px 12px; border: 1px solid var(--line-dark); border-radius: 5px; background: var(--surface); text-align: left; cursor: pointer; }
-    .mobile-node.input { background: var(--blue); border-color: #60a5fa; }
-    .mobile-node.output { background: var(--green); border-color: #22c55e; }
-    .mobile-node.exam { background: var(--purple); border-color: #a78bfa; }
-    .mobile-node.extra { background: var(--pink); border-color: #fb7185; }
-    .mobile-node.done { border-color: var(--done); background: var(--green); }
+    .mobile-roadmap { display: none; background: var(--canvas); padding: 4px 0 12px; }
+    .mobile-stage { margin: 12px 12px 8px; padding: 9px 10px; border: 1px solid #ca8a04; border-radius: 6px; background: var(--yellow-soft); font-weight: 700; text-align: left; }
+    .mobile-stage small { display: block; margin-top: 3px; color: var(--muted); font-weight: 450; }
+    .mobile-node { width: calc(100% - 24px); margin: 6px 12px; padding: 11px 12px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); text-align: left; cursor: pointer; }
+    .mobile-node.done { background: var(--green-soft); border-color: var(--green); }
     .mobile-node.selected { outline: 3px solid var(--ink); }
 
-    .details { position: sticky; top: 62px; }
+    .details { position: sticky; top: 68px; }
     .side-section { padding: 14px; border-bottom: 1px solid var(--line); }
     .side-section:last-child { border-bottom: 0; }
     .progress-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
-    .progress-row h2, #details h2 { margin: 0 0 8px; font-size: 18px; }
-    .percent { font-size: 28px; font-weight: 700; }
-    .bar { height: 10px; border: 1px solid var(--line); background: var(--bg); }
-    .bar i { display: block; height: 100%; width: 0%; background: var(--done); }
+    .progress-row h2, #details h2 { margin: 0 0 8px; font-size: 18px; letter-spacing: -.015em; }
+    .percent { font-size: 26px; font-weight: 750; letter-spacing: -.04em; }
+    .bar { height: 9px; border: 1px solid var(--line); background: var(--bg); border-radius: 999px; overflow: hidden; }
+    .bar i { display: block; height: 100%; width: 0%; background: var(--green); }
     .details p, .details li { color: var(--muted); font-size: 14px; line-height: 1.55; }
     .details ul { margin: 9px 0 0; padding-left: 20px; }
     .detail-block { margin-top: 14px; }
-    .detail-block h3 { margin: 0 0 6px; font-size: 14px; }
-    .detail-block a { color: #0f766e; text-decoration: underline; text-underline-offset: 2px; }
-    :root[data-theme="dark"] .detail-block a { color: #5eead4; }
+    .detail-block h3 { margin: 0 0 6px; font-size: 13px; text-transform: uppercase; letter-spacing: .045em; color: var(--ink); }
+    .detail-block a { color: #067647; text-decoration: underline; text-underline-offset: 2px; }
+    :root[data-theme="dark"] .detail-block a { color: #86efac; }
     .detail-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+    .details .btn { background: var(--surface-soft); color: var(--ink); border-color: var(--line); }
+    .details .btn.yellow { background: var(--yellow); color: #111827; border-color: #ca8a04; }
 
     @media (max-width: 980px) {
+      .title { grid-template-columns: 1fr; align-items: start; }
+      .tabs { justify-content: flex-start; }
       .layout { width: min(100% - 16px, 1320px); grid-template-columns: 1fr; }
       .details { position: static; order: -1; }
       .canvas-wrap { display: none; }
@@ -141,11 +164,13 @@
     @media (max-width: 640px) {
       .topbar { align-items: stretch; flex-direction: column; padding: 12px; }
       .top-actions { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
+      .top-actions .optional-action { display: none; }
       .top-actions .btn { width: 100%; justify-content: center; min-height: 40px; }
       .top-actions .danger { grid-column: span 2; }
-      .title { text-align: left; margin: 22px auto 14px; }
-      .title h1 { font-size: 34px; }
-      .tabs { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; }
+      .title { margin: 22px auto 14px; }
+      .title h1 { font-size: 33px; }
+      .title p { font-size: 15px; }
+      .tabs { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 2px; }
       .tab { white-space: nowrap; }
       .layout { width: 100%; margin: 0; gap: 0; }
       .board, .details { border-left: 0; border-right: 0; border-radius: 0; }
@@ -159,8 +184,8 @@
     <nav class="top-actions" aria-label="Roadmap actions">
       <a class="btn" href="/roadmaps/">All roadmaps</a>
       <button class="btn" id="themeToggle" type="button" aria-pressed="false">☾ Theme</button>
-      <button class="btn" id="copySummary" type="button" title="Copy completed roadmap nodes as Markdown">Copy progress</button>
-      <button class="btn danger" id="resetAll" type="button">Reset</button>
+      <button class="btn optional-action" id="copySummary" type="button" title="Copy completed roadmap nodes as Markdown">Copy progress</button>
+      <button class="btn danger optional-action" id="resetAll" type="button">Reset</button>
     </nav>
   </header>
 
@@ -171,7 +196,7 @@
       <span class="tab active">Roadmap</span>
       <span class="tab">B1 → C1</span>
       <span class="tab">6 months</span>
-      <span class="tab">TOEFL / Academic</span>
+      <span class="tab">TOEFL</span>
     </div>
   </section>
 
@@ -180,9 +205,8 @@
       <div class="board-head">
         <div class="legend">
           <span><i class="swatch" style="background:var(--yellow-soft);border-color:#ca8a04"></i>Stage</span>
-          <span><i class="swatch" style="background:var(--blue);border-color:#60a5fa"></i>Input</span>
-          <span><i class="swatch" style="background:var(--green);border-color:#22c55e"></i>Output</span>
-          <span><i class="swatch" style="background:var(--purple);border-color:#a78bfa"></i>Exam / research</span>
+          <span><i class="swatch"></i>Topic</span>
+          <span><i class="swatch" style="background:var(--green-soft);border-color:var(--green)"></i>Done</span>
         </div>
       </div>
       <div class="canvas-wrap"><div class="roadmap" id="roadmap"><div class="main-line"></div></div></div>
@@ -231,6 +255,7 @@
     ];
 
     const roadmap = document.getElementById('roadmap');
+    const groupLabels = { input: 'Learn', output: 'Practice', exam: 'Exam', extra: 'Plan' };
     const stateKey = 'english-c1-roadmap:nodes';
     let selected = 'grammar';
     const load = (key, fallback={}) => { try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); } catch { return fallback; } };
@@ -242,11 +267,11 @@
       const done=load(stateKey); for(let i=0;i<nodes.length-1;i++) drawConnector(nodes[i],nodes[i+1]);
       nodes.forEach(n=>{ const el=document.createElement('button'); el.type='button'; el.dataset.id=n.id;
         if(n.type==='stage'){ el.className='stage'; el.style.top=n.y+'px'; el.innerHTML=`${n.title}<small>${n.sub}</small>`; }
-        else { el.className=`node ${n.group}`; if(done[n.id]) el.classList.add('done'); if(selected===n.id) el.classList.add('selected'); el.style.left=n.x+'px'; el.style.top=n.y+'px'; el.innerHTML=`<span class="node-title">${n.title}</span><span class="node-meta">${n.meta}</span>`; el.addEventListener('click',()=>{selected=n.id; renderDetails(); renderMap();}); el.addEventListener('dblclick',()=>toggleNode(n.id)); }
+        else { el.className=`node ${n.group}`; if(done[n.id]) el.classList.add('done'); if(selected===n.id) el.classList.add('selected'); el.style.left=n.x+'px'; el.style.top=n.y+'px'; el.innerHTML=`<span class="node-kind">${groupLabels[n.group]||'Topic'}</span><span class="node-title">${n.title}</span><span class="node-meta">${n.meta}</span>`; el.addEventListener('click',()=>{selected=n.id; renderDetails(); renderMap();}); el.addEventListener('dblclick',()=>toggleNode(n.id)); }
         roadmap.appendChild(el);
       }); renderProgress(); renderMobileMap();
     }
-    function renderMobileMap(){ const mount=document.getElementById('mobileRoadmap'); if(!mount) return; const done=load(stateKey); mount.innerHTML=''; nodes.forEach(n=>{ const el=document.createElement('button'); el.type='button'; el.dataset.id=n.id; if(n.type==='stage'){ el.className='mobile-stage'; el.innerHTML=`${n.title}<small>${n.sub}</small>`; } else { el.className=`mobile-node ${n.group}`; if(done[n.id]) el.classList.add('done'); if(selected===n.id) el.classList.add('selected'); el.innerHTML=`<span class="node-title">${n.title}</span><span class="node-meta">${n.meta}</span>`; el.addEventListener('click',()=>{selected=n.id; renderDetails(); renderMap();}); el.addEventListener('dblclick',()=>toggleNode(n.id)); } mount.appendChild(el); }); }
+    function renderMobileMap(){ const mount=document.getElementById('mobileRoadmap'); if(!mount) return; const done=load(stateKey); mount.innerHTML=''; nodes.forEach(n=>{ const el=document.createElement('button'); el.type='button'; el.dataset.id=n.id; if(n.type==='stage'){ el.className='mobile-stage'; el.innerHTML=`${n.title}<small>${n.sub}</small>`; } else { el.className=`mobile-node ${n.group}`; if(done[n.id]) el.classList.add('done'); if(selected===n.id) el.classList.add('selected'); el.innerHTML=`<span class="node-kind">${groupLabels[n.group]||'Topic'}</span><span class="node-title">${n.title}</span><span class="node-meta">${n.meta}</span>`; el.addEventListener('click',()=>{selected=n.id; renderDetails(); renderMap();}); el.addEventListener('dblclick',()=>toggleNode(n.id)); } mount.appendChild(el); }); }
     function toggleNode(id){ const done=load(stateKey); done[id]=!done[id]; save(stateKey,done); renderMap(); renderDetails(); }
     function renderProgress(){ const done=load(stateKey); const real=nodes.filter(n=>n.type!=='stage'); const count=real.filter(n=>done[n.id]).length; const pct=Math.round(count/real.length*100); document.getElementById('percent').textContent=pct+'%'; document.getElementById('bar').style.width=pct+'%'; document.getElementById('progressText').textContent=`${count} of ${real.length} topics completed.`; }
     function renderDetails(){ const n=nodes.find(x=>x.id===selected&&x.type!=='stage')||nodes.find(x=>x.id==='grammar'); const done=load(stateKey); const list=arr=>(arr||[]).map(x=>`<li>${x}</li>`).join(''); const resources=(n.resources||[]).map(([label,url])=>`<li><a href="${url}" target="_blank" rel="noopener noreferrer">${label}</a></li>`).join(''); document.getElementById('details').innerHTML=`<h2>${n.title}</h2><p>${n.desc}</p><div class="detail-block"><h3>What to learn</h3><ul>${list(n.learn)}</ul></div><div class="detail-block"><h3>Tasks</h3><ul>${list(n.tasks)}</ul></div><div class="detail-block"><h3>Resources</h3><ul>${resources}</ul></div><div class="detail-block"><h3>Output</h3><p>${n.output||''}</p></div><div class="detail-actions"><button class="btn yellow" id="toggleSelected" type="button">${done[n.id]?'Mark not done':'Mark done'}</button></div>`; document.getElementById('toggleSelected').addEventListener('click',()=>toggleNode(n.id)); }
