@@ -120,7 +120,37 @@
     .title p { margin: 0; max-width: 640px; color: var(--muted); line-height: 1.65; font-size: 15px; }
     .tabs { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
     .tab { display: inline-flex; align-items: center; min-height: 30px; padding: 6px 10px; border: 1px solid var(--line); color: var(--muted); background: var(--surface-soft); font-size: 13px; border-radius: 6px; }
-    .tab.active { background: var(--yellow-soft); border-color: #ca8a04; color: var(--ink); font-weight: 750; }
+    button.tab { cursor: pointer; font: inherit; }
+    .tab:hover { border-color: var(--line-strong); color: var(--ink); }
+    .tab.active, .tab[aria-expanded="true"] { background: var(--yellow-soft); border-color: #ca8a04; color: var(--ink); font-weight: 750; }
+    .tools-panel {
+      display: none;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface-soft);
+      overflow: hidden;
+    }
+    .tools-panel.open { display: block; }
+    .tools-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--line);
+      background: var(--surface);
+    }
+    .tools-head strong { font-size: 14px; }
+    .tools-head span { color: var(--muted); font-size: 12px; }
+    .tools-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; }
+    .tool-group { padding: 12px; border-top: 1px solid transparent; }
+    .tool-group:nth-child(odd) { border-right: 1px solid var(--line); }
+    .tool-group:nth-child(n+3) { border-top-color: var(--line); }
+    .tool-group h3 { margin: 0 0 8px; font-size: 12px; letter-spacing: .045em; text-transform: uppercase; color: var(--ink); }
+    .tool-group ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 7px; }
+    .tool-group a { color: #067647; text-decoration: underline; text-underline-offset: 2px; font-size: 13px; font-weight: 650; }
+    .tool-group small { display: block; margin-top: 1px; color: var(--muted); font-size: 12px; line-height: 1.35; }
+    :root[data-theme="dark"] .tool-group a { color: #86efac; }
 
     .layout {
       width: min(1320px, calc(100% - 20px));
@@ -199,8 +229,12 @@
       .title h1 { font-size: 32px; }
       .title p { font-size: 14px; }
       .eyebrow { font-size: 11px; margin-bottom: 8px; }
-      .tabs { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 2px; }
+      .tabs { overflow: visible; flex-wrap: wrap; padding-bottom: 0; }
       .tab { white-space: nowrap; }
+      .tools-grid { grid-template-columns: 1fr; }
+      .tool-group:nth-child(odd) { border-right: 0; }
+      .tool-group:nth-child(n+2) { border-top: 1px solid var(--line); }
+      .tools-head { align-items: flex-start; flex-direction: column; gap: 2px; }
       .layout { width: 100%; margin: 0; gap: 0; }
       .board, .details { border-left: 0; border-right: 0; border-radius: 0; }
       .side-section { padding: 12px; }
@@ -229,10 +263,51 @@
         <span class="tab">B1 → C1</span>
         <span class="tab">6 months</span>
         <span class="tab">TOEFL</span>
+        <button class="tab" id="toolsToggle" type="button" aria-expanded="false" aria-controls="toolsPanel">Tools</button>
       </div>
     </div>
     <div class="title-copy">
       <p>A practical six-month path from B1 to C1, focused on academic English, TOEFL-style output, and research communication.</p>
+      <div class="tools-panel" id="toolsPanel" hidden>
+        <div class="tools-head">
+          <strong>Tools note</strong>
+          <span>Use these as support, not as the roadmap itself.</span>
+        </div>
+        <div class="tools-grid">
+          <section class="tool-group">
+            <h3>Core study</h3>
+            <ul>
+              <li><a href="https://apps.ankiweb.net/" target="_blank" rel="noopener noreferrer">Anki</a><small>spaced repetition for vocabulary and phrase cards</small></li>
+              <li><a href="https://www.oxfordlearnersdictionaries.com/wordlists/oxford3000-5000" target="_blank" rel="noopener noreferrer">Oxford 3000/5000</a><small>high-value vocabulary lists</small></li>
+              <li><a href="https://www.phrasebank.manchester.ac.uk/" target="_blank" rel="noopener noreferrer">Academic Phrasebank</a><small>academic writing patterns and sentence frames</small></li>
+            </ul>
+          </section>
+          <section class="tool-group">
+            <h3>Writing</h3>
+            <ul>
+              <li><a href="https://languagetool.org/" target="_blank" rel="noopener noreferrer">LanguageTool</a><small>grammar and style checks without changing your voice</small></li>
+              <li><a href="https://www.deepl.com/write" target="_blank" rel="noopener noreferrer">DeepL Write</a><small>rewrite suggestions for clarity</small></li>
+              <li><a href="https://owl.purdue.edu/" target="_blank" rel="noopener noreferrer">Purdue OWL</a><small>academic writing and citation guidance</small></li>
+            </ul>
+          </section>
+          <section class="tool-group">
+            <h3>Listening & speaking</h3>
+            <ul>
+              <li><a href="https://youglish.com/" target="_blank" rel="noopener noreferrer">YouGlish</a><small>real pronunciation examples in context</small></li>
+              <li><a href="https://www.bbc.co.uk/learningenglish" target="_blank" rel="noopener noreferrer">BBC Learning English</a><small>short listening lessons and explanations</small></li>
+              <li><a href="https://www.ted.com/talks" target="_blank" rel="noopener noreferrer">TED Talks</a><small>longer listening practice with transcripts</small></li>
+            </ul>
+          </section>
+          <section class="tool-group">
+            <h3>Exam & research</h3>
+            <ul>
+              <li><a href="https://toefltestready.ets.org/" target="_blank" rel="noopener noreferrer">TOEFL TestReady</a><small>official TOEFL-style practice</small></li>
+              <li><a href="https://www.toeflresources.com/" target="_blank" rel="noopener noreferrer">TOEFL Resources</a><small>speaking and writing templates/rubrics</small></li>
+              <li><a href="https://www.semanticscholar.org/" target="_blank" rel="noopener noreferrer">Semantic Scholar</a><small>paper discovery for academic reading</small></li>
+            </ul>
+          </section>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -313,6 +388,7 @@
     function renderDetails(){ const n=nodes.find(x=>x.id===selected&&x.type!=='stage')||nodes.find(x=>x.id==='grammar'); const done=load(stateKey); const list=arr=>(arr||[]).map(x=>`<li>${x}</li>`).join(''); const resources=(n.resources||[]).map(([label,url])=>`<li><a href="${url}" target="_blank" rel="noopener noreferrer">${label}</a></li>`).join(''); document.getElementById('details').innerHTML=`<h2>${n.title}</h2><p>${n.desc}</p><div class="detail-block"><h3>What to learn</h3><ul>${list(n.learn)}</ul></div><div class="detail-block"><h3>Tasks</h3><ul>${list(n.tasks)}</ul></div><div class="detail-block"><h3>Resources</h3><ul>${resources}</ul></div><div class="detail-block"><h3>Output</h3><p>${n.output||''}</p></div><div class="detail-actions"><button class="btn yellow" id="toggleSelected" type="button">${done[n.id]?'Mark not done':'Mark done'}</button></div>`; document.getElementById('toggleSelected').addEventListener('click',()=>toggleNode(n.id)); }
     document.getElementById('resetAll').addEventListener('click',()=>{ if(!confirm('Reset roadmap progress?')) return; localStorage.removeItem(stateKey); renderMap(); renderDetails(); });
     document.getElementById('copySummary').addEventListener('click',async()=>{ const done=load(stateKey); const real=nodes.filter(n=>n.type!=='stage'); const completed=real.filter(n=>done[n.id]).map(n=>`- [x] ${n.title}`); const text=[`English C1 Roadmap`,`Progress: ${completed.length}/${real.length}`,'','Completed topics:',...completed].join('\n'); try{ await navigator.clipboard.writeText(text); alert('Copied progress.'); } catch { console.log(text); } });
+    (()=>{ const btn=document.getElementById('toolsToggle'); const panel=document.getElementById('toolsPanel'); if(!btn||!panel) return; const setOpen=open=>{ panel.hidden=!open; panel.classList.toggle('open',open); btn.setAttribute('aria-expanded',String(open)); }; btn.addEventListener('click',()=>setOpen(btn.getAttribute('aria-expanded')!=='true')); })();
     (()=>{ const key='roadmaps-theme'; const root=document.documentElement; const btn=document.getElementById('themeToggle'); const apply=theme=>{ root.dataset.theme=theme; btn.setAttribute('aria-pressed',String(theme==='dark')); btn.textContent=theme==='dark'?'☀ Theme':'☾ Theme'; }; apply(localStorage.getItem(key)||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')); btn.addEventListener('click',()=>{ const next=root.dataset.theme==='dark'?'light':'dark'; localStorage.setItem(key,next); apply(next); }); })();
     renderMap(); renderDetails();
   </script>
