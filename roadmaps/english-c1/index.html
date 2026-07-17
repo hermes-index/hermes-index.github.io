@@ -119,15 +119,23 @@
     }
     .title p { margin: 0; max-width: 640px; color: var(--muted); line-height: 1.65; font-size: 15px; }
     .tabs { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-    .tab { display: inline-flex; align-items: center; min-height: 30px; padding: 6px 10px; border: 1px solid var(--line); color: var(--muted); background: var(--surface-soft); font-size: 13px; border-radius: 6px; }
+    .tab { display: inline-flex; align-items: center; min-height: 32px; padding: 6px 12px; border: 1px solid var(--line); color: var(--muted); background: var(--surface-soft); font-size: 13px; border-radius: 6px; }
     button.tab { cursor: pointer; font: inherit; }
     .tab:hover { border-color: var(--line-strong); color: var(--ink); }
-    .tab.active, .tab[aria-expanded="true"] { background: var(--yellow-soft); border-color: #ca8a04; color: var(--ink); font-weight: 750; }
-    .tools-panel {
-      display: none;
-      margin-top: 2px;
+    .tab.active, .tab[aria-selected="true"] { background: var(--yellow-soft); border-color: #ca8a04; color: var(--ink); font-weight: 750; }
+    .meta-tabs .tab { cursor: default; }
+    [hidden] { display: none !important; }
+    .tools-view {
+      width: min(1120px, calc(100% - 28px));
+      margin: 0 auto 42px;
     }
-    .tools-panel.open { display: block; }
+    .tools-panel {
+      display: block;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+    }
     .tools-wrap {
       display: grid;
       grid-template-columns: minmax(260px, .92fr) minmax(280px, 1.08fr);
@@ -289,6 +297,8 @@
       .tab { white-space: nowrap; }
       .tools-wrap { grid-template-columns: 1fr; }
       .tools-links { grid-template-columns: 1fr; }
+      .tools-view { width: 100%; margin: 0 0 28px; }
+      .tools-panel { border-left: 0; border-right: 0; border-radius: 0; }
       .layout { width: 100%; margin: 0; gap: 0; }
       .board, .details { border-left: 0; border-right: 0; border-radius: 0; }
       .side-section { padding: 12px; }
@@ -312,42 +322,22 @@
         <span class="eyebrow">Learning path</span>
         <h1>English C1<br>Roadmap</h1>
       </div>
-      <div class="tabs" aria-label="Roadmap metadata">
-        <span class="tab active">Roadmap</span>
-        <span class="tab">B1 → C1</span>
-        <span class="tab">6 months</span>
-        <span class="tab">TOEFL</span>
-        <button class="tab" id="toolsToggle" type="button" aria-expanded="false" aria-controls="toolsPanel">Tools</button>
+      <div class="tabs" role="tablist" aria-label="Roadmap views">
+        <button class="tab active" id="roadmapTab" type="button" role="tab" aria-selected="true" aria-controls="roadmapView">Roadmap</button>
+        <button class="tab" id="toolsTab" type="button" role="tab" aria-selected="false" aria-controls="toolsView">Tools</button>
       </div>
     </div>
     <div class="title-copy">
       <p>A practical six-month path from B1 to C1, focused on academic English, TOEFL-style output, and research communication.</p>
-      <div class="tools-panel" id="toolsPanel" hidden>
-        <div class="tools-wrap">
-          <div>
-            <div class="tools-note-card" aria-label="Roadmap tools note">
-              <div class="note-row"><span class="note-dot purple">✓</span><span>Primary workflow<small>Anki + Oxford 3000/5000 + Academic Phrasebank</small></span></div>
-              <div class="note-row"><span class="note-dot green">✓</span><span>Writing helpers<small>LanguageTool, DeepL Write, Purdue OWL</small></span></div>
-              <div class="note-row"><span class="note-dot gray">✓</span><span>Pronunciation and listening<small>YouGlish, BBC Learning English, TED Talks</small></span></div>
-              <div class="note-row"><span class="note-dot yellow">✓</span><span>Exam and research practice<small>TOEFL TestReady, TOEFL Resources, Semantic Scholar</small></span></div>
-            </div>
-            <a class="tools-cta" href="https://apps.ankiweb.net/" target="_blank" rel="noopener noreferrer">Start with Anki</a>
-          </div>
-          <div class="tools-link-card">
-            <p>Use these tools when a roadmap node asks for vocabulary, writing correction, speaking practice, TOEFL timing, or academic reading.</p>
-            <div class="tools-links">
-              <a class="resource-pill" href="https://www.phrasebank.manchester.ac.uk/" target="_blank" rel="noopener noreferrer">Academic Phrasebank<small>academic sentence patterns</small></a>
-              <a class="resource-pill" href="https://languagetool.org/" target="_blank" rel="noopener noreferrer">LanguageTool<small>grammar and style checks</small></a>
-              <a class="resource-pill" href="https://youglish.com/" target="_blank" rel="noopener noreferrer">YouGlish<small>pronunciation in context</small></a>
-              <a class="resource-pill" href="https://toefltestready.ets.org/" target="_blank" rel="noopener noreferrer">TOEFL TestReady<small>official exam practice</small></a>
-            </div>
-          </div>
-        </div>
+      <div class="tabs meta-tabs" aria-label="Roadmap metadata">
+        <span class="tab">B1 → C1</span>
+        <span class="tab">6 months</span>
+        <span class="tab">TOEFL</span>
       </div>
     </div>
   </section>
 
-  <main class="layout">
+  <main class="layout" id="roadmapView" role="tabpanel" aria-labelledby="roadmapTab">
     <section class="board" aria-label="Roadmap board">
       <div class="board-head">
         <div class="legend">
@@ -372,6 +362,31 @@
       </section>
     </aside>
   </main>
+
+  <section class="tools-view" id="toolsView" role="tabpanel" aria-labelledby="toolsTab" hidden>
+    <div class="tools-panel">
+      <div class="tools-wrap">
+        <div>
+          <div class="tools-note-card" aria-label="Roadmap tools note">
+            <div class="note-row"><span class="note-dot purple">✓</span><span>Primary workflow<small>Anki + Oxford 3000/5000 + Academic Phrasebank</small></span></div>
+            <div class="note-row"><span class="note-dot green">✓</span><span>Writing helpers<small>LanguageTool, DeepL Write, Purdue OWL</small></span></div>
+            <div class="note-row"><span class="note-dot gray">✓</span><span>Pronunciation and listening<small>YouGlish, BBC Learning English, TED Talks</small></span></div>
+            <div class="note-row"><span class="note-dot yellow">✓</span><span>Exam and research practice<small>TOEFL TestReady, TOEFL Resources, Semantic Scholar</small></span></div>
+          </div>
+          <a class="tools-cta" href="https://apps.ankiweb.net/" target="_blank" rel="noopener noreferrer">Start with Anki</a>
+        </div>
+        <div class="tools-link-card">
+          <p>Use these tools when a roadmap node asks for vocabulary, writing correction, speaking practice, TOEFL timing, or academic reading.</p>
+          <div class="tools-links">
+            <a class="resource-pill" href="https://www.phrasebank.manchester.ac.uk/" target="_blank" rel="noopener noreferrer">Academic Phrasebank<small>academic sentence patterns</small></a>
+            <a class="resource-pill" href="https://languagetool.org/" target="_blank" rel="noopener noreferrer">LanguageTool<small>grammar and style checks</small></a>
+            <a class="resource-pill" href="https://youglish.com/" target="_blank" rel="noopener noreferrer">YouGlish<small>pronunciation in context</small></a>
+            <a class="resource-pill" href="https://toefltestready.ets.org/" target="_blank" rel="noopener noreferrer">TOEFL TestReady<small>official exam practice</small></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <script>
     const nodes = [
@@ -424,7 +439,7 @@
     function renderDetails(){ const n=nodes.find(x=>x.id===selected&&x.type!=='stage')||nodes.find(x=>x.id==='grammar'); const done=load(stateKey); const list=arr=>(arr||[]).map(x=>`<li>${x}</li>`).join(''); const resources=(n.resources||[]).map(([label,url])=>`<li><a href="${url}" target="_blank" rel="noopener noreferrer">${label}</a></li>`).join(''); document.getElementById('details').innerHTML=`<h2>${n.title}</h2><p>${n.desc}</p><div class="detail-block"><h3>What to learn</h3><ul>${list(n.learn)}</ul></div><div class="detail-block"><h3>Tasks</h3><ul>${list(n.tasks)}</ul></div><div class="detail-block"><h3>Resources</h3><ul>${resources}</ul></div><div class="detail-block"><h3>Output</h3><p>${n.output||''}</p></div><div class="detail-actions"><button class="btn yellow" id="toggleSelected" type="button">${done[n.id]?'Mark not done':'Mark done'}</button></div>`; document.getElementById('toggleSelected').addEventListener('click',()=>toggleNode(n.id)); }
     document.getElementById('resetAll').addEventListener('click',()=>{ if(!confirm('Reset roadmap progress?')) return; localStorage.removeItem(stateKey); renderMap(); renderDetails(); });
     document.getElementById('copySummary').addEventListener('click',async()=>{ const done=load(stateKey); const real=nodes.filter(n=>n.type!=='stage'); const completed=real.filter(n=>done[n.id]).map(n=>`- [x] ${n.title}`); const text=[`English C1 Roadmap`,`Progress: ${completed.length}/${real.length}`,'','Completed topics:',...completed].join('\n'); try{ await navigator.clipboard.writeText(text); alert('Copied progress.'); } catch { console.log(text); } });
-    (()=>{ const btn=document.getElementById('toolsToggle'); const panel=document.getElementById('toolsPanel'); if(!btn||!panel) return; const setOpen=open=>{ panel.hidden=!open; panel.classList.toggle('open',open); btn.setAttribute('aria-expanded',String(open)); }; btn.addEventListener('click',()=>setOpen(btn.getAttribute('aria-expanded')!=='true')); })();
+    (()=>{ const tabs=[document.getElementById('roadmapTab'),document.getElementById('toolsTab')]; const views={roadmapTab:document.getElementById('roadmapView'),toolsTab:document.getElementById('toolsView')}; const activate=id=>{ tabs.forEach(t=>{ const on=t.id===id; t.classList.toggle('active',on); t.setAttribute('aria-selected',String(on)); views[t.id].hidden=!on; }); }; tabs.forEach(t=>t.addEventListener('click',()=>activate(t.id))); })();
     (()=>{ const key='roadmaps-theme'; const root=document.documentElement; const btn=document.getElementById('themeToggle'); const apply=theme=>{ root.dataset.theme=theme; btn.setAttribute('aria-pressed',String(theme==='dark')); btn.textContent=theme==='dark'?'☀ Theme':'☾ Theme'; }; apply(localStorage.getItem(key)||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')); btn.addEventListener('click',()=>{ const next=root.dataset.theme==='dark'?'light':'dark'; localStorage.setItem(key,next); apply(next); }); })();
     renderMap(); renderDetails();
   </script>
